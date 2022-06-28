@@ -1,0 +1,3 @@
+[submodule "xpadneo-dkms"]
+	path = xpadneo-dkms
+	url = ssh://aur@aur.archlinux.org/xpadneo-dkms.git
