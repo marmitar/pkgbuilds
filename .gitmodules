@@ -1,3 +1,9 @@
+# sorted by: creation date (earliest commit)
+
 [submodule "xpadneo-dkms"]
 	path = xpadneo-dkms
 	url = ssh://aur@aur.archlinux.org/xpadneo-dkms.git
+
+[submodule "tela-circle-icon-theme-spl-git"]
+	path = tela-circle-icon-theme-spl-git
+	url = ssh://aur@aur.archlinux.org/tela-circle-icon-theme-spl-git.git
