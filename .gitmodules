@@ -1,5 +1,9 @@
 # sorted by: creation date (earliest commit)
 
+[submodule "shellcheck-bin-doc"]
+	path = shellcheck-bin-doc
+	url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
+
 [submodule "xpadneo-dkms"]
 	path = xpadneo-dkms
 	url = ssh://aur@aur.archlinux.org/xpadneo-dkms.git
