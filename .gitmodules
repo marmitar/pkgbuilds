@@ -1,5 +1,9 @@
 # sorted by: creation date (earliest commit)
 
+[submodule "mathematica"]
+	path = mathematica
+	url = ssh://aur@aur.archlinux.org/mathematica.git
+
 [submodule "shellcheck-bin-doc"]
 	path = shellcheck-bin-doc
 	url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
@@ -7,6 +11,10 @@
 [submodule "xpadneo-dkms"]
 	path = xpadneo-dkms
 	url = ssh://aur@aur.archlinux.org/xpadneo-dkms.git
+
+[submodule "mathematica-light"]
+	path = mathematica-light
+	url = ssh://aur@aur.archlinux.org/mathematica-light.git
 
 [submodule "tela-circle-icon-theme-spl-git"]
 	path = tela-circle-icon-theme-spl-git
