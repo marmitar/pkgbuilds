@@ -11,3 +11,7 @@
 [submodule "tela-circle-icon-theme-spl-git"]
 	path = tela-circle-icon-theme-spl-git
 	url = ssh://aur@aur.archlinux.org/tela-circle-icon-theme-spl-git.git
+
+[submodule "vscode-xdg-patch-hook"]
+	path = vscode-xdg-patch-hook
+	url = ssh://aur@aur.archlinux.org/vscode-xdg-patch-hook.git
