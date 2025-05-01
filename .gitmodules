@@ -8,6 +8,10 @@
 	path = shellcheck-bin-doc
 	url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
 
+[submodule "vkbasalt-redemp-git"]
+	path = vkbasalt-redemp-git
+	url = ssh://aur@aur.archlinux.org/vkbasalt-redemp-git.git
+
 [submodule "xpadneo-dkms"]
 	path = xpadneo-dkms
 	url = ssh://aur@aur.archlinux.org/xpadneo-dkms.git
