@@ -4,13 +4,25 @@
 	path = mathematica
 	url = ssh://aur@aur.archlinux.org/mathematica.git
 
+[submodule "perl-string-escape"]
+	path = perl-string-escape
+	url = ssh://aur@aur.archlinux.org/perl-string-escape.git
+
 [submodule "shellcheck-bin-doc"]
 	path = shellcheck-bin-doc
 	url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
 
+[submodule "perl-log-any"]
+	path = perl-log-any
+	url = ssh://aur@aur.archlinux.org/perl-log-any.git
+
 [submodule "vkbasalt-redemp-git"]
 	path = vkbasalt-redemp-git
 	url = ssh://aur@aur.archlinux.org/vkbasalt-redemp-git.git
+
+[submodule "licensecheck"]
+	path = licensecheck
+	url = ssh://aur@aur.archlinux.org/licensecheck.git
 
 [submodule "xpadneo-dkms"]
 	path = xpadneo-dkms
@@ -27,3 +39,19 @@
 [submodule "vscode-xdg-patch-hook"]
 	path = vscode-xdg-patch-hook
 	url = ssh://aur@aur.archlinux.org/vscode-xdg-patch-hook.git
+
+[submodule "perl-string-license"]
+	path = perl-string-license
+	url = ssh://aur@aur.archlinux.org/perl-string-license.git
+
+[submodule "perl-feature-compat-class"]
+	path = perl-feature-compat-class
+	url = ssh://aur@aur.archlinux.org/perl-feature-compat-class.git
+
+[submodule "perl-feature-compat-try"]
+	path = perl-feature-compat-try
+	url = ssh://aur@aur.archlinux.org/perl-feature-compat-try.git
+
+[submodule "perl-test2-tools-command"]
+	path = perl-test2-tools-command
+	url = ssh://aur@aur.archlinux.org/perl-test2-tools-command.git
