@@ -8,6 +8,10 @@
 	path = perl-string-escape
 	url = ssh://aur@aur.archlinux.org/perl-string-escape.git
 
+[submodule "esound"]
+	path = esound
+	url = ssh://aur@aur.archlinux.org/esound.git
+
 [submodule "shellcheck-bin-doc"]
 	path = shellcheck-bin-doc
 	url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
