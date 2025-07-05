@@ -63,3 +63,11 @@
 [submodule "perl-test2-tools-command"]
 	path = perl-test2-tools-command
 	url = ssh://aur@aur.archlinux.org/perl-test2-tools-command.git
+
+[submodule "intel-sgx-psw-bin"]
+	path = intel-sgx-psw-bin
+	url = ssh://aur@aur.archlinux.org/intel-sgx-psw-bin.git
+
+[submodule "intel-sgx-sdk-bin"]
+	path = intel-sgx-sdk-bin
+	url = ssh://aur@aur.archlinux.org/intel-sgx-sdk-bin.git
