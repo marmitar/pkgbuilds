@@ -1,7 +1,7 @@
 pkgbase = sushi
 	pkgdesc = A quick previewer for Nautilus
-	pkgver = 46.0
-	pkgrel = 2
+	pkgver = 47.0
+	pkgrel = 0
 	url = https://gitlab.gnome.org/GNOME/sushi
 	arch = x86_64
 	groups = gnome
@@ -9,8 +9,8 @@ pkgbase = sushi
 	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = meson
+	makedepends = python-setuptools
 	depends = cairo
-	depends = evince
 	depends = freetype2
 	depends = gcc-libs
 	depends = gdk-pixbuf2
@@ -26,18 +26,13 @@ pkgbase = sushi
 	depends = libepoxy
 	depends = libsoup3
 	depends = pango
+	depends = papers
 	optdepends = libreoffice: OpenDocument formats
 	optdepends = webkit2gtk-4.1: Render HTML files
-	source = git+https://gitlab.gnome.org/GNOME/sushi.git?signed#tag=46.0
-	source = sushi-gst-set-timeout.patch
-	source = sushi-detect-llvmpipe.patch
-	source = sushi-audio-position-update.patch
-	source = sushi-update-mime-types.patch
+	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=2f6a49066fc6ee4b8ec9b01114a96526afc1a4d0
+	source = sushi-gtk4-support.patch
 	validpgpkeys = 550660707A6F40376B9B9F8D504A78811E6160CC
-	b2sums = fdc05965a8e4b2de9e406ad12133cc2d54c439e48adb138f5f71b18f4ede706bc67f6e9e48eac3f600819ea49d099bb13102b0628be1aefa155da686884c7aa1
-	b2sums = b49184552620cc35d3132bedd052d73898ffe96d70d764d3142343c9458049dab3b39861f900fe968ccd95949e3581872a3b553edb60623c735f4a2af555d8c6
-	b2sums = bff347d69e11ae64d43310187c1ecd32a55584aecf1cfbb78ebc0d96e7fc9e971866acb38114c68674894a0fc7190954087b5d862038ea58c5fb9d729042e9f9
-	b2sums = b35843f7c9f6f8427add53876d4cab566a450513f2ea749788c31089474a1a1868caec0dc4d1bceee02ba0b5353fc56a175b09124b6cb1aa3acac175f19d5704
-	b2sums = e32cde0a647c83184583ed32198741378a0d11ec0324b6f51e1bff95c0c00b17c842b9aaf53c654f1ebf0199164c1de55db0e3a27b3734ebc3293bc1d8422893
+	b2sums = 9f3131e1282f648ffd50cfff2775cd36a6d9ff37cd615b7a97a7ad779860a920c081d87227335b959bebe96e8880e1a0bee6ed314b3cb2f4e05f8d76c4029bb7
+	b2sums = dc92c8033e1800d77f8347a004fb2c597aace89b26ef22762f3c33f5cfb6982422bfe62b469e0732039003d8023be9f149875171fa3cd91e737a39b7fda7070a
 
 pkgname = sushi
