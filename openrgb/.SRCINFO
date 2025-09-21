@@ -1,7 +1,7 @@
 pkgbase = openrgb
 	pkgdesc = Open source RGB lighting control that doesn't depend on manufacturer software
 	pkgver = 1.0rc2
-	pkgrel = 5
+	pkgrel = 5.1
 	url = https://gitlab.com/CalcProgrammer1/OpenRGB
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -14,11 +14,11 @@ pkgbase = openrgb
 	depends = mbedtls
 	depends = hicolor-icon-theme
 	optdepends = i2c-tools: mainboard & RAM access
-	source = https://gitlab.com/CalcProgrammer1/OpenRGB/-/archive/release_candidate_1.0rc2/OpenRGB-release_candidate_1.0rc2.tar.gz
+	source = git+https://gitlab.com/CalcProgrammer1/OpenRGB.git#commit=95648b20b9f58ee807008e71c4ec5ec70a741588
 	source = openrgb-modules-load.conf
 	source = openrgb.tmpfiles
 	source = openrgb.service
-	sha256sums = 7ecef99ab1607bd8f47427eef59e060e407dc97a40bb9083c5ade6f30145b762
+	sha256sums = af0211480350628139e417f175a2cb9ee4f4eb5075aa5e5972fb93f6f5649147
 	sha256sums = b5a53d747422f8b594e3e9615e238457d696732efce94050cdd72182a8645ef2
 	sha256sums = e86604e9604d59cddcc13de60b71c0e652cd1f9b56d89de36b2158509849e51c
 	sha256sums = f53328babef392393ee44086f8897174232e863280a84266630a3cd92facc190
