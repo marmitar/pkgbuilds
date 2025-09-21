@@ -1,12 +1,16 @@
 pkgbase = chkrootkit
 	pkgdesc = Locally checks for signs of a rootkit
 	pkgver = 0.58b
-	pkgrel = 1
+	pkgrel = 1.1
 	url = http://www.chkrootkit.org/
 	arch = x86_64
 	license = CUSTOM
 	optdepends = tiger: a wrapper for chkrootkit
 	source = ftp://ftp.chkrootkit.org/pub/seg/pac/chkrootkit-0.58b.tar.gz
+	source = 0001-fix-GCC-15-build.patch
+	source = 0002-fix-reading-uninitialized-memory.patch
 	sha512sums = 50829446aa5a320ef3aa678c7bbc03ba2ebc14dca3b4c1f312fb46d3d8206345628d2e94b99cfea33e0d3971afbc025dbd387fb32c4e1135a7466c20eb3afab2
+	sha512sums = f1234a4dd6479407d1ada3803586f4de045c79db49bad3edc8ad778242cffb0ae0eacf716deed75f1d4ad25d0c9729d703341d42e3104a5008923a2858006675
+	sha512sums = 80158058c860ba3ab6ec016f095f82c7452e633b713aca89e6f035e2e315a41d335f0d785407cd2687f62d4886250dbadbabe47835fecf9a478f9f5243283508
 
 pkgname = chkrootkit

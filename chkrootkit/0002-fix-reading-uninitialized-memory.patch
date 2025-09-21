@@ -1,0 +1,50 @@
+From b6e9cf62cd26bbb15843744ba2b5a4f0a7aa9019 Mon Sep 17 00:00:00 2001
+From: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Sun, 21 Sep 2025 05:52:55 -0300
+Subject: [PATCH 2/2] fix: reading uninitialized memory
+
+---
+ chklastlog.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/chklastlog.c b/chklastlog.c
+index 5748795..555f16e 100644
+--- a/chklastlog.c
++++ b/chklastlog.c
+@@ -108,25 +108,27 @@ int main(int argc, char*argv[]) {
+ 	struct s_localpwd	*localpwd;
+ 	uid_t		*uid;
+         char wtmpfile[128], lastlogfile[128];
++        memset(wtmpfile, '\0', 128);
++        memset(lastlogfile, '\0', 128);
+ 
+-        memcpy(wtmpfile, WTMP_FILENAME, 127);
+-        memcpy(lastlogfile, LASTLOG_FILENAME, 127);
++        strncpy(wtmpfile, WTMP_FILENAME, 127);
++        strncpy(lastlogfile, LASTLOG_FILENAME, 127);
+ 
+         while (--argc && ++argv) /* poor man getopt */
+         {
+-           if (!memcmp("-f", *argv, 2))
++           if (!strncmp("-f", *argv, 2))
+            {
+               if (!--argc)
+                  break;
+               ++argv;
+-              memcpy(wtmpfile, *argv, 127);
++              strncpy(wtmpfile, *argv, 127);
+            }
+-           else if (!memcmp("-l", *argv, 2))
++           else if (!strncmp("-l", *argv, 2))
+            {
+               if (!--argc)
+                  break;
+               ++argv;
+-              memcpy(lastlogfile, *argv, 127);
++              strncpy(lastlogfile, *argv, 127);
+            }
+         }
+ 
+-- 
+2.51.0
+
