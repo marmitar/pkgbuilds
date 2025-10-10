@@ -40,6 +40,10 @@
 	path = mathematica-light
 	url = ssh://aur@aur.archlinux.org/mathematica-light.git
 
+[submodule "perl-tree-rb-xs"]
+	path = perl-tree-rb-xs
+	url = ssh://aur@aur.archlinux.org/perl-tree-rb-xs.git
+
 [submodule "tela-circle-icon-theme-spl-git"]
 	path = tela-circle-icon-theme-spl-git
 	url = ssh://aur@aur.archlinux.org/tela-circle-icon-theme-spl-git.git
