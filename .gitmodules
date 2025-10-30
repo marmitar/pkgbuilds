@@ -24,6 +24,10 @@
 	path = physlock
 	url = ssh://aur@aur.archlinux.org/physlock.git
 
+[submodule "pam_mount-git"]
+	path = pam_mount-git
+	url = ssh://aur@aur.archlinux.org/pam_mount-git.git
+
 [submodule "vkbasalt-redemp-git"]
 	path = vkbasalt-redemp-git
 	url = ssh://aur@aur.archlinux.org/vkbasalt-redemp-git.git
