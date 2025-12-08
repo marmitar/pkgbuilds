@@ -20,6 +20,10 @@
 	path = perl-log-any
 	url = ssh://aur@aur.archlinux.org/perl-log-any.git
 
+[submodule "perl-struct-dumb"]
+	path = perl-struct-dumb
+	url = ssh://aur@aur.archlinux.org/perl-struct-dumb.git
+
 [submodule "physlock"]
 	path = physlock
 	url = ssh://aur@aur.archlinux.org/physlock.git
@@ -51,6 +55,10 @@
 [submodule "tela-circle-icon-theme-spl-git"]
 	path = tela-circle-icon-theme-spl-git
 	url = ssh://aur@aur.archlinux.org/tela-circle-icon-theme-spl-git.git
+
+[submodule "perl-test-future-io-impl"]
+	path = perl-test-future-io-impl
+	url = ssh://aur@aur.archlinux.org/perl-test-future-io-impl.git
 
 [submodule "vscode-xdg-patch-hook"]
 	path = vscode-xdg-patch-hook
