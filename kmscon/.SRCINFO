@@ -1,7 +1,7 @@
 pkgbase = kmscon
 	pkgdesc = Kernel Mode Setting (KMS) and DRM based virtual Console Emulator
 	pkgver = 9.2.1
-	pkgrel = 1
+	pkgrel = 1.1
 	url = https://github.com/kmscon/kmscon
 	arch = x86_64
 	license = MIT
@@ -22,6 +22,8 @@ pkgbase = kmscon
 	depends = systemd-libs
 	backup = etc/kmscon/kmscon.conf
 	source = kmscon-9.2.1.tar.gz::https://github.com/kmscon/kmscon/archive/refs/tags/v9.2.1.tar.gz
+	source = https://github.com/kmscon/kmscon/pull/160.patch
 	b2sums = 6fb3852e4941b9274af5debc17f668b8ca2c784f2a1c9cb56079d509ae3cb896bea58190d71f6913edc4282b1f9d1132688b2bde221bb72c2725519d9291d23d
+	b2sums = cef844aa52ae6419a8571660372f7af77f70f4c0458ffbc16ebdbdecdc7589607ea3cdc1c01f79f7e6d0653cccf84f32a909ea6ca9bec372c35d5a7f353d2d5f
 
 pkgname = kmscon
