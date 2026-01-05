@@ -1,7 +1,7 @@
 pkgbase = chezmoi
 	pkgdesc = Manage your dotfiles across multiple machines
 	pkgver = 2.69.0
-	pkgrel = 1
+	pkgrel = 1.1
 	url = https://www.chezmoi.io/
 	arch = x86_64
 	license = MIT

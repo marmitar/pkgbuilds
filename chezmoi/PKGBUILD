@@ -5,7 +5,7 @@
 
 pkgname=chezmoi
 pkgver=2.69.0
-pkgrel=1
+pkgrel=1.1
 pkgdesc="Manage your dotfiles across multiple machines"
 arch=('x86_64')
 url='https://www.chezmoi.io/'
@@ -20,6 +20,9 @@ sha512sums=('8fc2d5232914a9004377d14b2397bca3450a3023b4fbe460dc60b119dfec63e1f17
 
 prepare() {
   cd "$pkgname-$pkgver"
+
+  go mod edit -replace github.com/go-sprout/sprout=github.com/twpayne/sprout@541b6bfa22450a3a9561506bbe8bc57dfba030df
+  go mod tidy
 
   go mod download
 }
