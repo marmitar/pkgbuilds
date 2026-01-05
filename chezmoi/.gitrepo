@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git
+	branch = main
+	commit = 335e5bd700beed78296a8127d244d29ce9b9b625
+	parent = a0f0a1afca8277035204d6437e9a467899804ae0
+	method = merge
+	cmdver = 0.4.9
