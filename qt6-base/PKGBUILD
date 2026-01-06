@@ -96,6 +96,7 @@ sha256sums=('fa40e720d488d256704d6a7dfc23dd178eda5e4774dfdfdf1f63cdb52d53cf86'
 prepare() {
   patch -d $_pkgfn -p1 < qt6-base-cflags.patch # Use system CFLAGS
   patch -d $_pkgfn -p1 < qt6-base-nostrip.patch # Don't strip binaries with qmake
+  sed -i 's|setParent(nullptr);|setFloating(true);|' $_pkgfn/src/widgets/widgets/qdockwidget.cpp
 }
 
 build() {

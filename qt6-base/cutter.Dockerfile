@@ -1,0 +1,67 @@
+# syntax=docker/dockerfile:1
+
+ARG TAG=20250701.0.374663
+FROM docker.io/archlinux/archlinux:base-devel-${TAG}
+
+ARG TAG=20250701.0.374663
+RUN <<EOF
+set -uex
+
+# keyring might have expired keys
+curl -L https://archlinux.org/packages/core/any/archlinux-keyring/download/ -o archlinux-keyring.tar.zst
+pacman -U --noconfirm archlinux-keyring.tar.zst
+rm archlinux-keyring.tar.zst
+pacman-key --init
+pacman-key --populate archlinux
+
+# set up archive
+ARCHIVE_SNAPSHOT="$(echo "${TAG}" | awk -F'[.]' '{d=$1; print substr(d,1,4) "/" substr(d,5,2) "/" substr(d,7,2)}')"
+echo "Server = https://archive.archlinux.org/repos/${ARCHIVE_SNAPSHOT}/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+EOF
+
+RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
+    <<EOF
+set -eux
+# install cutter and deps from archive
+pacman -Syu --noconfirm rz-cutter qt6-wayland
+
+# simple base config
+mkdir -p ~/.config/rizin
+cat > ~/.config/rizin/cutter.ini <<CFG
+[General]
+firstExecution=false
+dir.recentFolder=/usr/bin
+recentFileList=/usr/bin/cat
+ColorPalette=2
+theme=ayu
+CFG
+EOF
+
+RUN --mount=type=cache,target=/var/cache/pacman,sharing=locked \
+    <<EOF
+set -eux
+
+# download pkgbuild matching archive
+mkdir -p /tmp/qt6-base
+cd /tmp/qt6-base
+curl -fsSL https://gitlab.archlinux.org/archlinux/packaging/packages/qt6-base/-/archive/6.9.1-2/qt6-base-6.9.1-2.tar.gz |\
+    tar -xz --strip-components=1
+
+# apply fix inside the pkgbuild
+patch -p1 <<FIX
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -92,0 +93 @@ sha256sums=('7fd870a6390c89540385969cc757364dbf3a658e3f1b56dd848a592976f61848'
++options=(!strip debug)
+@@ -97,0 +99 @@ prepare() {
++  sed -i 's|setParent(nullptr);|setFloating(true);|' \$_pkgfn/src/widgets/widgets/qdockwidget.cpp
+FIX
+
+# build with a non-root user but with all permissions
+chmod -R ugo+w /tmp/qt6-base
+echo 'ALL ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers.d/nopasswd
+sudo -u alpm makepkg -sicr --noconfirm || true
+rm -rf /tmp/qt6-base
+EOF
+
+ENTRYPOINT ["/usr/bin/cutter"]
