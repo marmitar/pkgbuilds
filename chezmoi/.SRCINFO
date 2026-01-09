@@ -1,7 +1,7 @@
 pkgbase = chezmoi
 	pkgdesc = Manage your dotfiles across multiple machines
 	pkgver = 2.69.0
-	pkgrel = 1.1
+	pkgrel = 1.2
 	url = https://www.chezmoi.io/
 	arch = x86_64
 	license = MIT
@@ -12,6 +12,10 @@ pkgbase = chezmoi
 	optdepends = git: clone remote dotfiles over ssh
 	options = !lto
 	source = chezmoi-2.69.0.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.69.0.tar.gz
+	source = https://github.com/go-sprout/sprout/pull/157.patch
+	source = https://github.com/go-sprout/sprout/pull/160.patch
 	sha512sums = 8fc2d5232914a9004377d14b2397bca3450a3023b4fbe460dc60b119dfec63e1f172e817f229f683c530d4ccd08576fca0c843e6cab77ca75e400936ec14bee9
+	sha512sums = 3376d8dc6f7053c3d12bdb43d6b7734471626ee3255e99a0e91714227d1febd58739e2e4c93a3ca9fa932a559b28a728f13c0b3fbe8e9a71d016e95952e60479
+	sha512sums = 7879e4562a0988fdb5f50b06fc8bcd4c5f9aab7bf0c0266eea7d87f81e9c4e11acba95f0dd511a6bc5613b457822b77b0ea4db52803ead3d6f00920dc357ad0a
 
 pkgname = chezmoi
