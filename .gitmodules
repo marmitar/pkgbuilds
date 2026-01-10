@@ -3,87 +3,109 @@
 [submodule "mathematica"]
 	path = mathematica
 	url = ssh://aur@aur.archlinux.org/mathematica.git
+	branch = master
 
 [submodule "perl-string-escape"]
 	path = perl-string-escape
 	url = ssh://aur@aur.archlinux.org/perl-string-escape.git
+	branch = master
 
 [submodule "esound"]
 	path = esound
 	url = ssh://aur@aur.archlinux.org/esound.git
+	branch = master
 
 [submodule "shellcheck-bin-doc"]
 	path = shellcheck-bin-doc
 	url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
+	branch = master
 
 [submodule "perl-log-any"]
 	path = perl-log-any
 	url = ssh://aur@aur.archlinux.org/perl-log-any.git
+	branch = master
 
 [submodule "perl-struct-dumb"]
 	path = perl-struct-dumb
 	url = ssh://aur@aur.archlinux.org/perl-struct-dumb.git
+	branch = master
 
 [submodule "physlock"]
 	path = physlock
 	url = ssh://aur@aur.archlinux.org/physlock.git
+	branch = master
 
 [submodule "pam_mount-git"]
 	path = pam_mount-git
 	url = ssh://aur@aur.archlinux.org/pam_mount-git.git
+	branch = master
 
 [submodule "vkbasalt-redemp-git"]
 	path = vkbasalt-redemp-git
 	url = ssh://aur@aur.archlinux.org/vkbasalt-redemp-git.git
+	branch = master
 
 [submodule "licensecheck"]
 	path = licensecheck
 	url = ssh://aur@aur.archlinux.org/licensecheck.git
+	branch = master
 
 [submodule "xpadneo-dkms"]
 	path = xpadneo-dkms
 	url = ssh://aur@aur.archlinux.org/xpadneo-dkms.git
+	branch = master
 
 [submodule "mathematica-light"]
 	path = mathematica-light
 	url = ssh://aur@aur.archlinux.org/mathematica-light.git
+	branch = master
 
 [submodule "perl-tree-rb-xs"]
 	path = perl-tree-rb-xs
 	url = ssh://aur@aur.archlinux.org/perl-tree-rb-xs.git
+	branch = master
 
 [submodule "tela-circle-icon-theme-spl-git"]
 	path = tela-circle-icon-theme-spl-git
 	url = ssh://aur@aur.archlinux.org/tela-circle-icon-theme-spl-git.git
+	branch = master
 
 [submodule "perl-test-future-io-impl"]
 	path = perl-test-future-io-impl
 	url = ssh://aur@aur.archlinux.org/perl-test-future-io-impl.git
+	branch = master
 
 [submodule "vscode-xdg-patch-hook"]
 	path = vscode-xdg-patch-hook
 	url = ssh://aur@aur.archlinux.org/vscode-xdg-patch-hook.git
+	branch = master
 
 [submodule "perl-string-license"]
 	path = perl-string-license
 	url = ssh://aur@aur.archlinux.org/perl-string-license.git
+	branch = master
 
 [submodule "perl-feature-compat-class"]
 	path = perl-feature-compat-class
 	url = ssh://aur@aur.archlinux.org/perl-feature-compat-class.git
+	branch = master
 
 [submodule "perl-feature-compat-try"]
 	path = perl-feature-compat-try
 	url = ssh://aur@aur.archlinux.org/perl-feature-compat-try.git
+	branch = master
 
 [submodule "perl-test2-tools-command"]
 	path = perl-test2-tools-command
 	url = ssh://aur@aur.archlinux.org/perl-test2-tools-command.git
+	branch = master
 
 [submodule "intel-sgx-psw-bin"]
 	path = intel-sgx-psw-bin
 	url = ssh://aur@aur.archlinux.org/intel-sgx-psw-bin.git
+	branch = master
 
 [submodule "intel-sgx-sdk-bin"]
 	path = intel-sgx-sdk-bin
 	url = ssh://aur@aur.archlinux.org/intel-sgx-sdk-bin.git
+	branch = master
