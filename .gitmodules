@@ -128,3 +128,8 @@
 	path = chkrootkit
 	url = https://aur.archlinux.org/chkrootkit.git
     branch = master
+
+[submodule "openrgb"]
+	path = openrgb
+	url = https://gitlab.archlinux.org/archlinux/packaging/packages/openrgb.git
+    branch = main
