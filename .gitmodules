@@ -134,6 +134,11 @@
 	url = https://aur.archlinux.org/thelounge.git
 	branch = master
 
+[submodule "kmscon"]
+	path = kmscon
+	url = https://aur.archlinux.org/kmscon.git
+	branch = master
+
 [submodule "openrgb"]
 	path = openrgb
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/openrgb.git
