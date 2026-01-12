@@ -109,3 +109,8 @@
 	path = intel-sgx-sdk-bin
 	url = ssh://aur@aur.archlinux.org/intel-sgx-sdk-bin.git
 	branch = master
+
+[submodule "patchy"]
+	path = patchy
+	url = ssh://aur@aur.archlinux.org/patchy.git
+	branch = master
