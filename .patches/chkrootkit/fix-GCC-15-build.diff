@@ -1,0 +1,159 @@
+Index: chkrootkit/.SRCINFO
+===================================================================
+--- chkrootkit.orig/.SRCINFO
++++ chkrootkit/.SRCINFO
+@@ -1,12 +1,16 @@
+ pkgbase = chkrootkit
+ 	pkgdesc = Locally checks for signs of a rootkit
+ 	pkgver = 0.58b
+-	pkgrel = 1
++	pkgrel = 1.1
+ 	url = http://www.chkrootkit.org/
+ 	arch = x86_64
+ 	license = CUSTOM
+ 	optdepends = tiger: a wrapper for chkrootkit
+ 	source = ftp://ftp.chkrootkit.org/pub/seg/pac/chkrootkit-0.58b.tar.gz
++	source = 0001-fix-GCC-15-build.patch
++	source = 0002-fix-reading-uninitialized-memory.patch
+ 	sha512sums = 50829446aa5a320ef3aa678c7bbc03ba2ebc14dca3b4c1f312fb46d3d8206345628d2e94b99cfea33e0d3971afbc025dbd387fb32c4e1135a7466c20eb3afab2
++	sha512sums = f1234a4dd6479407d1ada3803586f4de045c79db49bad3edc8ad778242cffb0ae0eacf716deed75f1d4ad25d0c9729d703341d42e3104a5008923a2858006675
++	sha512sums = 80158058c860ba3ab6ec016f095f82c7452e633b713aca89e6f035e2e315a41d335f0d785407cd2687f62d4886250dbadbabe47835fecf9a478f9f5243283508
+ 
+ pkgname = chkrootkit
+Index: chkrootkit/.gitignore
+===================================================================
+--- chkrootkit.orig/.gitignore
++++ chkrootkit/.gitignore
+@@ -17,3 +17,4 @@ pkg/
+ *.rar
+ *.deb
+ *.zst
++.pc
+Index: chkrootkit/0001-fix-GCC-15-build.patch
+===================================================================
+--- /dev/null
++++ chkrootkit/0001-fix-GCC-15-build.patch
+@@ -0,0 +1,34 @@
++From cf3a931b1a6633209fdab47502a52122453ca6a4 Mon Sep 17 00:00:00 2001
++From: Tiago de Paula <tiagodepalves@gmail.com>
++Date: Sun, 21 Sep 2025 05:52:20 -0300
++Subject: [PATCH 1/2] fix: GCC 15 build
++
++---
++ chklastlog.c | 4 ++--
++ 1 file changed, 2 insertions(+), 2 deletions(-)
++
++diff --git a/chklastlog.c b/chklastlog.c
++index ade198d..5748795 100644
++--- a/chklastlog.c
+++++ b/chklastlog.c
++@@ -77,7 +77,7 @@ int main () { return 0; }
++ long total_wtmp_bytes_read=0;
++ size_t wtmp_file_size;
++ uid_t *uid;
++-void read_status();
+++void read_status(int signo);
++ 
++ struct s_localpwd {
++      int numentries;
++@@ -213,7 +213,7 @@ int nonuser(struct utmp utmp_ent)
++ }
++ #endif
++ 
++-void read_status() {
+++void read_status(int signo) {
++    double remaining_time;
++    static long last_total_bytes_read=0;
++    int diff;
++-- 
++2.51.0
++
+Index: chkrootkit/0002-fix-reading-uninitialized-memory.patch
+===================================================================
+--- /dev/null
++++ chkrootkit/0002-fix-reading-uninitialized-memory.patch
+@@ -0,0 +1,50 @@
++From b6e9cf62cd26bbb15843744ba2b5a4f0a7aa9019 Mon Sep 17 00:00:00 2001
++From: Tiago de Paula <tiagodepalves@gmail.com>
++Date: Sun, 21 Sep 2025 05:52:55 -0300
++Subject: [PATCH 2/2] fix: reading uninitialized memory
++
++---
++ chklastlog.c | 14 ++++++++------
++ 1 file changed, 8 insertions(+), 6 deletions(-)
++
++diff --git a/chklastlog.c b/chklastlog.c
++index 5748795..555f16e 100644
++--- a/chklastlog.c
+++++ b/chklastlog.c
++@@ -108,25 +108,27 @@ int main(int argc, char*argv[]) {
++ 	struct s_localpwd	*localpwd;
++ 	uid_t		*uid;
++         char wtmpfile[128], lastlogfile[128];
+++        memset(wtmpfile, '\0', 128);
+++        memset(lastlogfile, '\0', 128);
++ 
++-        memcpy(wtmpfile, WTMP_FILENAME, 127);
++-        memcpy(lastlogfile, LASTLOG_FILENAME, 127);
+++        strncpy(wtmpfile, WTMP_FILENAME, 127);
+++        strncpy(lastlogfile, LASTLOG_FILENAME, 127);
++ 
++         while (--argc && ++argv) /* poor man getopt */
++         {
++-           if (!memcmp("-f", *argv, 2))
+++           if (!strncmp("-f", *argv, 2))
++            {
++               if (!--argc)
++                  break;
++               ++argv;
++-              memcpy(wtmpfile, *argv, 127);
+++              strncpy(wtmpfile, *argv, 127);
++            }
++-           else if (!memcmp("-l", *argv, 2))
+++           else if (!strncmp("-l", *argv, 2))
++            {
++               if (!--argc)
++                  break;
++               ++argv;
++-              memcpy(lastlogfile, *argv, 127);
+++              strncpy(lastlogfile, *argv, 127);
++            }
++         }
++ 
++-- 
++2.51.0
++
+Index: chkrootkit/PKGBUILD
+===================================================================
+--- chkrootkit.orig/PKGBUILD
++++ chkrootkit/PKGBUILD
+@@ -3,14 +3,26 @@
+ 
+ pkgname=chkrootkit
+ pkgver=0.58b
+-pkgrel=1
++pkgrel=1.1
+ pkgdesc="Locally checks for signs of a rootkit"
+ arch=('x86_64')
+ url="http://www.chkrootkit.org/"
+ license=('CUSTOM')
+ optdepends=('tiger: a wrapper for chkrootkit')
+-source=("ftp://ftp.chkrootkit.org/pub/seg/pac/$pkgname-$pkgver.tar.gz")
+-sha512sums=('50829446aa5a320ef3aa678c7bbc03ba2ebc14dca3b4c1f312fb46d3d8206345628d2e94b99cfea33e0d3971afbc025dbd387fb32c4e1135a7466c20eb3afab2')
++source=("ftp://ftp.chkrootkit.org/pub/seg/pac/$pkgname-$pkgver.tar.gz"
++        "0001-fix-GCC-15-build.patch"
++        "0002-fix-reading-uninitialized-memory.patch"
++)
++sha512sums=('50829446aa5a320ef3aa678c7bbc03ba2ebc14dca3b4c1f312fb46d3d8206345628d2e94b99cfea33e0d3971afbc025dbd387fb32c4e1135a7466c20eb3afab2'
++            'f1234a4dd6479407d1ada3803586f4de045c79db49bad3edc8ad778242cffb0ae0eacf716deed75f1d4ad25d0c9729d703341d42e3104a5008923a2858006675'
++            '80158058c860ba3ab6ec016f095f82c7452e633b713aca89e6f035e2e315a41d335f0d785407cd2687f62d4886250dbadbabe47835fecf9a478f9f5243283508')
++
++prepare() {
++  cd "$srcdir/$pkgname-$pkgver"
++
++  patch -Np1 -i "$srcdir/0001-fix-GCC-15-build.patch"
++  patch -Np1 -i "$srcdir/0002-fix-reading-uninitialized-memory.patch"
++}
+ 
+ build() {
+   make -C "$srcdir/$pkgname-$pkgver"
