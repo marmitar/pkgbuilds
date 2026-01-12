@@ -144,6 +144,11 @@
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git
 	branch = main
 
+[submodule "qt6-base"]
+	path = qt6-base
+	url = https://gitlab.archlinux.org/archlinux/packaging/packages/qt6-base.git
+	branch = main
+
 [submodule "openrgb"]
 	path = openrgb
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/openrgb.git
