@@ -1,0 +1,408 @@
+Index: sushi/.SRCINFO
+===================================================================
+--- sushi.orig/.SRCINFO
++++ sushi/.SRCINFO
+@@ -1,7 +1,7 @@
+ pkgbase = sushi
+ 	pkgdesc = A quick previewer for Nautilus
+-	pkgver = 46.0
+-	pkgrel = 2
++	pkgver = 47.0
++	pkgrel = 0
+ 	url = https://gitlab.gnome.org/GNOME/sushi
+ 	arch = x86_64
+ 	groups = gnome
+@@ -9,8 +9,8 @@ pkgbase = sushi
+ 	makedepends = git
+ 	makedepends = gobject-introspection
+ 	makedepends = meson
++	makedepends = python-setuptools
+ 	depends = cairo
+-	depends = evince
+ 	depends = freetype2
+ 	depends = gcc-libs
+ 	depends = gdk-pixbuf2
+@@ -26,18 +26,13 @@ pkgbase = sushi
+ 	depends = libepoxy
+ 	depends = libsoup3
+ 	depends = pango
++	depends = papers
+ 	optdepends = libreoffice: OpenDocument formats
+ 	optdepends = webkit2gtk-4.1: Render HTML files
+-	source = git+https://gitlab.gnome.org/GNOME/sushi.git?signed#tag=46.0
+-	source = sushi-gst-set-timeout.patch
+-	source = sushi-detect-llvmpipe.patch
+-	source = sushi-audio-position-update.patch
+-	source = sushi-update-mime-types.patch
++	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=2f6a49066fc6ee4b8ec9b01114a96526afc1a4d0
++	source = sushi-gtk4-support.patch
+ 	validpgpkeys = 550660707A6F40376B9B9F8D504A78811E6160CC
+-	b2sums = fdc05965a8e4b2de9e406ad12133cc2d54c439e48adb138f5f71b18f4ede706bc67f6e9e48eac3f600819ea49d099bb13102b0628be1aefa155da686884c7aa1
+-	b2sums = b49184552620cc35d3132bedd052d73898ffe96d70d764d3142343c9458049dab3b39861f900fe968ccd95949e3581872a3b553edb60623c735f4a2af555d8c6
+-	b2sums = bff347d69e11ae64d43310187c1ecd32a55584aecf1cfbb78ebc0d96e7fc9e971866acb38114c68674894a0fc7190954087b5d862038ea58c5fb9d729042e9f9
+-	b2sums = b35843f7c9f6f8427add53876d4cab566a450513f2ea749788c31089474a1a1868caec0dc4d1bceee02ba0b5353fc56a175b09124b6cb1aa3acac175f19d5704
+-	b2sums = e32cde0a647c83184583ed32198741378a0d11ec0324b6f51e1bff95c0c00b17c842b9aaf53c654f1ebf0199164c1de55db0e3a27b3734ebc3293bc1d8422893
++	b2sums = 9f3131e1282f648ffd50cfff2775cd36a6d9ff37cd615b7a97a7ad779860a920c081d87227335b959bebe96e8880e1a0bee6ed314b3cb2f4e05f8d76c4029bb7
++	b2sums = dc92c8033e1800d77f8347a004fb2c597aace89b26ef22762f3c33f5cfb6982422bfe62b469e0732039003d8023be9f149875171fa3cd91e737a39b7fda7070a
+ 
+ pkgname = sushi
+Index: sushi/.gitignore
+===================================================================
+--- /dev/null
++++ sushi/.gitignore
+@@ -0,0 +1 @@
++.pc
+Index: sushi/PKGBUILD
+===================================================================
+--- sushi.orig/PKGBUILD
++++ sushi/PKGBUILD
+@@ -3,15 +3,14 @@
+ # Contributor: Ionut Biru <ibiru@archlinux.org>
+ 
+ pkgname=sushi
+-pkgver=46.0
+-pkgrel=2
++pkgver=47.0
++pkgrel=0
+ pkgdesc="A quick previewer for Nautilus"
+ url="https://gitlab.gnome.org/GNOME/sushi"
+ arch=(x86_64)
+ license=(GPL-2.0-or-later)
+ depends=(
+   cairo
+-  evince
+   freetype2
+   gcc-libs
+   gdk-pixbuf2
+@@ -27,27 +26,23 @@ depends=(
+   libepoxy
+   libsoup3
+   pango
++  papers
+ )
+ makedepends=(
+   git
+   gobject-introspection
+   meson
++  python-setuptools
+ )
+ optdepends=(
+   'libreoffice: OpenDocument formats'
+   'webkit2gtk-4.1: Render HTML files'
+ )
+ groups=(gnome)
+-source=("git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
+-        sushi-gst-set-timeout.patch
+-        sushi-detect-llvmpipe.patch
+-        sushi-audio-position-update.patch
+-        sushi-update-mime-types.patch)
+-b2sums=('fdc05965a8e4b2de9e406ad12133cc2d54c439e48adb138f5f71b18f4ede706bc67f6e9e48eac3f600819ea49d099bb13102b0628be1aefa155da686884c7aa1'
+-        'b49184552620cc35d3132bedd052d73898ffe96d70d764d3142343c9458049dab3b39861f900fe968ccd95949e3581872a3b553edb60623c735f4a2af555d8c6'
+-        'bff347d69e11ae64d43310187c1ecd32a55584aecf1cfbb78ebc0d96e7fc9e971866acb38114c68674894a0fc7190954087b5d862038ea58c5fb9d729042e9f9'
+-        'b35843f7c9f6f8427add53876d4cab566a450513f2ea749788c31089474a1a1868caec0dc4d1bceee02ba0b5353fc56a175b09124b6cb1aa3acac175f19d5704'
+-        'e32cde0a647c83184583ed32198741378a0d11ec0324b6f51e1bff95c0c00b17c842b9aaf53c654f1ebf0199164c1de55db0e3a27b3734ebc3293bc1d8422893')
++source=("git+$url.git#commit=2f6a49066fc6ee4b8ec9b01114a96526afc1a4d0"
++        sushi-gtk4-support.patch)
++b2sums=('9f3131e1282f648ffd50cfff2775cd36a6d9ff37cd615b7a97a7ad779860a920c081d87227335b959bebe96e8880e1a0bee6ed314b3cb2f4e05f8d76c4029bb7'
++        'dc92c8033e1800d77f8347a004fb2c597aace89b26ef22762f3c33f5cfb6982422bfe62b469e0732039003d8023be9f149875171fa3cd91e737a39b7fda7070a')
+ validpgpkeys=(
+   550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
+ )
+@@ -55,21 +50,10 @@ validpgpkeys=(
+ prepare() {
+   cd sushi
+ 
+-  # Set timeout for gst_element_get_state to avoid freeze when switching to fullscreen
+-  # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/55
+-  git apply -3 ../sushi-gst-set-timeout.patch
+-
+-  # Fix llvmpipe detection
+-  # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/56
+-  git apply -3 ../sushi-detect-llvmpipe.patch
+-
+-  # Fix position update for audio mode
+-  # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/59
+-  git apply -3 ../sushi-audio-position-update.patch
+-
+-  # Update Totem provided mime type lists
+-  # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/60
+-  git apply -3 ../sushi-update-mime-types.patch
++  # GTK4 Port
++  # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/43
++  patch -Np1 -f -i ../sushi-gtk4-support.patch
++  rm src/libsushi/sushi-media-bin.c
+ }
+ 
+ build() {
+Index: sushi/sushi-audio-position-update.patch
+===================================================================
+--- sushi.orig/sushi-audio-position-update.patch
++++ /dev/null
+@@ -1,30 +0,0 @@
+-From a8eba1813b306f17d6353d8c58e3b562353a019a Mon Sep 17 00:00:00 2001
+-From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+-Date: Wed, 3 Jul 2024 18:51:06 +0000
+-Subject: [PATCH] sushi-media-bin: Fix position update for audio mode
+-
+-The audio mode doesn't have overlay widget.
+-
+-Fixes: 6258dc70814638e99d3a604eda1cd7f60ed53ffa
+-
+-Closes: https://gitlab.gnome.org/GNOME/sushi/-/issues/128
+----
+- src/libsushi/sushi-media-bin.c | 2 +-
+- 1 file changed, 1 insertion(+), 1 deletion(-)
+-
+-diff --git a/src/libsushi/sushi-media-bin.c b/src/libsushi/sushi-media-bin.c
+-index 585db5d..30afbed 100644
+---- a/src/libsushi/sushi-media-bin.c
+-+++ b/src/libsushi/sushi-media-bin.c
+-@@ -1577,7 +1577,7 @@ sushi_media_bin_set_tick_enabled (SushiMediaBin *self, gboolean enabled)
+-     }
+- 
+-   if (enabled)
+--    priv->tick_id = gtk_widget_add_tick_callback (priv->overlay,
+-+    priv->tick_id = gtk_widget_add_tick_callback (priv->audio_mode ? priv->audio_box : priv->overlay,
+-                                                   sushi_media_bin_tick_callback,
+-                                                   self, NULL);
+- }
+--- 
+-GitLab
+-
+Index: sushi/sushi-detect-llvmpipe.patch
+===================================================================
+--- sushi.orig/sushi-detect-llvmpipe.patch
++++ /dev/null
+@@ -1,38 +0,0 @@
+-From aa7137c1ef26781e048b6d6c60d9c8d16336b690 Mon Sep 17 00:00:00 2001
+-From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+-Date: Fri, 8 Mar 2024 22:29:07 +0100
+-Subject: [PATCH] sushi-media-bin: Fix llvmpipe detection
+-
+-Recent versions of mesa have removed the "Gallium on" prefix from the renderer string. Also detect "softpipe" as a software GL rasterizer, and introduce a new environment variable "SUSHI_USE_GST_GTKSINK" to force gtksink.
+----
+- src/libsushi/sushi-media-bin.c | 7 +++++--
+- 1 file changed, 5 insertions(+), 2 deletions(-)
+-
+-diff --git a/src/libsushi/sushi-media-bin.c b/src/libsushi/sushi-media-bin.c
+-index 585db5d..5f8cbc2 100644
+---- a/src/libsushi/sushi-media-bin.c
+-+++ b/src/libsushi/sushi-media-bin.c
+-@@ -510,6 +510,9 @@ sushi_media_bin_gl_check (GtkWidget *widget)
+- {
+-   static gsize gl_works = 0;
+- 
+-+  if (g_getenv ("SUSHI_USE_GST_GTKSINK") != NULL)
+-+    return FALSE;
+-+
+-   if (g_once_init_enter (&gl_works))
+-     {
+-       GError *error = NULL;
+-@@ -533,8 +536,8 @@ sushi_media_bin_gl_check (GtkWidget *widget)
+-             GST_WARNING ("nouveau is blacklisted, since sharing gl contexts in "
+-                          "multiple threads is not supported "
+-                          "and will eventually make it crash.");
+--          else if (g_strstr_len (renderer, -1, "Gallium") &&
+--                   g_strstr_len (renderer, -1, "llvmpipe"))
+-+          else if (g_strstr_len (renderer, -1, "llvmpipe") ||
+-+                   g_strstr_len (renderer, -1, "softpipe"))
+-             GST_INFO ("Detected software GL rasterizer, falling back to gtksink");
+-           else
+-             works = 2;
+--- 
+-GitLab
+-
+Index: sushi/sushi-gst-set-timeout.patch
+===================================================================
+--- sushi.orig/sushi-gst-set-timeout.patch
++++ /dev/null
+@@ -1,46 +0,0 @@
+-From f5fde18b3f40e60689454d16091551007dc4fc3d Mon Sep 17 00:00:00 2001
+-From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+-Date: Fri, 8 Mar 2024 18:43:38 +0100
+-Subject: [PATCH] sushi-media-bin: Limit timeout for gst_element_get_state
+-
+-When we set the timeout to GST_CLOCK_TIME_NONE, it means that we wait for the state infinitly. Limit the timeout to 100 milliseconds to avoid freeze in case the state is not received.
+-
+-Closes: https://gitlab.gnome.org/GNOME/sushi/-/issues/103
+----
+- src/libsushi/sushi-media-bin.c | 6 ++++--
+- 1 file changed, 4 insertions(+), 2 deletions(-)
+-
+-diff --git a/src/libsushi/sushi-media-bin.c b/src/libsushi/sushi-media-bin.c
+-index 585db5d..78b2232 100644
+---- a/src/libsushi/sushi-media-bin.c
+-+++ b/src/libsushi/sushi-media-bin.c
+-@@ -45,6 +45,8 @@
+- 
+- #define FPS_WINDOW_SIZE          2  /* Window size in seconds to calculate fps */
+- 
+-+#define GET_STATE_TIMEOUT        GST_SECOND / G_GINT64_CONSTANT (10)
+-+
+- #define SMB_ICON_SIZE            GTK_ICON_SIZE_BUTTON
+- 
+- #define SMB_ICON_NAME_PLAY       "media-playback-start-symbolic"
+-@@ -773,7 +775,7 @@ sushi_media_bin_fullscreen_apply (SushiMediaBin *self, gboolean fullscreen)
+- 
+-       /* Init new pipeline */
+-       gst_element_set_state (priv->play, GST_STATE_PAUSED);
+--      gst_element_get_state (priv->play, NULL, NULL, GST_CLOCK_TIME_NONE);
+-+      gst_element_get_state (priv->play, NULL, NULL, GET_STATE_TIMEOUT);
+- 
+-       /* Seek to position */
+-       gst_element_seek_simple (priv->play, GST_FORMAT_TIME,
+-@@ -785,7 +787,7 @@ sushi_media_bin_fullscreen_apply (SushiMediaBin *self, gboolean fullscreen)
+-       if (priv->state == GST_STATE_PLAYING)
+-         {
+-           gst_element_set_state (priv->play, GST_STATE_PLAYING);
+--          gst_element_get_state (priv->play, NULL, NULL, GST_CLOCK_TIME_NONE);
+-+          gst_element_get_state (priv->play, NULL, NULL, GET_STATE_TIMEOUT);
+-         }
+-     }
+- 
+--- 
+-GitLab
+-
+Index: sushi/sushi-update-mime-types.patch
+===================================================================
+--- sushi.orig/sushi-update-mime-types.patch
++++ /dev/null
+@@ -1,138 +0,0 @@
+-From 40dbf56d843981351e44848a090dd0474aa70e6a Mon Sep 17 00:00:00 2001
+-From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+-Date: Mon, 16 Sep 2024 15:19:09 +0200
+-Subject: [PATCH] Update Totem provided mime type lists
+-
+----
+- src/util/totemMimeTypes.js | 29 +++++++++++++++++++++++++++--
+- 1 file changed, 27 insertions(+), 2 deletions(-)
+-
+-diff --git a/src/util/totemMimeTypes.js b/src/util/totemMimeTypes.js
+-index 7098d8a..640d659 100644
+---- a/src/util/totemMimeTypes.js
+-+++ b/src/util/totemMimeTypes.js
+-@@ -2,33 +2,51 @@
+-    commit in the sushi module without filing a bug against totem */
+- var audioTypes = [
+-     "audio/3gpp",
+-+    "audio/3gpp2",
+-+    "audio/aac",
+-     "audio/ac3",
+-     "audio/AMR",
+-     "audio/AMR-WB",
+-     "audio/basic",
+-+    "audio/dv",
+-+    "audio/eac3",
+-     "audio/flac",
+-+    "audio/m4a",
+-     "audio/midi",
+-+    "audio/mp1",
+-     "audio/mp2",
+-+    "audio/mp3",
+-     "audio/mp4",
+-     "audio/mpeg",
+-+    "audio/mpg",
+-     "audio/ogg",
+-+    "audio/opus",
+-     "audio/prs.sid",
+-+    "audio/scpls",
+-     "audio/vnd.rn-realaudio",
+-+    "audio/wav",
+-+    "audio/webm",
+-+    "audio/x-aac",
+-     "audio/x-aiff",
+-     "audio/x-ape",
+-     "audio/x-flac",
+-     "audio/x-gsm",
+-     "audio/x-it",
+-     "audio/x-m4a",
+-+    "audio/x-m4b",
+-     "audio/x-matroska",
+-     "audio/x-mod",
+-+    "audio/x-mp1",
+-+    "audio/x-mp2",
+-     "audio/x-mp3",
+-+    "audio/x-mpg",
+-     "audio/x-mpeg",
+-     "audio/x-ms-asf",
+-     "audio/x-ms-asx",
+-     "audio/x-ms-wax",
+-     "audio/x-ms-wma",
+-     "audio/x-musepack",
+-+    "audio/x-opus+ogg",
+-     "audio/x-pn-aiff",
+-     "audio/x-pn-au",
+-     "audio/x-pn-wav",
+-@@ -37,6 +55,7 @@ var audioTypes = [
+-     "audio/x-real-audio",
+-     "audio/x-s3m",
+-     "audio/x-sbc",
+-+    "audio/x-shorten",
+-     "audio/x-speex",
+-     "audio/x-stm",
+-     "audio/x-tta",
+-@@ -50,18 +69,18 @@ var audioTypes = [
+- 
+- var videoTypes = [
+-     "application/mxf",
+--    "application/ogg",
+-     "application/ram",
+-     "application/sdp",
+-     "application/vnd.apple.mpegurl",
+-+    "application/vnd.ms-asf",
+-     "application/vnd.ms-wpl",
+-     "application/vnd.rn-realmedia",
+-+    "application/vnd.rn-realmedia-vbr",
+-     "application/x-extension-m4a",
+-     "application/x-extension-mp4",
+-     "application/x-flash-video",
+-     "application/x-matroska",
+-     "application/x-netshow-channel",
+--    "application/x-ogg",
+-     "application/x-quicktimeplayer",
+-     "application/x-shorten",
+-     "image/vnd.rn-realpix",
+-@@ -70,6 +89,7 @@ var videoTypes = [
+-     "text/x-google-video-pointer",
+-     "video/3gp",
+-     "video/3gpp",
+-+    "video/3gpp2",
+-     "video/dv",
+-     "video/divx",
+-     "video/fli",
+-@@ -78,10 +98,12 @@ var videoTypes = [
+-     "video/mp4",
+-     "video/mp4v-es",
+-     "video/mpeg",
+-+    "video/mpeg-system",
+-     "video/msvideo",
+-     "video/ogg",
+-     "video/quicktime",
+-     "video/vivo",
+-+    "video/vnd.avi",
+-     "video/vnd.divx",
+-     "video/vnd.mpegurl",
+-     "video/vnd.rn-realvideo",
+-@@ -95,9 +117,11 @@ var videoTypes = [
+-     "video/x-flv",
+-     "video/x-m4v",
+-     "video/x-matroska",
+-+    "video/x-mjpeg",
+-     "video/x-mpeg",
+-     "video/x-mpeg2",
+-     "video/x-ms-asf",
+-+    "video/x-ms-asf-plugin",
+-     "video/x-ms-asx",
+-     "video/x-msvideo",
+-     "video/x-ms-wm",
+-@@ -106,6 +130,7 @@ var videoTypes = [
+-     "video/x-ms-wvx",
+-     "video/x-nsv",
+-     "video/x-ogm+ogg",
+-+    "video/x-theora",
+-     "video/x-theora+ogg",
+-     "video/x-totem-stream",
+-     "audio/x-pn-realaudio",
+--- 
+-GitLab
+-

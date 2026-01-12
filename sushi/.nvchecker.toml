@@ -1,4 +1,0 @@
-[sushi]
-source = "git"
-git = "https://gitlab.gnome.org/GNOME/sushi.git"
-include_regex = '\d+(\.\d+)*'

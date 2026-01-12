@@ -1,5 +1,7 @@
 # sorted by: creation date (earliest commit)
 
+## AUR Maintainer
+
 [submodule "mathematica"]
 	path = mathematica
 	url = ssh://aur@aur.archlinux.org/mathematica.git
@@ -114,3 +116,10 @@
 	path = patchy
 	url = ssh://aur@aur.archlinux.org/patchy.git
 	branch = master
+
+## Custom patches
+
+[submodule "sushi"]
+	path = sushi
+	url = https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git
+    branch = main
