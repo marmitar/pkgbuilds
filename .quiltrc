@@ -36,7 +36,7 @@ __setup_submodule_pc() (
     QUILT_PC="${SUBMODULE_ROOT}/.pc"
     mkdir -p "${QUILT_PC}" 1>&2
     printf '../.patches/%s\n' "${SUBMODULE_DIR}" > "${QUILT_PC}"/.quilt_patches
-    printf 'series\n' > "${QUILT_PC}"/.quilt_series
+    printf '.series\n' > "${QUILT_PC}"/.quilt_series
     printf '2\n' > "${QUILT_PC}"/.version
 
     # Send $QUILT_PC out of the subshell.
