@@ -24,8 +24,9 @@ Index: kmscon/.gitignore
 ===================================================================
 --- /dev/null
 +++ kmscon/.gitignore
-@@ -0,0 +1 @@
-+.pc
+@@ -0,0 +1,2 @@
++*.pkg.tar.*
++*.tar.gz
 Index: kmscon/PKGBUILD
 ===================================================================
 --- kmscon.orig/PKGBUILD

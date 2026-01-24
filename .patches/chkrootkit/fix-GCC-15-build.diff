@@ -20,15 +20,6 @@ Index: chkrootkit/.SRCINFO
 +	sha512sums = 80158058c860ba3ab6ec016f095f82c7452e633b713aca89e6f035e2e315a41d335f0d785407cd2687f62d4886250dbadbabe47835fecf9a478f9f5243283508
  
  pkgname = chkrootkit
-Index: chkrootkit/.gitignore
-===================================================================
---- chkrootkit.orig/.gitignore
-+++ chkrootkit/.gitignore
-@@ -17,3 +17,4 @@ pkg/
- *.rar
- *.deb
- *.zst
-+.pc
 Index: chkrootkit/0001-fix-GCC-15-build.patch
 ===================================================================
 --- /dev/null

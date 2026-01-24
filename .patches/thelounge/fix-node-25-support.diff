@@ -38,8 +38,9 @@ Index: thelounge/.gitignore
 ===================================================================
 --- /dev/null
 +++ thelounge/.gitignore
-@@ -0,0 +1 @@
-+.pc
+@@ -0,0 +1,2 @@
++*.pkg.tar.*
++*.tgz
 Index: thelounge/PKGBUILD
 ===================================================================
 --- thelounge.orig/PKGBUILD

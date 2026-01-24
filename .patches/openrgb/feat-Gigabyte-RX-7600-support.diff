@@ -29,8 +29,9 @@ Index: openrgb/.gitignore
 ===================================================================
 --- /dev/null
 +++ openrgb/.gitignore
-@@ -0,0 +1 @@
-+.pc
+@@ -0,0 +1,2 @@
++*.pkg.tar.*
++OpenRGB
 Index: openrgb/PKGBUILD
 ===================================================================
 --- openrgb.orig/PKGBUILD

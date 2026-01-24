@@ -2,8 +2,9 @@ Index: qt6-base/.gitignore
 ===================================================================
 --- /dev/null
 +++ qt6-base/.gitignore
-@@ -0,0 +1 @@
-+.pc
+@@ -0,0 +1,2 @@
++*.pkg.tar.*
++qtbase/
 Index: qt6-base/PKGBUILD
 ===================================================================
 --- qt6-base.orig/PKGBUILD

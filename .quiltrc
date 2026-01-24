@@ -1,0 +1,64 @@
+#!/usr/bin/bash
+
+## Add this to /etc/quilt.quiltrc:
+# # Load .quiltrc from the directory tree
+# QUILTRC_DIR="${PWD}"
+# while [[ "${QUILTRC_DIR}" != / && ! -f "${QUILTRC_DIR}"/.quiltrc ]]; do
+#     QUILTRC_DIR="$(dirname "${QUILTRC_DIR}")"
+# done
+# if [[ -f "${QUILTRC_DIR}"/.quiltrc ]]; then
+#     # shellcheck disable=SC1091
+#     source "${QUILTRC_DIR}"/.quiltrc
+# else
+#     unset QUILTRC_DIR
+# fi
+
+## Setup .pc at submodule root and print it.
+__setup_submodule_pc() (
+    set -euo pipefail # subshell only
+
+    # Ensure we are in a submodule, not the root.
+    GIT_ROOT="$(git rev-parse --show-superproject-working-tree)"
+    if [[ -z "${GIT_ROOT}" ]]; then
+        echo 'Please, use quilt in a submodule to avoid issues with the project root.' > /dev/stderr
+        return 1
+    fi
+    SUBMODULE_ROOT="$(git rev-parse --show-toplevel)"
+    SUBMODULE_DIR="$(realpath --canonicalize-existing --relative-to="${GIT_ROOT}" "${SUBMODULE_ROOT}")"
+
+    # Exclude .pc from the worktree.
+    GIT_EXCLUDE="$(git rev-parse --git-dir)"/info/exclude
+    if ! grep -qxF '.pc/' "${GIT_EXCLUDE}"; then
+        echo '.pc/' > "${GIT_EXCLUDE}"
+    fi
+
+    # Enforce $QUILT_PC with expected values.
+    QUILT_PC="${SUBMODULE_ROOT}/.pc"
+    mkdir -p "${QUILT_PC}" 1>&2
+    printf '../.patches/%s\n' "${SUBMODULE_DIR}" > "${QUILT_PC}"/.quilt_patches
+    printf 'series\n' > "${QUILT_PC}"/.quilt_series
+    printf '2\n' > "${QUILT_PC}"/.version
+
+    # Send $QUILT_PC out of the subshell.
+    printf '%s\n' "${QUILT_PC}"
+)
+
+## See /etc/quilt.quiltrc
+# shellcheck disable=SC2310
+if ! QUILT_PC="$(__setup_submodule_pc)"; then
+    exit 1
+fi
+export QUILT_PC
+
+# Options passed to GNU diff when generating patches.
+export QUILT_DIFF_OPTS='--show-c-function'
+
+# Options passed to diffstat when generating patch statistics.
+#QUILT_DIFFSTAT_OPTS="-f0"
+
+# Options to pass to commands (QUILT_${COMMAND}_ARGS).
+QUILT_PUSH_ARGS='--color=auto'
+QUILT_DIFF_ARGS='--no-timestamps --color=auto'
+QUILT_REFRESH_ARGS='--no-timestamps'
+QUILT_SERIES_ARGS='--color=auto'
+QUILT_PATCHES_ARGS='--color=auto'
