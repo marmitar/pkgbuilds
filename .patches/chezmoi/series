@@ -1,2 +1,2 @@
-fix-empty-derivePassword.diff
-fix-keys-with-dots
+fix-empty-derivePassword.patch
+fix-keys-with-dots.patch
