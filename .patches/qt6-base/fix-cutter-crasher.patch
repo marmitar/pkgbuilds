@@ -1,14 +1,20 @@
-Index: qt6-base/.gitignore
+---
+ .gitignore        |    2 +
+ PKGBUILD          |    1 
+ cutter.Dockerfile |   67 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 70 insertions(+)
+
+Index: b/.gitignore
 ===================================================================
 --- /dev/null
-+++ qt6-base/.gitignore
++++ b/.gitignore
 @@ -0,0 +1,2 @@
 +*.pkg.tar.*
 +qtbase/
-Index: qt6-base/PKGBUILD
+Index: b/PKGBUILD
 ===================================================================
---- qt6-base.orig/PKGBUILD
-+++ qt6-base/PKGBUILD
+--- a/PKGBUILD
++++ b/PKGBUILD
 @@ -96,6 +96,7 @@ sha256sums=('fa40e720d488d256704d6a7dfc2
  prepare() {
    patch -d $_pkgfn -p1 < qt6-base-cflags.patch # Use system CFLAGS
@@ -17,10 +23,10 @@ Index: qt6-base/PKGBUILD
  }
  
  build() {
-Index: qt6-base/cutter.Dockerfile
+Index: b/cutter.Dockerfile
 ===================================================================
 --- /dev/null
-+++ qt6-base/cutter.Dockerfile
++++ b/cutter.Dockerfile
 @@ -0,0 +1,67 @@
 +# syntax=docker/dockerfile:1
 +

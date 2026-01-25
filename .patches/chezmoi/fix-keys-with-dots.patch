@@ -1,7 +1,12 @@
-Index: chezmoi/.SRCINFO
+---
+ .SRCINFO |    6 +++++-
+ PKGBUILD |   21 ++++++++++++---------
+ 2 files changed, 17 insertions(+), 10 deletions(-)
+
+Index: b/.SRCINFO
 ===================================================================
---- chezmoi.orig/.SRCINFO
-+++ chezmoi/.SRCINFO
+--- a/.SRCINFO
++++ b/.SRCINFO
 @@ -1,7 +1,7 @@
  pkgbase = chezmoi
  	pkgdesc = Manage your dotfiles across multiple machines
@@ -22,10 +27,10 @@ Index: chezmoi/.SRCINFO
 +	sha512sums = 7879e4562a0988fdb5f50b06fc8bcd4c5f9aab7bf0c0266eea7d87f81e9c4e11acba95f0dd511a6bc5613b457822b77b0ea4db52803ead3d6f00920dc357ad0a
  
  pkgname = chezmoi
-Index: chezmoi/PKGBUILD
+Index: b/PKGBUILD
 ===================================================================
---- chezmoi.orig/PKGBUILD
-+++ chezmoi/PKGBUILD
+--- a/PKGBUILD
++++ b/PKGBUILD
 @@ -5,7 +5,7 @@
  
  pkgname=chezmoi

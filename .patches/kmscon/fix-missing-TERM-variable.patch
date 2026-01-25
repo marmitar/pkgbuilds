@@ -1,7 +1,13 @@
-Index: kmscon/.SRCINFO
+---
+ .SRCINFO   |    4 +++-
+ .gitignore |    2 ++
+ PKGBUILD   |   12 +++++++++---
+ 3 files changed, 14 insertions(+), 4 deletions(-)
+
+Index: b/.SRCINFO
 ===================================================================
---- kmscon.orig/.SRCINFO
-+++ kmscon/.SRCINFO
+--- a/.SRCINFO
++++ b/.SRCINFO
 @@ -1,7 +1,7 @@
  pkgbase = kmscon
  	pkgdesc = Kernel Mode Setting (KMS) and DRM based virtual Console Emulator
@@ -20,17 +26,17 @@ Index: kmscon/.SRCINFO
 +	b2sums = cef844aa52ae6419a8571660372f7af77f70f4c0458ffbc16ebdbdecdc7589607ea3cdc1c01f79f7e6d0653cccf84f32a909ea6ca9bec372c35d5a7f353d2d5f
  
  pkgname = kmscon
-Index: kmscon/.gitignore
+Index: b/.gitignore
 ===================================================================
 --- /dev/null
-+++ kmscon/.gitignore
++++ b/.gitignore
 @@ -0,0 +1,2 @@
 +*.pkg.tar.*
 +*.tar.gz
-Index: kmscon/PKGBUILD
+Index: b/PKGBUILD
 ===================================================================
---- kmscon.orig/PKGBUILD
-+++ kmscon/PKGBUILD
+--- a/PKGBUILD
++++ b/PKGBUILD
 @@ -6,7 +6,7 @@
  
  pkgname=kmscon

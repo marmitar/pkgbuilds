@@ -1,7 +1,13 @@
-Index: openrgb/.SRCINFO
+---
+ .SRCINFO   |    6 +++---
+ .gitignore |    2 ++
+ PKGBUILD   |   12 ++++++------
+ 3 files changed, 11 insertions(+), 9 deletions(-)
+
+Index: b/.SRCINFO
 ===================================================================
---- openrgb.orig/.SRCINFO
-+++ openrgb/.SRCINFO
+--- a/.SRCINFO
++++ b/.SRCINFO
 @@ -1,7 +1,7 @@
  pkgbase = openrgb
  	pkgdesc = Open source RGB lighting control that doesn't depend on manufacturer software
@@ -25,17 +31,17 @@ Index: openrgb/.SRCINFO
  	sha256sums = b5a53d747422f8b594e3e9615e238457d696732efce94050cdd72182a8645ef2
  	sha256sums = e86604e9604d59cddcc13de60b71c0e652cd1f9b56d89de36b2158509849e51c
  	sha256sums = f53328babef392393ee44086f8897174232e863280a84266630a3cd92facc190
-Index: openrgb/.gitignore
+Index: b/.gitignore
 ===================================================================
 --- /dev/null
-+++ openrgb/.gitignore
++++ b/.gitignore
 @@ -0,0 +1,2 @@
 +*.pkg.tar.*
 +OpenRGB
-Index: openrgb/PKGBUILD
+Index: b/PKGBUILD
 ===================================================================
---- openrgb.orig/PKGBUILD
-+++ openrgb/PKGBUILD
+--- a/PKGBUILD
++++ b/PKGBUILD
 @@ -3,7 +3,7 @@
  # Contributor: Paul Davis <paul@dangersalad.com>
  pkgname=openrgb
