@@ -131,8 +131,8 @@
 
 [submodule "kmscon"]
 	path = kmscon
-	url = https://aur.archlinux.org/kmscon.git
-	branch = master
+	url = https://gitlab.archlinux.org/archlinux/packaging/packages/kmscon.git
+	branch = main
 
 [submodule "chezmoi"]
 	path = chezmoi
