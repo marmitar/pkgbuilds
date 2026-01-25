@@ -124,11 +124,6 @@
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git
     branch = main
 
-[submodule "chkrootkit"]
-	path = chkrootkit
-	url = https://aur.archlinux.org/chkrootkit.git
-    branch = master
-
 [submodule "thelounge"]
 	path = thelounge
 	url = https://aur.archlinux.org/thelounge.git
