@@ -1,3 +1,3 @@
-fix-node-25-support.patch
 build-from-source.patch
-modernize-02.patch
+update-dependencies.patch
+update-dependencies-wip.patch
