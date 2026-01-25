@@ -129,11 +129,6 @@
 	url = https://aur.archlinux.org/thelounge.git
 	branch = master
 
-[submodule "kmscon"]
-	path = kmscon
-	url = https://gitlab.archlinux.org/archlinux/packaging/packages/kmscon.git
-	branch = main
-
 [submodule "chezmoi"]
 	path = chezmoi
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git
