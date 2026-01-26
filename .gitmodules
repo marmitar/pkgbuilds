@@ -119,6 +119,11 @@
 
 ## Custom patches
 
+[submodule "less"]
+	path = less
+	url = https://gitlab.archlinux.org/archlinux/packaging/packages/less.git
+	branch = main
+
 [submodule "sushi"]
 	path = sushi
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git
