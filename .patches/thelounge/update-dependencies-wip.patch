@@ -13,7 +13,10 @@ WIP
  .SRCINFO        |   10 
  PKGBUILD        |   12 
  modernize.patch |15015 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 15026 insertions(+), 11 deletions(-)
+ .SRCINFO        |    6 
+ PKGBUILD        |    8 
+ modernize.patch |15015 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 15022 insertions(+), 7 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -23,26 +26,23 @@ Index: b/.SRCINFO
  pkgbase = thelounge
  	pkgdesc = Modern self-hosted web IRC client
  	pkgver = 4.4.3
--	pkgrel = 3.2
-+	pkgrel = 3.3
+-	pkgrel = 3.4
++	pkgrel = 3.5
  	url = https://thelounge.chat/
  	arch = any
  	license = MIT
-@@ -12,14 +12,14 @@ pkgbase = thelounge
- 	depends = nodejs
+@@ -13,13 +13,13 @@ pkgbase = thelounge
  	options = !lto
  	backup = etc/thelounge/config.js
--	source = thelounge-32f018143357e29a23f057054f70a522fe175feb.tar.gz::https://github.com/thelounge/thelounge/archive/32f018143357e29a23f057054f70a522fe175feb.tar.gz
+ 	source = thelounge-b2e3112806c4fb615b04c8981ac49a7308dedf58.tar.gz::https://github.com/thelounge/thelounge/archive/b2e3112806c4fb615b04c8981ac49a7308dedf58.tar.gz
 -	source = https://github.com/thelounge/thelounge/pull/5003.patch
-+	source = thelounge-b2e3112806c4fb615b04c8981ac49a7308dedf58.tar.gz::https://github.com/thelounge/thelounge/archive/b2e3112806c4fb615b04c8981ac49a7308dedf58.tar.gz
 +	source = modernize.patch
  	source = system.service
  	source = user.service
  	source = sysusers.d
  	source = tmpfiles.d
--	sha256sums = 4feefaf1c7a23f3a43cb8d38c4f1a3fb6dcc58f0f6f47902b0063405c51e913d
--	sha256sums = 04de71eb1a2331dac88e6a62212e3b7962165a6daca44945cad0014ec42d32ff
-+	sha256sums = 832929b6f6f72849c0e05856cee6abf6f69af14d8dcfb96dac6110fd97cd5b16
+ 	sha256sums = 832929b6f6f72849c0e05856cee6abf6f69af14d8dcfb96dac6110fd97cd5b16
+-	sha256sums = 07065aae1a79332d00bd8db0547fb8951c276785298b9b186d34c17bc368204b
 +	sha256sums = 194560e6c7906cc310794a7fb00598e51b472f715c0c082a20cc7355e66bbcbc
  	sha256sums = c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20
  	sha256sums = c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0
@@ -55,17 +55,13 @@ Index: b/PKGBUILD
  # Maintainer: Maxime Poulin <maxpoulin64@gmail.com>
  pkgname=thelounge
  pkgver=4.4.3
--pkgrel=3.2
-+pkgrel=3.3
+-pkgrel=3.4
++pkgrel=3.5
  pkgdesc='Modern self-hosted web IRC client'
  url='https://thelounge.chat/'
  arch=('any')
-@@ -11,17 +11,17 @@ depends=('nodejs')
- options=('!lto')
- makedepends=('yarn' 'python' 'python-setuptools' 'git')
- backup=('etc/thelounge/config.js')
--_commit='32f018143357e29a23f057054f70a522fe175feb'
-+_commit='b2e3112806c4fb615b04c8981ac49a7308dedf58'
+@@ -14,14 +14,14 @@ backup=('etc/thelounge/config.js')
+ _commit='b2e3112806c4fb615b04c8981ac49a7308dedf58'
  source=(
      "thelounge-${_commit}.tar.gz::https://github.com/thelounge/thelounge/archive/${_commit}.tar.gz"
 -    'https://github.com/thelounge/thelounge/pull/5003.patch'
@@ -75,14 +71,13 @@ Index: b/PKGBUILD
      'sysusers.d'
      'tmpfiles.d'
  )
--sha256sums=('4feefaf1c7a23f3a43cb8d38c4f1a3fb6dcc58f0f6f47902b0063405c51e913d'
--            '04de71eb1a2331dac88e6a62212e3b7962165a6daca44945cad0014ec42d32ff'
-+sha256sums=('832929b6f6f72849c0e05856cee6abf6f69af14d8dcfb96dac6110fd97cd5b16'
+ sha256sums=('832929b6f6f72849c0e05856cee6abf6f69af14d8dcfb96dac6110fd97cd5b16'
+-            '07065aae1a79332d00bd8db0547fb8951c276785298b9b186d34c17bc368204b'
 +            '194560e6c7906cc310794a7fb00598e51b472f715c0c082a20cc7355e66bbcbc'
              'c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20'
              'c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0'
              '30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5'
-@@ -30,7 +30,7 @@ sha256sums=('4feefaf1c7a23f3a43cb8d38c4f
+@@ -30,7 +30,7 @@ sha256sums=('832929b6f6f72849c0e05856cee
  prepare() {
  	echo /etc/thelounge > "$pkgname-${_commit}/.thelounge_home"
  	cd "$pkgname-${_commit}" || exit 1
