@@ -1,0 +1,30 @@
+target-version = "py313"
+line-length = 150
+indent-width = 4
+
+[format]
+indent-style = "space"
+quote-style = "single"
+line-ending = "lf"
+docstring-code-format = true
+preview = true
+
+[lint]
+select = [
+  "E", # pycodestyle (error)
+  "F", # pyflakes
+  "B", # bugbear
+  "B9",
+  "C4", # flake8-comprehensions
+  "SIM", # flake8-simplify
+  "I", # isort
+  "UP", # pyupgrade
+  "PIE", # flake8-pie
+  "PGH", # pygrep-hooks
+  "PYI", # flake8-pyi
+  "RUF",
+]
+ignore = ["RUF003"]
+
+[lint.isort]
+lines-after-imports = 2
