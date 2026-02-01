@@ -16,7 +16,10 @@ WIP
  .SRCINFO        |    6 
  PKGBUILD        |    8 
  modernize.patch |15015 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 15022 insertions(+), 7 deletions(-)
+ .SRCINFO        |    6 
+ PKGBUILD        |    8 
+ modernize.patch |15041 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 15048 insertions(+), 7 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -43,7 +46,7 @@ Index: b/.SRCINFO
  	source = tmpfiles.d
  	sha256sums = 832929b6f6f72849c0e05856cee6abf6f69af14d8dcfb96dac6110fd97cd5b16
 -	sha256sums = 07065aae1a79332d00bd8db0547fb8951c276785298b9b186d34c17bc368204b
-+	sha256sums = 194560e6c7906cc310794a7fb00598e51b472f715c0c082a20cc7355e66bbcbc
++	sha256sums = 3b09e992dcc77607d9a7e49adddd09e68720d6bffae47f5e62d5c40708a4a855
  	sha256sums = c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20
  	sha256sums = c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0
  	sha256sums = 30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5
@@ -73,7 +76,7 @@ Index: b/PKGBUILD
  )
  sha256sums=('832929b6f6f72849c0e05856cee6abf6f69af14d8dcfb96dac6110fd97cd5b16'
 -            '07065aae1a79332d00bd8db0547fb8951c276785298b9b186d34c17bc368204b'
-+            '194560e6c7906cc310794a7fb00598e51b472f715c0c082a20cc7355e66bbcbc'
++            '3b09e992dcc77607d9a7e49adddd09e68720d6bffae47f5e62d5c40708a4a855'
              'c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20'
              'c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0'
              '30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5'
@@ -90,7 +93,7 @@ Index: b/modernize.patch
 ===================================================================
 --- /dev/null
 +++ b/modernize.patch
-@@ -0,0 +1,15015 @@
+@@ -0,0 +1,15041 @@
 +diff --git a/.eslintignore b/.eslintignore
 +deleted file mode 100644
 +index 219bb10b..00000000
@@ -612,6 +615,19 @@ Index: b/modernize.patch
 +-	[key in keyof typeof defaultConfig]: typeof defaultConfig[key]["default"];
 ++	[key in keyof typeof defaultConfig]: (typeof defaultConfig)[key]["default"];
 + };
++diff --git a/client/js/socket-events/more.ts b/client/js/socket-events/more.ts
++index a044b9fa..7e3060c9 100644
++--- a/client/js/socket-events/more.ts
+++++ b/client/js/socket-events/more.ts
++@@ -22,7 +22,7 @@ socket.on("more", async (data) => {
++ 	);
++ 	channel.moreHistoryAvailable =
++ 		data.totalMessages > channel.messages.length + data.messages.length;
++-	channel.messages.unshift(...data.messages);
+++	channel.messages = data.messages.concat(channel.messages);
++ 
++ 	await nextTick();
++ 	channel.historyLoading = false;
 +diff --git a/client/js/store.ts b/client/js/store.ts
 +index 15ce9d8d..a4f2e13d 100644
 +--- a/client/js/store.ts
@@ -1603,6 +1619,19 @@ Index: b/modernize.patch
 + 	},
 + };
 + 
++diff --git a/server/models/chan.ts b/server/models/chan.ts
++index 8034e520..7ed0e805 100644
++--- a/server/models/chan.ts
+++++ b/server/models/chan.ts
++@@ -299,7 +299,7 @@ class Chan {
++ 					return;
++ 				}
++ 
++-				this.messages.unshift(...messages);
+++				this.messages = messages.concat(this.messages);
++ 
++ 				if (!this.firstUnread) {
++ 					this.firstUnread = messages[messages.length - 1].id;
 +diff --git a/server/models/network.ts b/server/models/network.ts
 +index ee5b7d92..612a333c 100644
 +--- a/server/models/network.ts
