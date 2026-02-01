@@ -11,6 +11,7 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from logging import Logger
 from pathlib import Path
+from typing import Literal
 
 from pydpkg import Dpkg
 
@@ -90,32 +91,6 @@ def walk_dir(folder: Path, *, suffix: str) -> Iterator[Path]:
             yield target
 
 
-def walk_tar(archive: Path, *, suffix: str) -> Iterator[Path]:
-    import tarfile
-    from tempfile import NamedTemporaryFile
-
-    log = logger('walk_tar')
-    log.debug('listing %s in %r', suffix, archive)
-
-    with tarfile.open(archive, 'r') as tarball:
-        for file in tarball:
-            if not file.name.endswith(suffix):
-                log.debug('not a %s file, ignored: %s :: %r', suffix, tarball.name, file.path)
-                continue
-
-            with NamedTemporaryFile(suffix=suffix) as temp:
-                log.debug('extracting %r :: %r to %r', tarball.name, file.path, temp.name)
-                contents = tarball.extractfile(file)
-                assert contents, f'empty file {file.name!r}'
-
-                data = contents.read()
-                log.debug('size of %r: %d', len(data))
-
-                temp.write(data)
-                temp.seek(0)
-                yield Path(temp.name)
-
-
 def extract_tar(archive: Path, *, suffix: str) -> Iterator[Path]:
     import tarfile
     from tempfile import TemporaryDirectory
@@ -134,15 +109,15 @@ def extract_tar(archive: Path, *, suffix: str) -> Iterator[Path]:
         yield from walk_dir(folder, suffix=suffix)
 
 
-PACKAGE_RE = re.compile(r'Package: (?P<package>\S+)$', re.MULTILINE)
-VERSION_RE = re.compile(r'Version: (?P<version>\S+)$', re.MULTILINE)
-SIZE_RE = re.compile(r'Installed-Size: (?P<size>\d+)$', re.MULTILINE)
-DEPENDS_RE = re.compile(r'Depends: (?P<depends>(\S+, )*\S+)$', re.MULTILINE)
-SUGGESTS_RE = re.compile(r'Suggests: (?P<suggests>(\S+, )*\S+)$', re.MULTILINE)
-ENHANCES_RE = re.compile(r'Enhances: (?P<enhances>(\S+, )*\S+)$', re.MULTILINE)
-PROVIDES_RE = re.compile(r'Provides: (?P<provides>(\S+, )*\S+)$', re.MULTILINE)
-SECTION_RE = re.compile(r'Section: (?P<section>\S+)$', re.MULTILINE)
-PRIORITY_RE = re.compile(r'Priority: (?P<priority>\S+)$', re.MULTILINE)
+PACKAGE_RE = re.compile(r'Package: (?P<package>.+)$', re.MULTILINE)
+VERSION_RE = re.compile(r'Version: (?P<version>.+)$', re.MULTILINE)
+SIZE_RE = re.compile(r'Installed-Size: (?P<size>.+)$', re.MULTILINE)
+DEPENDS_RE = re.compile(r'Depends: (?P<depends>.+)$', re.MULTILINE)
+SUGGESTS_RE = re.compile(r'Suggests: (?P<suggests>.+)$', re.MULTILINE)
+ENHANCES_RE = re.compile(r'Enhances: (?P<enhances>.+)$', re.MULTILINE)
+PROVIDES_RE = re.compile(r'Provides: (?P<provides>.+)$', re.MULTILINE)
+SECTION_RE = re.compile(r'Section: (?P<section>.+)$', re.MULTILINE)
+PRIORITY_RE = re.compile(r'Priority: (?P<priority>.+)$', re.MULTILINE)
 DESCRIPTION_RE = re.compile(r'Description:(?P<description>.*)$', re.DOTALL)
 
 
@@ -158,7 +133,8 @@ def match_group(text: str, pattern: re.Pattern[str], group: str, log: Logger) ->
 def match_list(text: str, pattern: re.Pattern[str], group: str, log: Logger) -> tuple[str, ...]:
     try:
         result = match_group(text, pattern, group, log)
-    except AssertionError:
+    except AssertionError as error:
+        log.debug('no %s', group, exc_info=error)
         result = ''
 
     if not result:
@@ -177,7 +153,6 @@ def match_list(text: str, pattern: re.Pattern[str], group: str, log: Logger) -> 
 @dataclass(frozen=True)
 class DebInfo:
     package: str
-    description: str
     version: str
     size: int
     depends: tuple[str, ...]
@@ -186,6 +161,7 @@ class DebInfo:
     provides: tuple[str, ...]
     section: str
     priority: str
+    description: str
 
     @staticmethod
     def parse(control: str) -> DebInfo:
@@ -193,7 +169,6 @@ class DebInfo:
         log.debug('control line = %r', control)
 
         package = match_group(control, PACKAGE_RE, 'package', log)
-        description = match_group(control, DESCRIPTION_RE, 'description', log)
         version = match_group(control, VERSION_RE, 'version', log)
         size = int(match_group(control, SIZE_RE, 'size', log))
         depends = match_list(control, DEPENDS_RE, 'depends', log)
@@ -202,10 +177,10 @@ class DebInfo:
         provides = match_list(control, PROVIDES_RE, 'provides', log)
         section = match_group(control, SECTION_RE, 'section', log)
         priority = match_group(control, PRIORITY_RE, 'priority', log)
+        description = match_group(control, DESCRIPTION_RE, 'description', log)
 
         return DebInfo(
             package=package,
-            description=description,
             version=version,
             size=size,
             depends=depends,
@@ -214,6 +189,7 @@ class DebInfo:
             provides=provides,
             section=section,
             priority=priority,
+            description=description,
         )
 
 
@@ -226,7 +202,7 @@ def extract_info(deb: Path) -> DebInfo:
     return DebInfo.parse(dpkg.control_str)
 
 
-def extract_repo(repo: Path, *, dir: bool = False) -> Iterator[DebInfo]:
+def extract_repo(repo: Path) -> Iterator[DebInfo]:
     log = logger('extract_repo')
     log.debug('from %r', repo.name)
 
@@ -239,30 +215,26 @@ def extract_repo(repo: Path, *, dir: bool = False) -> Iterator[DebInfo]:
         log.info('undesrtood as package: %r', repo.name)
         yield extract_info(repo)
 
-    elif dir:
+    else:
         log.info('undesrtood as tarball: %r', repo.name)
         for deb in extract_tar(repo, suffix='.deb'):
             yield extract_info(deb)
 
-    else:
-        log.info('undesrtood as tarball: %r', repo.name)
-        for deb in walk_tar(repo, suffix='.deb'):
-            yield extract_info(deb)
 
-
-def explore(repos: list[Path], *, dir: bool = False) -> Iterator[DebInfo]:
+def explore(repos: list[Path]) -> Iterator[DebInfo]:
     log = logger('explore')
     log.debug('repos: %r', repos)
 
     for repo in repos:
-        yield from extract_repo(repo, dir=dir)
+        yield from extract_repo(repo)
 
 
 def main() -> None:
     parser = ArgumentParser(description='Graph depencies of local .deb packages')
     parser.add_argument('repo', nargs='+', help='Directory or tar to explore')
-    parser.add_argument('--verbose', '-v', action='count', default=0)
-    parser.add_argument('--dir', action='store_true')
+    parser.add_argument('-v', '--verbose', action='count', default=0)
+    parser.add_argument('-n', '--nodes', action='store_true')
+    parser.add_argument('-e', '--edges', action='store_true')
 
     log = logger('main')
     log.debug('parsing arguments')
@@ -271,8 +243,28 @@ def main() -> None:
     log.debug('verbosity: %s', args.verbose)
     set_verbosity(args.verbose)
 
-    for deb in explore([resolve(path) for path in args.repo], dir=args.dir):
-        print(deb)
+    nodes = dict[str, DebInfo]()
+    edges = dict[tuple[str, str], Literal['depends', 'suggests', 'enhances', 'provided']]()
+    for deb in explore([resolve(path) for path in args.repo]):
+        nodes[deb.package] = deb
+        for dependency in deb.depends:
+            edges[deb.package, dependency] = 'depends'
+        for dependency in deb.suggests:
+            edges[deb.package, dependency] = 'suggests'
+        for dependency in deb.enhances:
+            edges[deb.package, dependency] = 'enhances'
+        for dependency in deb.provides:
+            edges[dependency, deb.package] = 'provided'
+
+    if args.nodes:
+        print('id', 'shared name', 'version', 'section', 'priority', 'size', 'description', sep=',')
+        for name, node in nodes.items():
+            print(name, node.package, node.version, node.section, node.priority, node.size, repr(node.description), sep=',')
+
+    if args.edges:
+        print('source', 'target', 'interaction', sep=',')
+        for (source, target), interaction in edges.items():
+            print(source, target, interaction, sep=',')
 
 
 if __name__ == '__main__':
