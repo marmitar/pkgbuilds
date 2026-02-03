@@ -58,8 +58,8 @@ export QUILT_DIFF_OPTS='--show-c-function'
 
 # Options to pass to commands (QUILT_${COMMAND}_ARGS).
 QUILT_PUSH_ARGS='--color=auto'
-QUILT_DIFF_ARGS='-u -pab --diff=delta --no-timestamps --color=auto'
-QUILT_REFRESH_ARGS='-u -pab --diffstat --sort --no-timestamps'
+QUILT_DIFF_ARGS='-u -pab --no-timestamps --color=never'
+QUILT_REFRESH_ARGS='-u -pab --diffstat --sort --no-timestamps --color=never'
 QUILT_SERIES_ARGS='--color=auto'
 QUILT_PATCHES_ARGS='--color=auto'
 
@@ -69,8 +69,8 @@ unset QUILT_PATCHES_PREFIX
 # Customize pager
 case "${QUILT_COMMAND}" in
     diff|refresh)
-        # delta already handles the pager
-        export QUILT_PAGER=cat
+        # show side-by-side diff
+        export QUILT_PAGER=delta
         ;;
     annotate)
         # add filename for syntax highlighting
@@ -90,6 +90,6 @@ case "${QUILT_COMMAND}" in
         ;;
     *)
         # no syntax for editing files
-        export EDITR=nano
+        export EDITOR=nano
         ;;
 esac
