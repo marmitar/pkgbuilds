@@ -5,6 +5,7 @@
 # dependencies = ["colorlog>=6.10.1", "pydpkg>=1.9.5"]
 # ///
 
+from ast import Return
 import re
 from argparse import ArgumentParser
 from collections.abc import Iterator
@@ -223,7 +224,7 @@ def extract_repo(repo: Path) -> Iterator[DebInfo]:
             yield extract_info(deb)
 
 
-def explore(repos: list[Path]) -> Iterator[DebInfo]:
+def explore(*repos: Path) -> Iterator[DebInfo]:
     log = logger('explore')
     log.debug('repos: %r', repos)
 
@@ -231,9 +232,11 @@ def explore(repos: list[Path]) -> Iterator[DebInfo]:
         yield from extract_repo(repo)
 
 
+def root() -> Path:
+    return resolve(__file__).parent.parent
+
 def main() -> None:
-    parser = ArgumentParser(description='Graph depencies of local .deb packages')
-    parser.add_argument('repo', nargs='+', help='Directory or tar to explore')
+    parser = ArgumentParser(description='Graph depencies of local sgx_*_debian_local_repo')
     parser.add_argument('-v', '--verbose', action='count', default=0)
     # WARNING: bad UX follows, I won't even describe it
     parser.add_argument('-n', '--nodes', choices=['dbgsym'], nargs='?', const=True)
@@ -245,10 +248,11 @@ def main() -> None:
 
     set_verbosity(args.verbose)
     log.debug('args: %s', args)
+    repo = root() / 'intel-sgx-psw-bin' / 'sgx_2.27_debian_local_repo.tgz'
 
     nodes = dict[str, DebInfo]()
     edges = dict[tuple[str, str], Literal['depends', 'suggests', 'enhances', 'provided']]()
-    for deb in explore([resolve(path) for path in args.repo]):
+    for deb in explore(repo):
         nodes[deb.package] = deb
         for dependency in deb.depends:
             edges[dependency, deb.package] = 'depends'
