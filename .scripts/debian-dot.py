@@ -64,14 +64,16 @@ CURRENT_DIRECTORY = Path('.').resolve(strict=True)
 
 
 def resolve(path: str | Path) -> Path:
+    log = logger('resolve')
+
     absolute = Path(path).resolve(strict=True)
     try:
         relative = absolute.relative_to(CURRENT_DIRECTORY)
-    except ValueError:
+        log.debug('path=%r to %r (%r)', path, relative, absolute)
+    except ValueError as error:
         relative = absolute
+        log.debug('path=%r (%r) not relative to %r', path, absolute, CURRENT_DIRECTORY, exc_info=error)
 
-    log = logger('resolve')
-    log.debug('path=%r to %r (%r)', path, relative, absolute)
     return relative
 
 
@@ -248,13 +250,13 @@ def main() -> None:
     for deb in explore([resolve(path) for path in args.repo]):
         nodes[deb.package] = deb
         for dependency in deb.depends:
-            edges[deb.package, dependency] = 'depends'
+            edges[dependency, deb.package] = 'depends'
         for dependency in deb.suggests:
-            edges[deb.package, dependency] = 'suggests'
+            edges[dependency, deb.package] = 'suggests'
         for dependency in deb.enhances:
-            edges[deb.package, dependency] = 'enhances'
+            edges[dependency, deb.package] = 'enhances'
         for dependency in deb.provides:
-            edges[dependency, deb.package] = 'provided'
+            edges[deb.package, dependency] = 'provided'
 
     if args.nodes:
         print('id', 'shared name', 'version', 'section', 'priority', 'size', 'description', sep=',')
