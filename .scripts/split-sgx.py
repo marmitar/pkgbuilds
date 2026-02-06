@@ -5,16 +5,76 @@
 # dependencies = ["colorlog>=6.10.1", "pydpkg>=1.9.5"]
 # ///
 
-from ast import Return
 import re
 from argparse import ArgumentParser
 from collections.abc import Iterator
 from dataclasses import dataclass
 from logging import Logger
 from pathlib import Path
-from typing import Literal
+from typing import Final, LiteralString
 
 from pydpkg import Dpkg
+
+
+GROUPS: Final[dict[LiteralString, frozenset[LiteralString]]] = {
+    'intel-sgx-psw-common-bin': frozenset({
+        'libsgx-enclave-common',
+        'libsgx-enclave-common-dev',
+        'libsgx-headers',
+        'libsgx-launch',
+        'libsgx-launch-dev',
+        'libsgx-urts',
+    }),
+    'intel-sgx-aesm-bin': frozenset({
+        'sgx-aesm-service',
+        'libsgx-uae-service',
+        'libsgx-ae-epid',
+        'libsgx-ae-id-enclave',
+        'libsgx-ae-le',
+        'libsgx-ae-pce',
+        'libsgx-ae-qe3',
+        'libsgx-ae-qve',
+        'libsgx-aesm-ecdsa-plugin',
+        'libsgx-aesm-epid-plugin',
+        'libsgx-aesm-launch-plugin',
+        'libsgx-aesm-pce-plugin',
+        'libsgx-aesm-quote-ex-plugin',
+        'libsgx-qe3-logic',
+        'libsgx-epid-dev',
+        'libsgx-epid',
+        'libsgx-pce-logic',
+    }),
+    'intel-sgx-ra-bin': frozenset({
+        'sgx-ra-service',
+        'libsgx-ra-network',
+        'libsgx-ra-network-dev',
+        'libsgx-ra-uefi',
+        'libsgx-ra-uefi-dev',
+    }),
+    'intel-sgx-qgs-bin': frozenset({
+        'tdx-qgs',
+        'libsgx-tdx-logic',
+        'libsgx-tdx-logic-dev',
+        'libsgx-quote-ex',
+        'libsgx-quote-ex-dev',
+        'libsgx-ae-tdqe',
+        'libtdx-attest',
+        'libtdx-attest-dev',
+    }),
+    'intel-sgx-pccs-bin': frozenset({
+        'sgx-dcap-pccs',
+        'libsgx-dcap-ql',
+        'libsgx-dcap-ql-dev',
+        'libsgx-dcap-default-qpl',
+        'libsgx-dcap-default-qpl-dev',
+        'libsgx-dcap-quote-verify',
+        'libsgx-dcap-quote-verify-dev',
+        'intel-tee-pccs-admin-tool',
+        'intel-tee-pcs-client-tool',
+        'sgx-pck-id-retrieval-tool',
+    }),
+    'tee-appraisal-tool-bin': frozenset({'tee-appraisal-tool'}),
+}
 
 
 def setup_logger() -> None:
@@ -121,7 +181,7 @@ ENHANCES_RE = re.compile(r'Enhances: (?P<enhances>.+)$', re.MULTILINE)
 PROVIDES_RE = re.compile(r'Provides: (?P<provides>.+)$', re.MULTILINE)
 SECTION_RE = re.compile(r'Section: (?P<section>.+)$', re.MULTILINE)
 PRIORITY_RE = re.compile(r'Priority: (?P<priority>.+)$', re.MULTILINE)
-DESCRIPTION_RE = re.compile(r'Description:(?P<description>.*)$', re.DOTALL)
+DESCRIPTION_RE = re.compile(r'Description:(?P<description>.*)$', re.MULTILINE)
 
 
 def match_group(text: str, pattern: re.Pattern[str], group: str, log: Logger) -> str:
@@ -235,12 +295,11 @@ def explore(*repos: Path) -> Iterator[DebInfo]:
 def root() -> Path:
     return resolve(__file__).parent.parent
 
+
 def main() -> None:
     parser = ArgumentParser(description='Graph depencies of local sgx_*_debian_local_repo')
     parser.add_argument('-v', '--verbose', action='count', default=0)
-    # WARNING: bad UX follows, I won't even describe it
-    parser.add_argument('-n', '--nodes', choices=['dbgsym'], nargs='?', const=True)
-    parser.add_argument('-e', '--edges', choices=['depends', 'suggests', 'enhances', 'provided'], nargs='?', const='*')
+    parser.add_argument('-i', '--internal', action='store_true')
 
     log = logger('main')
     log.debug('parsing arguments')
@@ -250,32 +309,39 @@ def main() -> None:
     log.debug('args: %s', args)
     repo = root() / 'intel-sgx-psw-bin' / 'sgx_2.27_debian_local_repo.tgz'
 
-    nodes = dict[str, DebInfo]()
-    edges = dict[tuple[str, str], Literal['depends', 'suggests', 'enhances', 'provided']]()
+    groups = {name: set[DebInfo]() for name in GROUPS}
+    loc = dict[str, str | None]()
     for deb in explore(repo):
-        nodes[deb.package] = deb
-        for dependency in deb.depends:
-            edges[dependency, deb.package] = 'depends'
-        for dependency in deb.suggests:
-            edges[dependency, deb.package] = 'suggests'
-        for dependency in deb.enhances:
-            edges[dependency, deb.package] = 'enhances'
-        for dependency in deb.provides:
-            edges[deb.package, dependency] = 'provided'
+        loc[deb.package] = None
+        for group, packages in GROUPS.items():
+            if deb.package in packages or deb.package.replace('-dbgsym', '') in packages:
+                groups[group].add(deb)
+                loc[deb.package] = group
 
-    if args.nodes:
-        print('id', 'shared name', 'version', 'section', 'priority', 'size', 'description', sep=',')
-        for name, node in nodes.items():
-            if args.nodes != 'dbgsym' and name.endswith('-dbgsym'):
-                continue
-            print(name, node.package, node.version, node.section, node.priority, node.size, repr(node.description), sep=',')
+    for group, packages in groups.items():
+        print(f'============> {group}:')
+        deps = set[str]()
+        optdeps = set[str]()
+        for deb in sorted(packages, key=lambda p: p.package):
+            print()
+            print(f'{deb.package}:')
+            print(f'\t{deb.description}')
+            edeps = [dep for dep in deb.depends if loc.get(dep) != group]
+            deps.update(edeps)
+            optdeps.update(dep for dep in deb.suggests if loc.get(dep) != group)
+            optdeps.update(dep for dep in deb.enhances if loc.get(dep) != group)
+            print(f'\tExternal dependencies: {edeps}')
+            if args.internal:
+                ideps = [dep for dep in deb.depends if loc.get(dep) == group]
+                print(f'\tInternal dependencies: {ideps}')
+        print()
+        print(f'Total dependencies: {sorted(deps)}')
+        print(f'Optional dependencies: {sorted(optdeps)}')
+        print()
 
-    if args.edges:
-        print('source', 'target', 'interaction', sep=',')
-        for (source, target), interaction in edges.items():
-            if args.edges != '*' and args.edges != interaction:
-                continue
-            print(source, target, interaction, sep=',')
+    for package, group in loc.items():
+        if not group:
+            log.warning('unhandled package: %s', package)
 
 
 if __name__ == '__main__':
