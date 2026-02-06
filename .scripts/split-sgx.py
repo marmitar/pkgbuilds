@@ -61,7 +61,7 @@ GROUPS: Final[dict[LiteralString, frozenset[LiteralString]]] = {
         'libtdx-attest',
         'libtdx-attest-dev',
     }),
-    'intel-sgx-pccs-bin': frozenset({
+    'intel-sgx-dcap-bin': frozenset({
         'sgx-dcap-pccs',
         'libsgx-dcap-ql',
         'libsgx-dcap-ql-dev',
@@ -72,8 +72,8 @@ GROUPS: Final[dict[LiteralString, frozenset[LiteralString]]] = {
         'intel-tee-pccs-admin-tool',
         'intel-tee-pcs-client-tool',
         'sgx-pck-id-retrieval-tool',
+        'tee-appraisal-tool',
     }),
-    'tee-appraisal-tool-bin': frozenset({'tee-appraisal-tool'}),
 }
 
 
