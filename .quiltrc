@@ -54,14 +54,14 @@ export QUILT_PC
 export QUILT_DIFF_OPTS='--show-c-function'
 
 # Options passed to diffstat when generating patch statistics.
-#QUILT_DIFFSTAT_OPTS="-f0"
+#export QUILT_DIFFSTAT_OPTS="-f0"
 
 # Options to pass to commands (QUILT_${COMMAND}_ARGS).
-QUILT_PUSH_ARGS='--color=auto'
-QUILT_DIFF_ARGS='-u -pab --no-timestamps --color=never'
-QUILT_REFRESH_ARGS='-u -pab --diffstat --sort --no-timestamps --color=never'
-QUILT_SERIES_ARGS='--color=auto'
-QUILT_PATCHES_ARGS='--color=auto'
+export QUILT_PUSH_ARGS='--color=auto'
+export QUILT_DIFF_ARGS='-u -pab --no-timestamps --color=never'
+export QUILT_REFRESH_ARGS='-u -pab --diffstat --sort --no-timestamps --color=never'
+export QUILT_SERIES_ARGS='--color=auto'
+export QUILT_PATCHES_ARGS='--color=auto'
 
 # Remove prefix from patch names.
 unset QUILT_PATCHES_PREFIX
