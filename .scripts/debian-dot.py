@@ -235,15 +235,16 @@ def main() -> None:
     parser = ArgumentParser(description='Graph depencies of local .deb packages')
     parser.add_argument('repo', nargs='+', help='Directory or tar to explore')
     parser.add_argument('-v', '--verbose', action='count', default=0)
-    parser.add_argument('-n', '--nodes', action='store_true')
-    parser.add_argument('-e', '--edges', action='store_true')
+    # WARNING: bad UX follows, I won't even describe it
+    parser.add_argument('-n', '--nodes', choices=['dbgsym'], nargs='?', const=True)
+    parser.add_argument('-e', '--edges', choices=['depends', 'suggests', 'enhances', 'provided'], nargs='?', const='*')
 
     log = logger('main')
     log.debug('parsing arguments')
     args = parser.parse_intermixed_args()
 
-    log.debug('verbosity: %s', args.verbose)
     set_verbosity(args.verbose)
+    log.debug('args: %s', args)
 
     nodes = dict[str, DebInfo]()
     edges = dict[tuple[str, str], Literal['depends', 'suggests', 'enhances', 'provided']]()
@@ -261,11 +262,15 @@ def main() -> None:
     if args.nodes:
         print('id', 'shared name', 'version', 'section', 'priority', 'size', 'description', sep=',')
         for name, node in nodes.items():
+            if args.nodes != 'dbgsym' and name.endswith('-dbgsym'):
+                continue
             print(name, node.package, node.version, node.section, node.priority, node.size, repr(node.description), sep=',')
 
     if args.edges:
         print('source', 'target', 'interaction', sep=',')
         for (source, target), interaction in edges.items():
+            if args.edges != '*' and args.edges != interaction:
+                continue
             print(source, target, interaction, sep=',')
 
 
