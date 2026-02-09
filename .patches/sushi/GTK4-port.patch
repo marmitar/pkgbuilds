@@ -1,5 +1,7 @@
-Includes <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/43>
-
+Author: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Sun, 21 Sep 2025 07:12:00 -0300
+Last-Update: 2026-02-08
+Subject: [PATCH] Includes <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/43>
 ---
  .SRCINFO                    |    7 +++----
  .gitignore                  |    1 +

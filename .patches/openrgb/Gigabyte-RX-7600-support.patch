@@ -1,5 +1,7 @@
-Use latest master, which includes <https://gitlab.com/CalcProgrammer1/OpenRGB/-/merge_requests/2999>
-
+Author: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Sun, 21 Sep 2025 20:46:08 -0300
+Last-Update: 2026-02-08
+Subject: [PATCH] Use latest master, which includes <https://gitlab.com/CalcProgrammer1/OpenRGB/-/merge_requests/2999>
 ---
  .SRCINFO   |    6 +++---
  .gitignore |    2 ++

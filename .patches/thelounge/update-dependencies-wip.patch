@@ -1,21 +1,8 @@
-WIP
-
+Author: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Sun, 18 Jan 2026 23:23:10 -0300
+Last-Update: 2026-02-08
+Subject: [WIP] Migrate to ESM modules
 ---
- .SRCINFO        |    8 
- PKGBUILD        |    6 
- modernize.patch |14624 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- .SRCINFO        |    8 
- PKGBUILD        |    8 
- modernize.patch |14624 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- .SRCINFO        |   10 
- PKGBUILD        |   12 
- modernize.patch |14624 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- .SRCINFO        |   10 
- PKGBUILD        |   12 
- modernize.patch |15015 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- .SRCINFO        |    6 
- PKGBUILD        |    8 
- modernize.patch |15015 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  .SRCINFO        |    6 
  PKGBUILD        |    8 
  modernize.patch |15041 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++

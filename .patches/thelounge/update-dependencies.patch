@@ -1,5 +1,7 @@
-See <https://github.com/thelounge/thelounge/pull/5003>
-
+Author: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Tue, 4 Nov 2025 07:59:00 -0300
+Last-Update: 2026-02-08
+Subject: [PATCH] See <https://github.com/thelounge/thelounge/pull/5003>
 ---
  .SRCINFO   |    8 +++++---
  .gitignore |    1 +
@@ -85,4 +87,3 @@ Index: b/PKGBUILD
 +	patch -p1 -i "${srcdir}"/5003.patch
  	yarn install --frozen-lockfile --non-interactive --ignore-scripts --cache-folder "$srcdir/yarn-cache"
  }
- 

@@ -1,7 +1,9 @@
-Restore sprigin for testing sprout.
+Author: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Sun, 25 Jan 2026 07:17:48 -0300
+Last-Update: 2026-02-08
+Subject: [PATCH] Restore sprigin for testing sprout.
 
 Removed in <https://github.com/twpayne/chezmoi/pull/4877>
-
 ---
  .SRCINFO   |    4 +++-
  .gitignore |    3 +++

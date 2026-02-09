@@ -1,10 +1,12 @@
-Up-to-date with <https://gitlab.gnome.org/GNOME/sushi/-/tree/2f6a4906> (2025-09-05)
+Author: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Sun, 25 Jan 2026 05:08:28 -0300
+Last-Update: 2026-02-08
+Subject: [PATCH] Update to <https://gitlab.gnome.org/GNOME/sushi/-/tree/2f6a4906> (2025-09-05)
 
 Includes merge requests:
 - <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/55>
 - <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/59>
 - <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/60>
-
 ---
  .SRCINFO                          |   15 +---
  .gitignore                        |    2 

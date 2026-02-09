@@ -1,7 +1,9 @@
-Update sprout to main.
+Author: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Fri, 9 Jan 2026 00:24:23 -0300
+Last-Update: 2026-02-08
+Subject: [PATCH] Update sprout to main.
 
 Includes <https://github.com/go-sprout/sprout/pull/160>
-
 ---
  .SRCINFO |    2 +-
  PKGBUILD |    7 +++++--

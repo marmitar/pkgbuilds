@@ -14,3 +14,7 @@ Somewhat based on <https://man.archlinux.org/man/PKGBUILD.5>.
 
 - [.editorconfig](./.editorconfig) (with [shfmt](https://github.com/mvdan/sh) options)
 - [.shellcheckrc](./.shellcheckrc)
+
+# Patches
+
+Follow the [Debian Enhancement Proposal 3](https://dep-team.pages.debian.net/deps/dep3/).
