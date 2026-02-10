@@ -1,13 +1,13 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 21 Sep 2025 07:12:00 -0300
-Last-Update: 2026-02-08
+Last-Update: 2026-02-09
 Subject: [PATCH] Includes <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/43>
 ---
- .SRCINFO                    |    7 +++----
+ .SRCINFO                    |    9 +++++----
  .gitignore                  |    1 +
- PKGBUILD                    |   14 +++++++-------
+ PKGBUILD                    |   16 +++++++++-------
  sushi-detect-llvmpipe.patch |   38 --------------------------------------
- 4 files changed, 11 insertions(+), 49 deletions(-)
+ 4 files changed, 15 insertions(+), 49 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -22,15 +22,18 @@ Index: b/.SRCINFO
  	url = https://gitlab.gnome.org/GNOME/sushi
  	arch = x86_64
  	groups = gnome
-@@ -11,7 +11,6 @@ pkgbase = sushi
+@@ -10,8 +10,9 @@ pkgbase = sushi
+ 	makedepends = gobject-introspection
  	makedepends = meson
  	makedepends = python-setuptools
++	makedepends = webkitgtk-6.0
  	depends = cairo
 -	depends = evince
++	depends = papers
  	depends = freetype2
  	depends = gcc-libs
  	depends = gdk-pixbuf2
-@@ -30,9 +29,9 @@ pkgbase = sushi
+@@ -30,9 +31,9 @@ pkgbase = sushi
  	optdepends = libreoffice: OpenDocument formats
  	optdepends = webkit2gtk-4.1: Render HTML files
  	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=4a7449ecdde60b0d3851b03d37447db769933e36
@@ -54,7 +57,7 @@ Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -4,14 +4,13 @@
+@@ -4,14 +4,14 @@
  
  pkgname=sushi
  pkgver=47.alpha
@@ -67,10 +70,19 @@ Index: b/PKGBUILD
  depends=(
    cairo
 -  evince
++  papers
    freetype2
    gcc-libs
    gdk-pixbuf2
-@@ -40,9 +39,9 @@ optdepends=(
+@@ -33,6 +33,7 @@ makedepends=(
+   gobject-introspection
+   meson
+   python-setuptools
++  webkitgtk-6.0
+ )
+ optdepends=(
+   'libreoffice: OpenDocument formats'
+@@ -40,9 +41,9 @@ optdepends=(
  )
  groups=(gnome)
  source=("git+$url.git#commit=4a7449ecdde60b0d3851b03d37447db769933e36"
@@ -82,7 +94,7 @@ Index: b/PKGBUILD
  validpgpkeys=(
    550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
  )
-@@ -50,9 +49,10 @@ validpgpkeys=(
+@@ -50,9 +51,10 @@ validpgpkeys=(
  prepare() {
    cd sushi
  
