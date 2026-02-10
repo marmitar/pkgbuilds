@@ -1,6 +1,6 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Tue, 4 Nov 2025 07:59:00 -0300
-Last-Update: 2026-02-08
+Last-Update: 2026-02-10
 Subject: [PATCH] See <https://github.com/thelounge/thelounge/pull/5003>
 ---
  .SRCINFO   |    8 +++++---
@@ -62,7 +62,7 @@ Index: b/PKGBUILD
  arch=('any')
 @@ -11,15 +11,17 @@ depends=('nodejs')
  options=('!lto')
- makedepends=('yarn' 'python' 'python-setuptools' 'git')
+ makedepends=('yarn' 'python' 'python-setuptools' 'npm')
  backup=('etc/thelounge/config.js')
 -_commit='f5867c3643ba8ef24dcf5a7010f39fd6050d0954'
 +_commit='b2e3112806c4fb615b04c8981ac49a7308dedf58'

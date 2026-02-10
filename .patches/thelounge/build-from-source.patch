@@ -1,20 +1,20 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 18 Jan 2026 23:23:10 -0300
-Last-Update: 2026-02-08
+Last-Update: 2026-02-10
 Subject: [PATCH] Builds directly from a commit, for easier patching.
 
 Currently synced to <https://github.com/thelounge/thelounge/commit/f5867c3643ba8ef24dcf5a7010f39fd6050d0954>
 ---
- .SRCINFO   |   11 +++--------
- .gitignore |    3 +++
- PKGBUILD   |   61 +++++++++++++++++++++++++++++--------------------------------
- 3 files changed, 35 insertions(+), 40 deletions(-)
+ .SRCINFO   |   13 +++---------
+ .gitignore |    3 ++
+ PKGBUILD   |   63 +++++++++++++++++++++++++++++--------------------------------
+ 3 files changed, 37 insertions(+), 42 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
 --- a/.SRCINFO
 +++ b/.SRCINFO
-@@ -1,7 +1,7 @@
+@@ -1,28 +1,23 @@
  pkgbase = thelounge
  	pkgdesc = Modern self-hosted web IRC client
  	pkgver = 4.4.3
@@ -23,9 +23,11 @@ Index: b/.SRCINFO
  	url = https://thelounge.chat/
  	arch = any
  	license = MIT
-@@ -10,19 +10,14 @@ pkgbase = thelounge
+ 	makedepends = yarn
+ 	makedepends = python
  	makedepends = python-setuptools
- 	makedepends = git
+-	makedepends = git
++	makedepends = npm
  	depends = nodejs
 -	noextract = thelounge-4.4.3.tgz
  	options = !lto
@@ -57,7 +59,7 @@ Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -2,8 +2,7 @@
+@@ -2,65 +2,62 @@
  # Maintainer: Maxime Poulin <maxpoulin64@gmail.com>
  pkgname=thelounge
  pkgver=4.4.3
@@ -67,9 +69,11 @@ Index: b/PKGBUILD
  pkgdesc='Modern self-hosted web IRC client'
  url='https://thelounge.chat/'
  arch=('any')
-@@ -12,55 +11,53 @@ depends=('nodejs')
+ license=('MIT')
+ depends=('nodejs')
  options=('!lto')
- makedepends=('yarn' 'python' 'python-setuptools' 'git')
+-makedepends=('yarn' 'python' 'python-setuptools' 'git')
++makedepends=('yarn' 'python' 'python-setuptools' 'npm')
  backup=('etc/thelounge/config.js')
 +_commit='f5867c3643ba8ef24dcf5a7010f39fd6050d0954'
  source=(
