@@ -5,8 +5,8 @@ Subject: [PATCH] build from latest commit in master
 ---
  .SRCINFO   |   10 +++++-----
  .gitignore |    1 +
- PKGBUILD   |   17 +++++++++--------
- 3 files changed, 15 insertions(+), 13 deletions(-)
+ PKGBUILD   |   24 ++++++++++++++++--------
+ 3 files changed, 22 insertions(+), 13 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -44,7 +44,7 @@ Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -2,25 +2,26 @@
+@@ -2,25 +2,33 @@
  # Contributor: Dan McGee <dan@archlinux.org>
  
  pkgname=dash
@@ -72,13 +72,20 @@ Index: b/PKGBUILD
    autoreconf -fiv
  }
  
++_cflags() {
++    printf '%s' "${CFLAGS}" |\
++        sed -E "s/-march=\S+/-march=${1}" |\
++        sed -E "s/-mtune=\S+/-mtune=${2}"
++}
++
  build() {
 -  cd ${pkgname}-${pkgver}
 +  cd ${pkgname}-${_commit}
++  export CFLAGS="$(_cflags x86-64 generic)"
    ./configure \
      --prefix=/usr \
      --bindir=/usr/bin \
-@@ -31,7 +32,7 @@ build() {
+@@ -31,7 +39,7 @@ build() {
  }
  
  package() {
