@@ -213,7 +213,7 @@ def match_list(text: str, pattern: re.Pattern[str], group: str, log: Logger) -> 
     return tuple(items)
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class DebInfo:
     package: str
     version: str
