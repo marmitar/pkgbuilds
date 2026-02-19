@@ -1,3 +1,4 @@
 build-from-master.patch
 fix-buffer-overflow-crash.patch
+fix-unaligned-access-crash.patch
 with-asan.patch

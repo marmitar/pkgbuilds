@@ -1,11 +1,11 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Fri, 13 Feb 2026 23:13:04 -0300
-Last-Update: 2026-02-13
+Last-Update: 2026-02-19
 Subject: [PATCH] add buffer overflow patch
 ---
  .SRCINFO |    2 +-
- PKGBUILD |    5 +++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ PKGBUILD |    4 +++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -15,8 +15,8 @@ Index: b/.SRCINFO
  pkgbase = dash
  	pkgdesc = POSIX compliant shell that aims to be as small as possible
  	pkgver = 0.5.13.2
--	pkgrel = 0.1
-+	pkgrel = 0.2
+-	pkgrel = 0.2
++	pkgrel = 0.3
  	url = http://gondor.apana.org.au/~herbert/dash/
  	install = dash.install
  	arch = x86_64
@@ -28,17 +28,16 @@ Index: b/PKGBUILD
  
  pkgname=dash
  pkgver=0.5.13.2
--pkgrel=0.1
-+pkgrel=0.2
+-pkgrel=0.2
++pkgrel=0.3
  _commit=5139d6a27763fc0be386e15634db21e45598b299
  pkgdesc='POSIX compliant shell that aims to be as small as possible'
  url='http://gondor.apana.org.au/~herbert/dash/'
-@@ -32,7 +32,8 @@ _cflags() {
+@@ -30,6 +30,8 @@ prepare() {
  
  build() {
    cd ${pkgname}-${_commit}
--  export CFLAGS="$(_cflags x86-64 generic)"
-+  export CFLAGS="$(_cflags x86-64 generic) -g -fsanitize=undefined -fsanitize=address"
++  export CFLAGS="${CFLAGS} -g -fsanitize=undefined -fsanitize=address"
 +  export LDFLAGS="${LDFLAGS} -fsanitize=undefined -fsanitize=address"
    ./configure \
      --prefix=/usr \
