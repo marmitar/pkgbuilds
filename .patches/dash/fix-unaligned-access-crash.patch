@@ -3,10 +3,10 @@ Date: Fri, 14 Feb 2026 02:09:58 -0800
 Last-Update: 2026-02-19
 Subject: [PATCH] add unaligned -O3 patch
 ---
- .SRCINFO                          |    9 ++--
- PKGBUILD                          |   19 +++------
- dash-unaligned-access-crash.patch |   80 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 94 insertions(+), 14 deletions(-)
+ .SRCINFO                          |    9 ++++--
+ PKGBUILD                          |   19 +++++--------
+ dash-unaligned-access-crash.patch |   55 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 69 insertions(+), 14 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -17,7 +17,7 @@ Index: b/.SRCINFO
  	pkgdesc = POSIX compliant shell that aims to be as small as possible
  	pkgver = 0.5.13.2
 -	pkgrel = 0.1
-+	pkgrel = 0.2
++	pkgrel = 0.3
  	url = http://gondor.apana.org.au/~herbert/dash/
  	install = dash.install
  	arch = x86_64
@@ -29,11 +29,11 @@ Index: b/.SRCINFO
  	sha512sums = aefbe9305ec52058d38d752ad53cae8cc0b869dafa84853a674be14800aa81efac52cf7bec7ebaa740a16902cf3d90d5bdf285f3e97a9cd8c902f5d68989b506
 -	sha512sums = 373102c40c3906b039200e5f80cc308edff0c6409aefb87e40956804c293b875106847470ad313bacabc20d0851ea6bb9e2b7e9993a7f0c0c0c930f46ed570da
 +	sha512sums = 48268295171069b4d7191298fdc4326d4e37c5204773d7e1ed118dd394524b65b79b04b99de4620868e89a6c85cf739dcf2e3c1d95abf74793527ec244bf6332
-+	sha512sums = b406292312aa114d6606062aeffecd7e09534b19aa39fbf7ac78339336e36ebff4b8a1cee04382a429367cfa5bc3e32453b96e9f2310106f70a38f4e262f0767
++	sha512sums = 6b85146e63e69d15e5a6e8eb8af972aaed2b4d3f42711f994cf3a9baae53b9434802e4052a73c34ba7db9bbe47785b496359f94930d61abff277ec28dc35dada
  	b2sums = ab848516700ac8db6d7cbcfd2c9b37701d7e090f6c2091db1e65e82c47df5d5a77c77da08b2b4b908c29347c2d1672c525501cfb7103f27839bccc62ff5a6b31
 -	b2sums = 46891ac253d061db1a9556d0b7f0240de0b24ace333611ef1cc955e75e1959bf387a8ed0abb40ad43cdb781c46267c689313a8ee9e1effa6ebc6dac33869332a
 +	b2sums = 878997b41b6aef022795c4d1523e743ada52d2d19fc3743adbe288573c6a757f759b0499584f47c240d708291a3d1c137faefe83de05677f67586a7b544453f7
-+	b2sums = 10ca61f972fbd4c520cf57bf3a5406fa79f2a0f0eec88fb1e0f15d9984b3e09c1c3c327b4762aabe3daab9cbf5b0d2150ace53935b9bbcc6761287c22304f9a8
++	b2sums = c4aedabf299a3226e12b70551d5affc625a90c5c2dafdeb8fbe7dfcf20faf85a8998dd4d8a08a82e6dd59a6905d12262401596fc8e6adb1462af7fe63e162975
  
  pkgname = dash
 Index: b/PKGBUILD
@@ -45,7 +45,7 @@ Index: b/PKGBUILD
  pkgname=dash
  pkgver=0.5.13.2
 -pkgrel=0.1
-+pkgrel=0.2
++pkgrel=0.3
  _commit=5139d6a27763fc0be386e15634db21e45598b299
  pkgdesc='POSIX compliant shell that aims to be as small as possible'
  url='http://gondor.apana.org.au/~herbert/dash/'
@@ -59,11 +59,11 @@ Index: b/PKGBUILD
  sha512sums=('aefbe9305ec52058d38d752ad53cae8cc0b869dafa84853a674be14800aa81efac52cf7bec7ebaa740a16902cf3d90d5bdf285f3e97a9cd8c902f5d68989b506'
 -            '373102c40c3906b039200e5f80cc308edff0c6409aefb87e40956804c293b875106847470ad313bacabc20d0851ea6bb9e2b7e9993a7f0c0c0c930f46ed570da')
 +            '48268295171069b4d7191298fdc4326d4e37c5204773d7e1ed118dd394524b65b79b04b99de4620868e89a6c85cf739dcf2e3c1d95abf74793527ec244bf6332'
-+            'b406292312aa114d6606062aeffecd7e09534b19aa39fbf7ac78339336e36ebff4b8a1cee04382a429367cfa5bc3e32453b96e9f2310106f70a38f4e262f0767')
++            '6b85146e63e69d15e5a6e8eb8af972aaed2b4d3f42711f994cf3a9baae53b9434802e4052a73c34ba7db9bbe47785b496359f94930d61abff277ec28dc35dada')
  b2sums=('ab848516700ac8db6d7cbcfd2c9b37701d7e090f6c2091db1e65e82c47df5d5a77c77da08b2b4b908c29347c2d1672c525501cfb7103f27839bccc62ff5a6b31'
 -        '46891ac253d061db1a9556d0b7f0240de0b24ace333611ef1cc955e75e1959bf387a8ed0abb40ad43cdb781c46267c689313a8ee9e1effa6ebc6dac33869332a')
 +        '878997b41b6aef022795c4d1523e743ada52d2d19fc3743adbe288573c6a757f759b0499584f47c240d708291a3d1c137faefe83de05677f67586a7b544453f7'
-+        '10ca61f972fbd4c520cf57bf3a5406fa79f2a0f0eec88fb1e0f15d9984b3e09c1c3c327b4762aabe3daab9cbf5b0d2150ace53935b9bbcc6761287c22304f9a8')
++        'c4aedabf299a3226e12b70551d5affc625a90c5c2dafdeb8fbe7dfcf20faf85a8998dd4d8a08a82e6dd59a6905d12262401596fc8e6adb1462af7fe63e162975')
  
  prepare() {
    cd ${pkgname}-${_commit}
@@ -88,56 +88,30 @@ Index: b/dash-unaligned-access-crash.patch
 ===================================================================
 --- /dev/null
 +++ b/dash-unaligned-access-crash.patch
-@@ -0,0 +1,80 @@
-+From: Tiago de Paula <tiagodepalves@gmail.com>
-+Date: Fri, 13 Feb 2026 21:09:58 -0800
-+Message-ID: <CAO_NRt6m0gYC4A-O19mebUAePSQ_X7gbuSyuxHevWE4xHnWMAg@mail.gmail.com>
-+Subject: [PATCH] expand: Avoid unaligned access through uint64_t pointer
+@@ -0,0 +1,55 @@
++From: Natanael Copa <ncopa@alpinelinux.org>
 +To: dash@vger.kernel.org
-+Cc: Herbert Xu <herbert@gondor.apana.org.au>, Tiago de Paula <tiagodepalves@gmail.com>
++Cc: Natanael Copa <ncopa@alpinelinux.org>
++Subject: [PATCH v2] expand: fix SIGBUS due to unaligned access
++Date: Fri, 16 Jan 2026 21:55:39 +0100
++Message-ID: <20260116205645.19074-1-ncopa@alpinelinux.org>
 +
-+Use memcpy to reduce alignment from 8 to 1. Unaligned access in this
-+case is undefined behavior and can lead to invalid machine code in
-+architectures with strict alignment requirements or after compiler
-+optimizations.
++Replace direct uint64_t dereference with memcpy() to avoid
++SIGBUS on armv7 when p is not 8-byte aligned.
 +
-+Fixes: c0c860df08c9 ("expand: Count multi-byte characters")
-+Signed-off-by: Tiago de Paula <tiagodepalves@gmail.com>
++Fixes crashes in dash during IFS splitting on strict-alignment
++architectures.
++
++Signed-off-by: Natanael Copa <ncopa@alpinelinux.org>
 +---
-+I was getting crashes when compiling with '-march=native -mtune=native -O3'.
-+Building with ASAN avoided the crashes, but I got these warnings instead:
-+
-+    expand.c:964:13: runtime error: load of misaligned address
-+0x7ffe4892c997 for type 'uint64_t', which requires 8 byte alignment
-+    0x7ffe4892c997: note: pointer points here
-+    61 73 68 00 43  6f 6e 66 69 67 75 72 65  00 2d 64 65 00 2d 44 70
-+72 65 66 69 78 3d 2f 68  6f 6d 65
-+                ^
-+    expand.c:970:29: runtime error: store to misaligned address
-+0x558de50b48e3 for type 'uint64_t', which requires 8 byte alignment
-+    0x558de50b48e3: note: pointer points here
-+    00  6d 65 3d 00 8d 55 00 00  10 49 0b e5 8d 55 00 00  d8 48 0b e5
-+8d 55 00 00  00 00 00 00 00 00 00
-+                ^
-+    expand.c:1338:13: runtime error: load of misaligned address
-+0x7d49bf7e2889 for type 'uint64_t', which requires 8 byte alignment
-+    0x7d49bf7e2889: note: pointer points here
-+    7c 00 00  2f 62 69 6e 20 2f 75 73  72 2f 62 69 6e 20 2f 75  73 72
-+2f 6c 6f 63 61 6c  2f 62 69 6e 20
-+                ^
-+
-+Which led me to connect the dots and make this fix. I was also able to
-+reproduce the crash with just '-march=x86-64-v2 -mtune=generic -O3 -g',
-+but not with -O2 or -march=x86-64 alone, so it might be triggered by
-+the interaction of two of more optimization flags. The patch does fix
-+the issue for me, though, so I didn't try to find the exact flags that
-+do that.
-+
 + src/expand.c | 7 ++++---
 + 1 file changed, 4 insertions(+), 3 deletions(-)
 +
++v2:
++- Added a couple more instances of unaligned access.
++
 +diff --git a/src/expand.c b/src/expand.c
-+index 8c8bf0e..72d11cb 100644
++index 8c8bf0e..98b65ba 100644
 +--- a/src/expand.c
 ++++ b/src/expand.c
 +@@ -961,13 +961,14 @@ static size_t memtodest(const char *p, size_t len, int flags)
@@ -146,26 +120,27 @@ Index: b/dash-unaligned-access-crash.patch
 + 		while (len >= 8) {
 +-			uint64_t x = *(uint64_t *)(p + count);
 ++			uint64_t x;
-++			memcpy(&x, p + count, sizeof(uint64_t));
-+
+++			memcpy(&x, p + count, sizeof(x));
++ 
 + 			if ((x | (x - 0x0101010101010101)) &
 + 			    0x8080808080808080)
 + 				break;
-+
++ 
 +-			*(uint64_t *)(q + count) = x;
-++			memcpy(q + count, &x, sizeof(uint64_t));
-+
+++			memcpy(q + count, &x, sizeof(x));
++ 
 + 			count += 8;
 + 			len -= 8;
 +@@ -1335,7 +1336,7 @@ ifsbreakup(char *string, int maxargs, struct arglist *arglist)
 + 						unsigned char b[8];
 + 					} x;
-+
++ 
 +-					x.qw = *(uint64_t *)p;
-++					memcpy(&x.qw, p, sizeof(uint64_t));
-+
+++					memcpy(&x.qw, p, sizeof(x.qw));
++ 
 + 					if ((x.qw & 0x8080808080808080))
 + 						break;
 +-- 
-+2.53.0
++2.52.0
++
 +
