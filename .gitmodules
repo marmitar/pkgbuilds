@@ -132,7 +132,12 @@
 [submodule "sushi"]
 	path = sushi
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git
-    branch = gnome-unstable
+	branch = gnome-unstable
+
+[submodule "gitg"]
+	path = gitg
+	url = https://gitlab.archlinux.org/archlinux/packaging/packages/gitg.git
+	branch = main
 
 [submodule "thelounge"]
 	path = thelounge
@@ -147,4 +152,4 @@
 [submodule "openrgb"]
 	path = openrgb
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/openrgb.git
-    branch = main
+	branch = main
