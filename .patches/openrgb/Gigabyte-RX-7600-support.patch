@@ -1,6 +1,6 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 21 Sep 2025 20:46:08 -0300
-Last-Update: 2026-02-28
+Last-Update: 2026-03-14
 Subject: [PATCH] Use latest master, which includes <https://gitlab.com/CalcProgrammer1/OpenRGB/-/merge_requests/2999>
 ---
  .SRCINFO   |    7 ++++---
@@ -17,7 +17,7 @@ Index: b/.SRCINFO
  	pkgdesc = Open source RGB lighting control that doesn't depend on manufacturer software
  	pkgver = 1.0rc2
 -	pkgrel = 5
-+	pkgrel = 5.4
++	pkgrel = 5.5
  	url = https://gitlab.com/CalcProgrammer1/OpenRGB
  	arch = x86_64
  	license = GPL-2.0-or-later
@@ -31,12 +31,12 @@ Index: b/.SRCINFO
  	depends = hicolor-icon-theme
  	optdepends = i2c-tools: mainboard & RAM access
 -	source = https://gitlab.com/CalcProgrammer1/OpenRGB/-/archive/release_candidate_1.0rc2/OpenRGB-release_candidate_1.0rc2.tar.gz
-+	source = git+https://gitlab.com/CalcProgrammer1/OpenRGB.git#commit=84bb05d50485722830a3e1901abf99b045028fce
++	source = git+https://gitlab.com/CalcProgrammer1/OpenRGB.git#commit=dfad607697567a632f929ef00a592871d51be96b
  	source = openrgb-modules-load.conf
  	source = openrgb.tmpfiles
  	source = openrgb.service
 -	sha256sums = 7ecef99ab1607bd8f47427eef59e060e407dc97a40bb9083c5ade6f30145b762
-+	sha256sums = 8aba6ac243afbfa1634201c4017353aa69c8cc78e257847edd306388ee9b1a6a
++	sha256sums = 67f8bf9d6847577946236b50ba5864fed3de0c2db8d26eb87e36109a9481f95e
  	sha256sums = b5a53d747422f8b594e3e9615e238457d696732efce94050cdd72182a8645ef2
  	sha256sums = e86604e9604d59cddcc13de60b71c0e652cd1f9b56d89de36b2158509849e51c
  	sha256sums = f53328babef392393ee44086f8897174232e863280a84266630a3cd92facc190
@@ -56,7 +56,7 @@ Index: b/PKGBUILD
  pkgname=openrgb
  pkgver=1.0rc2
 -pkgrel=5
-+pkgrel=5.4
++pkgrel=5.5
  pkgdesc="Open source RGB lighting control that doesn't depend on manufacturer software"
  arch=("x86_64")
  url="https://gitlab.com/CalcProgrammer1/OpenRGB"
@@ -66,12 +66,12 @@ Index: b/PKGBUILD
 +makedepends=('qt5-tools' 'git')
  optdepends=('i2c-tools: mainboard & RAM access')
 -source=("https://gitlab.com/CalcProgrammer1/OpenRGB/-/archive/release_candidate_$pkgver/OpenRGB-release_candidate_${pkgver}.tar.gz"
-+source=("git+$url.git#commit=84bb05d50485722830a3e1901abf99b045028fce"
++source=("git+$url.git#commit=dfad607697567a632f929ef00a592871d51be96b"
          openrgb-modules-load.conf
          openrgb.tmpfiles
          openrgb.service)
 -sha256sums=('7ecef99ab1607bd8f47427eef59e060e407dc97a40bb9083c5ade6f30145b762'
-+sha256sums=('8aba6ac243afbfa1634201c4017353aa69c8cc78e257847edd306388ee9b1a6a'
++sha256sums=('67f8bf9d6847577946236b50ba5864fed3de0c2db8d26eb87e36109a9481f95e'
              'b5a53d747422f8b594e3e9615e238457d696732efce94050cdd72182a8645ef2'
              'e86604e9604d59cddcc13de60b71c0e652cd1f9b56d89de36b2158509849e51c'
              'f53328babef392393ee44086f8897174232e863280a84266630a3cd92facc190')
