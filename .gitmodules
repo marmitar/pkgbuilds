@@ -122,6 +122,11 @@
 	url = ssh://aur@aur.archlinux.org/python-speechrecognition.git
 	branch = master
 
+[submodule "alpaca-ai"]
+	path = alpaca-ai
+	url = ssh://aur@aur.archlinux.org/alpaca-ai.git
+	branch = master
+
 ## Custom patches
 
 [submodule "dash"]
