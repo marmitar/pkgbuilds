@@ -1,6 +1,6 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 21 Sep 2025 20:46:08 -0300
-Last-Update: 2026-03-14
+Last-Update: 2026-04-01
 Subject: [PATCH] Use latest master, which includes <https://gitlab.com/CalcProgrammer1/OpenRGB/-/merge_requests/2999>
 ---
  .SRCINFO   |    7 ++++---
@@ -16,27 +16,27 @@ Index: b/.SRCINFO
  pkgbase = openrgb
  	pkgdesc = Open source RGB lighting control that doesn't depend on manufacturer software
  	pkgver = 1.0rc2
--	pkgrel = 5
-+	pkgrel = 5.5
+-	pkgrel = 6
++	pkgrel = 6.1
  	url = https://gitlab.com/CalcProgrammer1/OpenRGB
  	arch = x86_64
  	license = GPL-2.0-or-later
  	makedepends = qt5-tools
 +	makedepends = git
  	depends = glibc
- 	depends = gcc-libs
- 	depends = qt5-base
-@@ -14,11 +15,11 @@ pkgbase = openrgb
+ 	depends = libgcc
+ 	depends = libstdc++
+@@ -15,11 +16,11 @@ pkgbase = openrgb
  	depends = mbedtls
  	depends = hicolor-icon-theme
  	optdepends = i2c-tools: mainboard & RAM access
 -	source = https://gitlab.com/CalcProgrammer1/OpenRGB/-/archive/release_candidate_1.0rc2/OpenRGB-release_candidate_1.0rc2.tar.gz
-+	source = git+https://gitlab.com/CalcProgrammer1/OpenRGB.git#commit=dfad607697567a632f929ef00a592871d51be96b
++	source = git+https://gitlab.com/CalcProgrammer1/OpenRGB.git#commit=2640a3b93f279b129c8a2399142cde0d09e9b5aa
  	source = openrgb-modules-load.conf
  	source = openrgb.tmpfiles
  	source = openrgb.service
 -	sha256sums = 7ecef99ab1607bd8f47427eef59e060e407dc97a40bb9083c5ade6f30145b762
-+	sha256sums = 67f8bf9d6847577946236b50ba5864fed3de0c2db8d26eb87e36109a9481f95e
++	sha256sums = e9e9562c0f0d1f1b31e0a66754f49edcb874e0d66a0da635c3b6fa9128e1acd0
  	sha256sums = b5a53d747422f8b594e3e9615e238457d696732efce94050cdd72182a8645ef2
  	sha256sums = e86604e9604d59cddcc13de60b71c0e652cd1f9b56d89de36b2158509849e51c
  	sha256sums = f53328babef392393ee44086f8897174232e863280a84266630a3cd92facc190
@@ -55,23 +55,23 @@ Index: b/PKGBUILD
  # Contributor: Paul Davis <paul@dangersalad.com>
  pkgname=openrgb
  pkgver=1.0rc2
--pkgrel=5
-+pkgrel=5.5
+-pkgrel=6
++pkgrel=6.1
  pkgdesc="Open source RGB lighting control that doesn't depend on manufacturer software"
  arch=("x86_64")
  url="https://gitlab.com/CalcProgrammer1/OpenRGB"
  license=('GPL-2.0-or-later')
- depends=('glibc' 'gcc-libs' 'qt5-base' 'libusb' 'hidapi' 'mbedtls' 'hicolor-icon-theme')
+ depends=('glibc' 'libgcc' 'libstdc++' 'qt5-base' 'libusb' 'hidapi' 'mbedtls' 'hicolor-icon-theme')
 -makedepends=('qt5-tools')
 +makedepends=('qt5-tools' 'git')
  optdepends=('i2c-tools: mainboard & RAM access')
 -source=("https://gitlab.com/CalcProgrammer1/OpenRGB/-/archive/release_candidate_$pkgver/OpenRGB-release_candidate_${pkgver}.tar.gz"
-+source=("git+$url.git#commit=dfad607697567a632f929ef00a592871d51be96b"
++source=("git+$url.git#commit=2640a3b93f279b129c8a2399142cde0d09e9b5aa"
          openrgb-modules-load.conf
          openrgb.tmpfiles
          openrgb.service)
 -sha256sums=('7ecef99ab1607bd8f47427eef59e060e407dc97a40bb9083c5ade6f30145b762'
-+sha256sums=('67f8bf9d6847577946236b50ba5864fed3de0c2db8d26eb87e36109a9481f95e'
++sha256sums=('e9e9562c0f0d1f1b31e0a66754f49edcb874e0d66a0da635c3b6fa9128e1acd0'
              'b5a53d747422f8b594e3e9615e238457d696732efce94050cdd72182a8645ef2'
              'e86604e9604d59cddcc13de60b71c0e652cd1f9b56d89de36b2158509849e51c'
              'f53328babef392393ee44086f8897174232e863280a84266630a3cd92facc190')
