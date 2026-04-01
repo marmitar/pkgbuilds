@@ -129,11 +129,6 @@
 
 ## Custom patches
 
-[submodule "dash"]
-	path = dash
-	url = https://gitlab.archlinux.org/archlinux/packaging/packages/dash.git
-	branch = main
-
 [submodule "sushi"]
 	path = sushi
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git
