@@ -134,11 +134,6 @@
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git
 	branch = gnome-unstable
 
-[submodule "gitg"]
-	path = gitg
-	url = https://gitlab.archlinux.org/archlinux/packaging/packages/gitg.git
-	branch = main
-
 [submodule "thelounge"]
 	path = thelounge
 	url = https://aur.archlinux.org/thelounge.git
