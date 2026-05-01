@@ -1,12 +1,12 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 25 Jan 2026 05:08:28 -0300
-Last-Update: 2026-04-07
+Last-Update: 2026-05-01
 Subject: [PATCH] Update to <https://gitlab.gnome.org/GNOME/sushi/-/tree/30986f21> (2026-02-23)
 ---
- .SRCINFO   |    4 ++--
+ .SRCINFO   |    8 +++-----
  .gitignore |    3 +++
- PKGBUILD   |    4 ++--
- 3 files changed, 7 insertions(+), 4 deletions(-)
+ PKGBUILD   |   10 +++-------
+ 3 files changed, 9 insertions(+), 12 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -15,21 +15,26 @@ Index: b/.SRCINFO
 @@ -1,7 +1,7 @@
  pkgbase = sushi
  	pkgdesc = A quick previewer for Nautilus
- 	pkgver = 50rc.1
+ 	pkgver = 50.0
 -	pkgrel = 1
-+	pkgrel = 1.2
++	pkgrel = 1.1
  	url = https://gitlab.gnome.org/GNOME/sushi
  	arch = x86_64
  	groups = gnome
-@@ -28,7 +28,7 @@ pkgbase = sushi
+@@ -28,11 +28,9 @@ pkgbase = sushi
  	depends = pango
  	optdepends = libreoffice: OpenDocument formats
  	optdepends = webkit2gtk-4.1: Render HTML files
--	source = git+https://gitlab.gnome.org/GNOME/sushi.git?signed#tag=50.rc.1
-+	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=30986f2168a651bb5157cf5bbd6f826684535adc
+-	source = git+https://gitlab.gnome.org/GNOME/sushi.git?signed#tag=50.0
++	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=199d9547fc490fc88270f9c4cb82b1fe6415db95
  	source = 0001-sushi-media-bin-Fix-llvmpipe-detection.patch
- 	validpgpkeys = 550660707A6F40376B9B9F8D504A78811E6160CC
- 	b2sums = db457838b473a074bef4ba38fe5ca715255cc8bba92470b56169e6d97e5136761ddc0d71d1ff3a7372ddfbf73829746d9581b5b268bd58e3ae36e07e955a5a3c
+-	validpgpkeys = 550660707A6F40376B9B9F8D504A78811E6160CC
+-	validpgpkeys = 3475CBA8D3483594C889B470D64A8D747F6FE706
+-	b2sums = 6d59a8719ab712f645413021861f8c0a394ddfe2c65fef9f5b8f64950831218e7b620ee3901006bab2aa1e928ff8c132e9217a75a6ec174a541a535ea5957cd2
++	b2sums = cac58be9029900a68ff3321bc2613559287496fefe214fba172359f567ad3bdcc8fb28c853451af7b06ee7952377b2fe06231839a1521f1d4e4527972eb6bf79
+ 	b2sums = 1506046e46557d87fabf860cff467682c04226d0bf4d2ecdcde5fba1ac1d608c78cd3e556dbdde72e17d449b9e5ae6e30616ec454d93335dbfd18a4f179afb79
+ 
+ pkgname = sushi
 Index: b/.gitignore
 ===================================================================
 --- /dev/null
@@ -45,18 +50,27 @@ Index: b/PKGBUILD
 @@ -4,7 +4,7 @@
  
  pkgname=sushi
- pkgver=50rc.1
+ pkgver=50.0
 -pkgrel=1
-+pkgrel=1.2
++pkgrel=1.1
  pkgdesc="A quick previewer for Nautilus"
  url="https://gitlab.gnome.org/GNOME/sushi"
  arch=(x86_64)
-@@ -39,7 +39,7 @@ optdepends=(
+@@ -39,15 +39,11 @@ optdepends=(
  )
  groups=(gnome)
  source=(
 -  "git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
-+  "git+$url.git#commit=30986f2168a651bb5157cf5bbd6f826684535adc"
++  "git+$url.git#commit=199d9547fc490fc88270f9c4cb82b1fe6415db95"
    0001-sushi-media-bin-Fix-llvmpipe-detection.patch
  )
- b2sums=('db457838b473a074bef4ba38fe5ca715255cc8bba92470b56169e6d97e5136761ddc0d71d1ff3a7372ddfbf73829746d9581b5b268bd58e3ae36e07e955a5a3c'
+-b2sums=('6d59a8719ab712f645413021861f8c0a394ddfe2c65fef9f5b8f64950831218e7b620ee3901006bab2aa1e928ff8c132e9217a75a6ec174a541a535ea5957cd2'
++b2sums=('cac58be9029900a68ff3321bc2613559287496fefe214fba172359f567ad3bdcc8fb28c853451af7b06ee7952377b2fe06231839a1521f1d4e4527972eb6bf79'
+         '1506046e46557d87fabf860cff467682c04226d0bf4d2ecdcde5fba1ac1d608c78cd3e556dbdde72e17d449b9e5ae6e30616ec454d93335dbfd18a4f179afb79')
+-validpgpkeys=(
+-  550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
+-  3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
+-)
+ 
+ prepare() {
+   cd sushi

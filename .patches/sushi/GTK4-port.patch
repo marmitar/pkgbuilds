@@ -1,21 +1,30 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 21 Sep 2025 07:12:00 -0300
-Last-Update: 2026-04-07
+Last-Update: 2026-05-01
 Subject: [PATCH] Port to GTK4
 
 Includes <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/43>
 and <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/68>.
 ---
- .SRCINFO                                          |   11 +++-
+ .SRCINFO                                          |   13 +++--
  .gitignore                                        |    1 
  0001-sushi-media-bin-Fix-llvmpipe-detection.patch |   51 ----------------------
- PKGBUILD                                          |   20 +++++---
- 4 files changed, 21 insertions(+), 62 deletions(-)
+ PKGBUILD                                          |   22 ++++++---
+ 4 files changed, 23 insertions(+), 64 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
 --- a/.SRCINFO
 +++ b/.SRCINFO
+@@ -1,7 +1,7 @@
+ pkgbase = sushi
+ 	pkgdesc = A quick previewer for Nautilus
+ 	pkgver = 50.0
+-	pkgrel = 1.1
++	pkgrel = 1.2
+ 	url = https://gitlab.gnome.org/GNOME/sushi
+ 	arch = x86_64
+ 	groups = gnome
 @@ -9,10 +9,11 @@ pkgbase = sushi
  	makedepends = git
  	makedepends = gobject-introspection
@@ -30,16 +39,15 @@ Index: b/.SRCINFO
  	depends = gjs
  	depends = glib2
  	depends = glibc
-@@ -29,9 +30,11 @@ pkgbase = sushi
+@@ -29,8 +30,10 @@ pkgbase = sushi
  	optdepends = libreoffice: OpenDocument formats
  	optdepends = webkit2gtk-4.1: Render HTML files
- 	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=30986f2168a651bb5157cf5bbd6f826684535adc
+ 	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=199d9547fc490fc88270f9c4cb82b1fe6415db95
 -	source = 0001-sushi-media-bin-Fix-llvmpipe-detection.patch
 +	source = https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/43.patch
 +	source = https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/68.patch
- 	validpgpkeys = 550660707A6F40376B9B9F8D504A78811E6160CC
- 	b2sums = db457838b473a074bef4ba38fe5ca715255cc8bba92470b56169e6d97e5136761ddc0d71d1ff3a7372ddfbf73829746d9581b5b268bd58e3ae36e07e955a5a3c
--	b2sums = 1c0df7c8674960bfeb480a0f63d7ab33fae5e042e20a20dec53a5791dd1ceee98cc974e439e0c8e7b49d69c3e96431d2857c551f858c41ff709485daae64476c
+ 	b2sums = cac58be9029900a68ff3321bc2613559287496fefe214fba172359f567ad3bdcc8fb28c853451af7b06ee7952377b2fe06231839a1521f1d4e4527972eb6bf79
+-	b2sums = 1506046e46557d87fabf860cff467682c04226d0bf4d2ecdcde5fba1ac1d608c78cd3e556dbdde72e17d449b9e5ae6e30616ec454d93335dbfd18a4f179afb79
 +	b2sums = 747959f1cdcf99b7154325d8db73b49ba063a490f0dcc3c9631d115c98b70f6230ffcd33a7b5179a6cd73b689e29682f759434c754fc914cb80e32804e2344d4
 +	b2sums = d13af2517278b232e2ea99ec47a226ec1732d50a24449812cec6b6915b3fe6f2f948c59e27f5dcda9bd6e2be55c977cf44d93bdcf1d53d448112ff3282870d03
  
@@ -69,7 +77,7 @@ Index: b/0001-sushi-media-bin-Fix-llvmpipe-detection.patch
 - 1 file changed, 5 insertions(+), 2 deletions(-)
 -
 -diff --git a/src/libsushi/sushi-media-bin.c b/src/libsushi/sushi-media-bin.c
--index 8ba4fe363bf6..7357a357eed7 100644
+-index 4a4d015692e5..7725dba4a5a3 100644
 ---- a/src/libsushi/sushi-media-bin.c
 -+++ b/src/libsushi/sushi-media-bin.c
 -@@ -512,31 +512,34 @@ sushi_media_bin_gl_check (GtkWidget *widget)
@@ -113,7 +121,15 @@ Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -11,9 +11,9 @@ arch=(x86_64)
+@@ -4,16 +4,16 @@
+ 
+ pkgname=sushi
+ pkgver=50.0
+-pkgrel=1.1
++pkgrel=1.2
+ pkgdesc="A quick previewer for Nautilus"
+ url="https://gitlab.gnome.org/GNOME/sushi"
+ arch=(x86_64)
  license=(GPL-2.0-or-later)
  depends=(
    cairo
@@ -133,22 +149,19 @@ Index: b/PKGBUILD
  )
  optdepends=(
    'libreoffice: OpenDocument formats'
-@@ -40,10 +41,12 @@ optdepends=(
+@@ -40,17 +41,22 @@ optdepends=(
  groups=(gnome)
  source=(
-   "git+$url.git#commit=30986f2168a651bb5157cf5bbd6f826684535adc"
+   "git+$url.git#commit=199d9547fc490fc88270f9c4cb82b1fe6415db95"
 -  0001-sushi-media-bin-Fix-llvmpipe-detection.patch
 +  'https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/43.patch'
 +  'https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/68.patch'
  )
- b2sums=('db457838b473a074bef4ba38fe5ca715255cc8bba92470b56169e6d97e5136761ddc0d71d1ff3a7372ddfbf73829746d9581b5b268bd58e3ae36e07e955a5a3c'
--        '1c0df7c8674960bfeb480a0f63d7ab33fae5e042e20a20dec53a5791dd1ceee98cc974e439e0c8e7b49d69c3e96431d2857c551f858c41ff709485daae64476c')
+ b2sums=('cac58be9029900a68ff3321bc2613559287496fefe214fba172359f567ad3bdcc8fb28c853451af7b06ee7952377b2fe06231839a1521f1d4e4527972eb6bf79'
+-        '1506046e46557d87fabf860cff467682c04226d0bf4d2ecdcde5fba1ac1d608c78cd3e556dbdde72e17d449b9e5ae6e30616ec454d93335dbfd18a4f179afb79')
 +        '747959f1cdcf99b7154325d8db73b49ba063a490f0dcc3c9631d115c98b70f6230ffcd33a7b5179a6cd73b689e29682f759434c754fc914cb80e32804e2344d4'
 +        'd13af2517278b232e2ea99ec47a226ec1732d50a24449812cec6b6915b3fe6f2f948c59e27f5dcda9bd6e2be55c977cf44d93bdcf1d53d448112ff3282870d03')
- validpgpkeys=(
-   550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
- )
-@@ -51,9 +54,12 @@ validpgpkeys=(
+ 
  prepare() {
    cd sushi
  
