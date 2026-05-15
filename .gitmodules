@@ -143,8 +143,3 @@
 	path = chezmoi
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git
 	branch = main
-
-[submodule "openrgb"]
-	path = openrgb
-	url = https://gitlab.archlinux.org/archlinux/packaging/packages/openrgb.git
-	branch = main
