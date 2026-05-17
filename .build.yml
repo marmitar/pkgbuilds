@@ -1,0 +1,18 @@
+submitter:
+  git.sr.ht:
+    enabled: true
+    allow-refs:
+      - refs/heads/main
+# From <https://ficd.sh/blog/mirror-srht-to-github/>
+image: alpine/latest
+packages:
+  - git
+  - openssh
+secrets:
+  - f46c2a2d-4839-4181-9b58-ac673e2fccf9
+tasks:
+  - mirror: |
+      ssh-keyscan github.com >> ~/.ssh/known_hosts
+      cd ./pkgbuilds
+      git remote add github git@github.com:marmitar/pkgbuilds.git
+      git push --mirror github
