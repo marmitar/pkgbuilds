@@ -112,11 +112,6 @@
 	url = ssh://aur@aur.archlinux.org/intel-sgx-sdk-bin.git
 	branch = master
 
-[submodule "patchy"]
-	path = patchy
-	url = ssh://aur@aur.archlinux.org/patchy.git
-	branch = master
-
 [submodule "python-speechrecognition"]
 	path = python-speechrecognition
 	url = ssh://aur@aur.archlinux.org/python-speechrecognition.git
