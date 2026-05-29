@@ -1,49 +1,48 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 18 Jan 2026 23:23:10 -0300
-Last-Update: 2026-02-10
+Last-Update: 2026-05-29
 Subject: [PATCH] Builds directly from a commit, for easier patching.
 
-Currently synced to <https://github.com/thelounge/thelounge/commit/f5867c3643ba8ef24dcf5a7010f39fd6050d0954>
+Currently synced to <https://github.com/thelounge/thelounge/commit/84963db2ec783f87dd4ad456602db74862960ac5>
 ---
- .SRCINFO   |   13 +++---------
- .gitignore |    3 ++
- PKGBUILD   |   63 +++++++++++++++++++++++++++++--------------------------------
- 3 files changed, 37 insertions(+), 42 deletions(-)
+ .SRCINFO   |   15 +++++----------
+ .gitignore |    3 +++
+ PKGBUILD   |   28 ++++++++++++++++------------
+ 3 files changed, 24 insertions(+), 22 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
 --- a/.SRCINFO
 +++ b/.SRCINFO
-@@ -1,28 +1,23 @@
+@@ -1,26 +1,21 @@
  pkgbase = thelounge
  	pkgdesc = Modern self-hosted web IRC client
- 	pkgver = 4.4.3
--	pkgrel = 3
-+	pkgrel = 3.1
+ 	pkgver = 4.5.0
+-	pkgrel = 0
++	pkgrel = 0.1
  	url = https://thelounge.chat/
  	arch = any
  	license = MIT
  	makedepends = yarn
- 	makedepends = python
- 	makedepends = python-setuptools
--	makedepends = git
-+	makedepends = npm
- 	depends = nodejs
--	noextract = thelounge-4.4.3.tgz
+-	depends = nodejs>=22
+-	depends = nodejs<25
+-	noextract = thelounge-4.5.0.tgz
++	depends = nodejs
++	depends = npm
  	options = !lto
  	backup = etc/thelounge/config.js
--	source = https://registry.npmjs.org/thelounge/-/thelounge-4.4.3.tgz
--	source = https://raw.githubusercontent.com/thelounge/thelounge/v4.4.3/yarn.lock
--	source = https://raw.githubusercontent.com/thelounge/thelounge/v4.4.3/package.json
-+	source = thelounge-f5867c3643ba8ef24dcf5a7010f39fd6050d0954.tar.gz::https://github.com/thelounge/thelounge/archive/f5867c3643ba8ef24dcf5a7010f39fd6050d0954.tar.gz
+-	source = https://registry.npmjs.org/thelounge/-/thelounge-4.5.0.tgz
+-	source = https://raw.githubusercontent.com/thelounge/thelounge/v4.5.0/yarn.lock
+-	source = https://raw.githubusercontent.com/thelounge/thelounge/v4.5.0/package.json
++	source = thelounge-84963db2ec783f87dd4ad456602db74862960ac5.tar.gz::https://github.com/thelounge/thelounge/archive/84963db2ec783f87dd4ad456602db74862960ac5.tar.gz
  	source = system.service
  	source = user.service
  	source = sysusers.d
  	source = tmpfiles.d
--	sha256sums = 685d753ad080c35ac7c4cf2eef6437df8de47a3d352b10f06d56acc9a08f4f18
--	sha256sums = 0bcb88814337e6dd1352dd382a14e6c277f71410767277db34c97b998e1cd0b9
--	sha256sums = e0cca2931e46842039fcbc78efbecae4b9893608d18959f616aa7ea559311441
-+	sha256sums = 3cd68775f5ebb904021c67c6643ae894d727f195d26ce43bce4a01a50dd495e3
+-	sha256sums = 11a2a5b8e49d722a1c1240e0e5ee68317017d4c9f984ea557e82b31bc769ff71
+-	sha256sums = ed84ecb09ed8aa357dceb5062b0c7751d809652bf7fdfe48354852f172b496cb
+-	sha256sums = 3e3319e694cd3e55d895f04d81f42cc708f2c41caf1961cc9733150ccb80c61e
++	sha256sums = df12576461fc0c5ee177f271a2296b63b999dc69a5afdf78dda21f5b5b065001
  	sha256sums = c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20
  	sha256sums = c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0
  	sha256sums = 30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5
@@ -59,23 +58,22 @@ Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -2,65 +2,62 @@
- # Maintainer: Maxime Poulin <maxpoulin64@gmail.com>
+@@ -3,39 +3,43 @@
  pkgname=thelounge
- pkgver=4.4.3
--pkgsuffix="" #-rc.1
--pkgrel=3
-+pkgrel=3.1
+ pkgver=4.5.0
+ pkgsuffix="" #-rc.1
+-pkgrel=0
++pkgrel=0.1
  pkgdesc='Modern self-hosted web IRC client'
  url='https://thelounge.chat/'
  arch=('any')
  license=('MIT')
- depends=('nodejs')
+-depends=('nodejs>=22' 'nodejs<25')
++depends=('nodejs' 'npm')
  options=('!lto')
--makedepends=('yarn' 'python' 'python-setuptools' 'git')
-+makedepends=('yarn' 'python' 'python-setuptools' 'npm')
+ makedepends=('yarn')
  backup=('etc/thelounge/config.js')
-+_commit='f5867c3643ba8ef24dcf5a7010f39fd6050d0954'
++_commit='84963db2ec783f87dd4ad456602db74862960ac5'
  source=(
 -    "https://registry.npmjs.org/$pkgname/-/$pkgname-${pkgver}${pkgsuffix}.tgz"
 -    "https://raw.githubusercontent.com/thelounge/thelounge/v${pkgver}${pkgsuffix}/yarn.lock"
@@ -87,10 +85,10 @@ Index: b/PKGBUILD
      'tmpfiles.d'
  )
 -noextract=("$pkgname-${pkgver}${pkgsuffix}.tgz")
--sha256sums=('685d753ad080c35ac7c4cf2eef6437df8de47a3d352b10f06d56acc9a08f4f18'
--            '0bcb88814337e6dd1352dd382a14e6c277f71410767277db34c97b998e1cd0b9'
--            'e0cca2931e46842039fcbc78efbecae4b9893608d18959f616aa7ea559311441'
-+sha256sums=('3cd68775f5ebb904021c67c6643ae894d727f195d26ce43bce4a01a50dd495e3'
+-sha256sums=('11a2a5b8e49d722a1c1240e0e5ee68317017d4c9f984ea557e82b31bc769ff71'
+-            'ed84ecb09ed8aa357dceb5062b0c7751d809652bf7fdfe48354852f172b496cb'
+-            '3e3319e694cd3e55d895f04d81f42cc708f2c41caf1961cc9733150ccb80c61e'
++sha256sums=('df12576461fc0c5ee177f271a2296b63b999dc69a5afdf78dda21f5b5b065001'
              'c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20'
              'c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0'
              '30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5'
@@ -98,54 +96,28 @@ Index: b/PKGBUILD
  
  prepare() {
 -    yarn install --prod --frozen-lockfile --non-interactive --ignore-scripts --cache-folder "$srcdir/yarn-cache"
-+	echo /etc/thelounge > "$pkgname-${_commit}/.thelounge_home"
-+	cd "$pkgname-${_commit}" || exit 1
-+	yarn install --frozen-lockfile --non-interactive --ignore-scripts --cache-folder "$srcdir/yarn-cache"
++    echo /etc/thelounge > "$pkgname-${_commit}/.thelounge_home"
++    cd "$pkgname-${_commit}" || exit 1
++    yarn install --frozen-lockfile --non-interactive --ignore-scripts --cache-folder "$srcdir/yarn-cache"
  }
  
  build() {
--    mkdir _build
--    cp package.json yarn.lock _build
--    cd _build || exit 1
--
--    # Install the package itself
--    # we on purpose don't use yarn global add, because --ignore-scripts
--    # is ignored: https://github.com/yarnpkg/yarn/issues/8291 but we tried
--    yarn add --no-default-rc --frozen-lockfile \
--    --prod --non-interactive --ignore-scripts \
--    --cache-folder "$srcdir/yarn-cache" --offline \
++    cd "$pkgname-${_commit}" || exit 1
++    export NODE_ENV=production
++    yarn build
+     mkdir _build
++    local tarball=$(npm pack --pack-destination _build)
++
++    # ensure we get the lockfile that we expect and fetch the deps
+     cp package.json yarn.lock _build
+     cd _build || exit 1
+ 
+@@ -45,12 +49,12 @@ build() {
+     yarn add --no-default-rc --frozen-lockfile \
+     --prod --non-interactive --ignore-scripts \
+     --cache-folder "$srcdir/yarn-cache" --offline \
 -    file:"$srcdir/$pkgname-${pkgver}${pkgsuffix}.tgz"
--
--    # fetch sqlite3 binary blob
--
--    # node-gyp or node have a bug that prevents building with "text file busy" if the kernel is too fast
--    # so we have to disable IO_URING support. This is cleary a hack and needs to be removed as soon as possible
--    # https://github.com/nodejs/node/issues/48444 is the necro bumped thread originally in docker
--    export UV_USE_IO_URING=0
--
--    cd node_modules/sqlite3 || exit 1
--    yarn run install
-+	cd "$pkgname-${_commit}" || exit 1
-+	export NODE_ENV=production
-+	yarn build
-+	mkdir _build
-+	local tarball=$(npm pack --pack-destination _build)
-+
-+	# ensure we get the lockfile that we expect and fetch the deps
-+	cp package.json yarn.lock _build
-+	cd _build || exit 1
-+
-+	# Install the package itself
-+	# we on purpose don't use yarn global add, because --ignore-scripts
-+	# is ignored: https://github.com/yarnpkg/yarn/issues/8291 but we tried
-+	yarn add --no-default-rc --frozen-lockfile \
-+		--prod --non-interactive --ignore-scripts \
-+		--cache-folder "$srcdir/yarn-cache" --offline \
-+		file:"$(readlink -e "./$tarball")"
-+
-+	# build sqlite3 from source, avoids the binary blob (kinda)
-+	cd node_modules/sqlite3 || exit 1
-+	yarn --no-default-rc --frozen-lockfile --non-interactive run rebuild
++    file:"$(readlink -e "./$tarball")"
  }
  
  package() {
