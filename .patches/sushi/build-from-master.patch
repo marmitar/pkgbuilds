@@ -1,7 +1,7 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 25 Jan 2026 05:08:28 -0300
-Last-Update: 2026-05-15
-Subject: [PATCH] Update to <https://gitlab.gnome.org/GNOME/sushi/-/tree/0db2b7fe> (2026-04-28)
+Last-Update: 2026-05-29
+Subject: [PATCH] Update to <https://gitlab.gnome.org/GNOME/sushi/-/tree/e80c764d> (2026-05-18)
 ---
  .SRCINFO   |    8 +++-----
  .gitignore |    3 +++
@@ -17,7 +17,7 @@ Index: b/.SRCINFO
  	pkgdesc = A quick previewer for Nautilus
  	pkgver = 50.0
 -	pkgrel = 1
-+	pkgrel = 1.3
++	pkgrel = 1.5
  	url = https://gitlab.gnome.org/GNOME/sushi
  	arch = x86_64
  	groups = gnome
@@ -26,12 +26,12 @@ Index: b/.SRCINFO
  	optdepends = libreoffice: OpenDocument formats
  	optdepends = webkit2gtk-4.1: Render HTML files
 -	source = git+https://gitlab.gnome.org/GNOME/sushi.git?signed#tag=50.0
-+	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=0db2b7fec2d0aa412beb728ff6befba21bd498d5
++	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=e80c764d83eb855e2a37cf631f25c0a18d911158
  	source = 0001-sushi-media-bin-Fix-llvmpipe-detection.patch
 -	validpgpkeys = 550660707A6F40376B9B9F8D504A78811E6160CC
 -	validpgpkeys = 3475CBA8D3483594C889B470D64A8D747F6FE706
 -	b2sums = 6d59a8719ab712f645413021861f8c0a394ddfe2c65fef9f5b8f64950831218e7b620ee3901006bab2aa1e928ff8c132e9217a75a6ec174a541a535ea5957cd2
-+	b2sums = 69ee356014a7dfc634023d7a133fc85a4ae3a18ad0fc3034924188734d366cb26eac261fa261ea067921847b14e3cee9e60d0c5284c68cf3e9cdbf09c77d2ed9
++	b2sums = 0ded4f930e08dd7ed203a782fd3daa69d8ea9eb112f8e27d31b4f6f9cd24eacc77573e06ade84e0e3f752830f2ce5680c8bcf96467ff242acceecad62e79d301
  	b2sums = 1506046e46557d87fabf860cff467682c04226d0bf4d2ecdcde5fba1ac1d608c78cd3e556dbdde72e17d449b9e5ae6e30616ec454d93335dbfd18a4f179afb79
  
  pkgname = sushi
@@ -52,7 +52,7 @@ Index: b/PKGBUILD
  pkgname=sushi
  pkgver=50.0
 -pkgrel=1
-+pkgrel=1.3
++pkgrel=1.5
  pkgdesc="A quick previewer for Nautilus"
  url="https://gitlab.gnome.org/GNOME/sushi"
  arch=(x86_64)
@@ -61,11 +61,11 @@ Index: b/PKGBUILD
  groups=(gnome)
  source=(
 -  "git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
-+  "git+$url.git#commit=0db2b7fec2d0aa412beb728ff6befba21bd498d5"
++  "git+$url.git#commit=e80c764d83eb855e2a37cf631f25c0a18d911158"
    0001-sushi-media-bin-Fix-llvmpipe-detection.patch
  )
 -b2sums=('6d59a8719ab712f645413021861f8c0a394ddfe2c65fef9f5b8f64950831218e7b620ee3901006bab2aa1e928ff8c132e9217a75a6ec174a541a535ea5957cd2'
-+b2sums=('69ee356014a7dfc634023d7a133fc85a4ae3a18ad0fc3034924188734d366cb26eac261fa261ea067921847b14e3cee9e60d0c5284c68cf3e9cdbf09c77d2ed9'
++b2sums=('0ded4f930e08dd7ed203a782fd3daa69d8ea9eb112f8e27d31b4f6f9cd24eacc77573e06ade84e0e3f752830f2ce5680c8bcf96467ff242acceecad62e79d301'
          '1506046e46557d87fabf860cff467682c04226d0bf4d2ecdcde5fba1ac1d608c78cd3e556dbdde72e17d449b9e5ae6e30616ec454d93335dbfd18a4f179afb79')
 -validpgpkeys=(
 -  550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
