@@ -40,6 +40,9 @@ indent_size = 2
 [*.sh]
 indent_size = 2
 
+[*.quiltrc]
+indent_size = 4
+
 # Patch files need trailing spaces
 [*.{diff,patch}]
 trim_trailing_whitespace = false

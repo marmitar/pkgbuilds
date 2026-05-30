@@ -67,8 +67,8 @@ export QUILT_PATCHES_ARGS='--color=auto'
 unset QUILT_PATCHES_PREFIX
 
 # Customize pager
-case "${QUILT_COMMAND}" in
-    diff|refresh)
+case "${QUILT_COMMAND:-}" in
+    diff | refresh)
         # show side-by-side diff
         export QUILT_PAGER=delta
         ;;
@@ -83,8 +83,8 @@ case "${QUILT_COMMAND}" in
 esac
 
 # Customize editor
-case "${QUILT_COMMAND}" in
-    header|mail)
+case "${QUILT_COMMAND:-}" in
+    header | mail)
         # use markdown for patches
         export EDITOR='nano --syntax markdown'
         ;;
