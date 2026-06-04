@@ -1,13 +1,13 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Wed, 03 Jun 2026 23:39:09 -0300
-Last-Update: 2026-06-03
+Last-Update: 2026-06-04
 Subject: [PATCH] Test new http cache;
 ---
  .SRCINFO            |    4 
  .gitignore          |    1 
  PKGBUILD            |    9 
- new-httpcache.patch |  728 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 738 insertions(+), 4 deletions(-)
+ new-httpcache.patch |  733 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 743 insertions(+), 4 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -28,7 +28,7 @@ Index: b/.SRCINFO
  	source = chezmoi-2.70.5.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.70.5.tar.gz
 +	source = new-httpcache.patch
  	sha512sums = 09eeeb1a55ec963751fdd4d1ccc0f4b0d7125b668665ba95bafdeda433e173882a439447052babacb73178e2afeb8af6eaf6ea7c343d7305e13f4c5c322ec7f3
-+	sha512sums = 856ce52d510e5f9ced71ff8c4eee3f3ebd6ce1f84f449ce812ea8fa7840a2c8392d4c5fbb8edf0ffbe4f220fccefd154139f201f323d9063783122f9f963142c
++	sha512sums = 92f5ee029320215d2b2fa8c9bbf60540a3722c0c9d2668c8c06bde99816a952a13e659b93bc8e34dec64f1b4d77add419430848c58b12e2caa28d1ee8070b1ce
  
  pkgname = chezmoi
 Index: b/.gitignore
@@ -62,7 +62,7 @@ Index: b/PKGBUILD
 +source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz"
 +        'new-httpcache.patch')
 +sha512sums=('09eeeb1a55ec963751fdd4d1ccc0f4b0d7125b668665ba95bafdeda433e173882a439447052babacb73178e2afeb8af6eaf6ea7c343d7305e13f4c5c322ec7f3'
-+            '856ce52d510e5f9ced71ff8c4eee3f3ebd6ce1f84f449ce812ea8fa7840a2c8392d4c5fbb8edf0ffbe4f220fccefd154139f201f323d9063783122f9f963142c')
++            '92f5ee029320215d2b2fa8c9bbf60540a3722c0c9d2668c8c06bde99816a952a13e659b93bc8e34dec64f1b4d77add419430848c58b12e2caa28d1ee8070b1ce')
  
  prepare() {
    cd "$pkgname-$pkgver"
@@ -75,7 +75,7 @@ Index: b/new-httpcache.patch
 ===================================================================
 --- /dev/null
 +++ b/new-httpcache.patch
-@@ -0,0 +1,728 @@
+@@ -0,0 +1,733 @@
 +diff --git a/go.mod b/go.mod
 +index 55e6dce22..9277f5f2d 100644
 +--- a/go.mod
@@ -639,7 +639,7 @@ Index: b/new-httpcache.patch
 + 	var count atomic.Int64
 + 	httpServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 +diff --git a/internal/cmd/config.go b/internal/cmd/config.go
-+index b7a356d23..1eb1ca3b5 100644
++index b7a356d23..13581c457 100644
 +--- a/internal/cmd/config.go
 ++++ b/internal/cmd/config.go
 +@@ -14,6 +14,7 @@ import (
@@ -673,20 +673,22 @@ Index: b/new-httpcache.patch
 + func (c *Config) Close() error {
 +-	errs := make([]error, 0, len(c.tempDirs))
 ++	errs := make([]error, 0, len(c.tempDirs)+1)
-++	err := storeHTTPCacheHit(string(c.CacheDirAbsPath.Join(chezmoi.NewRelPath("httpcache-stat.csv")).String()))
+++	err := storeHTTPCacheHit(c.CacheDirAbsPath.Join(chezmoi.NewRelPath("httpcache-stat.csv")).String())
 ++	errs = append(errs, err)
 + 	for _, tempDirAbsPath := range c.tempDirs {
 + 		err := os.RemoveAll(tempDirAbsPath.String())
 + 		chezmoilog.InfoOrError(c.logger, "RemoveAll", err,
-+@@ -1626,10 +1635,102 @@ func (m modifyHTTPRequestRoundTripper) RoundTrip(req *http.Request) (*http.Respo
++@@ -1626,10 +1635,107 @@ func (m modifyHTTPRequestRoundTripper) RoundTrip(req *http.Request) (*http.Respo
 + 	return m.httpRoundTripper.RoundTrip(modifiedRequest)
 + }
 + 
-++var totalRequests atomic.Int64
-++var oldRequests atomic.Int64
-++var newRequests atomic.Int64
+++var (
+++	totalRequests atomic.Int64
+++	oldRequests   atomic.Int64
+++	newRequests   atomic.Int64
+++)
 ++
-++func storeHTTPCacheHit(path string) error {
+++func storeHTTPCacheHit(csvPath string) error {
 ++	if testing.Testing() {
 ++		return nil
 ++	}
@@ -696,12 +698,12 @@ Index: b/new-httpcache.patch
 ++		return nil
 ++	}
 ++
-++	if err := os.MkdirAll(filepath.Dir(path), 0o700); err != nil {
+++	if err := os.MkdirAll(filepath.Dir(csvPath), 0o700); err != nil {
 ++		return err
 ++	}
-++	file, err := os.OpenFile(path, os.O_WRONLY|os.O_APPEND, 0600)
+++	file, err := os.OpenFile(csvPath, os.O_WRONLY|os.O_APPEND, 0o600)
 ++	if os.IsNotExist(err) {
-++		file, err = os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0600)
+++		file, err = os.OpenFile(csvPath, os.O_WRONLY|os.O_CREATE, 0o600)
 ++		if err == nil {
 ++			_, err = file.WriteString("total,old,new\n")
 ++		}
@@ -714,51 +716,54 @@ Index: b/new-httpcache.patch
 ++	return err
 ++}
 ++
-++type chezmoiHttpCache struct {
+++type chezmoiHTTPCache struct {
 ++	basePath string
 ++	conn     driver.Conn
 ++}
 ++
-++func (c *chezmoiHttpCache) open() error {
+++func (c *chezmoiHTTPCache) Get(key string) ([]byte, error) {
+++	conn, err := c.open()
+++	if err != nil {
+++		return nil, err
+++	}
+++	return conn.Get(key)
+++}
+++
+++func (c *chezmoiHTTPCache) Set(key string, entry []byte) error {
+++	conn, err := c.open()
+++	if err != nil {
+++		return err
+++	}
+++	return conn.Set(key, entry)
+++}
+++
+++func (c *chezmoiHTTPCache) Delete(key string) error {
+++	conn, err := c.open()
+++	if err != nil {
+++		return err
+++	}
+++	return conn.Delete(key)
+++}
+++
+++func (c *chezmoiHTTPCache) open() (driver.Conn, error) {
 ++	if c.conn == nil {
 ++		conn, err := fscache.Open("httpcache2", fscache.WithBaseDir(c.basePath))
 ++		if err != nil {
-++			return err
+++			return nil, err
 ++		}
 ++		c.conn = conn
 ++	}
-++	return nil
-++}
-++
-++func (c *chezmoiHttpCache) Get(key string) ([]byte, error) {
-++	if err := c.open(); err != nil {
-++		return nil, err
-++	}
-++	return c.conn.Get(key)
-++}
-++
-++func (c *chezmoiHttpCache) Set(key string, entry []byte) error {
-++	if err := c.open(); err != nil {
-++		return err
-++	}
-++	return c.conn.Set(key, entry)
-++}
-++
-++func (c *chezmoiHttpCache) Delete(key string) error {
-++	if err := c.open(); err != nil {
-++		return err
-++	}
-++	return c.conn.Delete(key)
+++	return c.conn, nil
 ++}
 ++
 ++func init() {
 ++	store.Register("chezmoi", driver.DriverFunc(func(u *url.URL) (driver.Conn, error) {
-++		return &chezmoiHttpCache{basePath: u.Path}, nil
+++		return &chezmoiHTTPCache{basePath: u.Path}, nil
 ++	}))
 ++}
 ++
 ++func getNewHTTPCache(basePath string) *http.Client {
-++	httpFsCacheDsn := fmt.Sprintf("chezmoi://%s", basePath)
+++	httpFsCacheDsn := "chezmoi://" + basePath
 ++	requestRecorder := newModifyHTTPRequestRoundTripper(
 ++		func(req *http.Request) (*http.Request, error) {
 ++			newRequests.Add(1)
@@ -773,15 +778,15 @@ Index: b/new-httpcache.patch
 + 	if c.httpClient != nil {
 + 		return c.httpClient, nil
 + 	}
-++	newHttpCacheBasePath, err := c.baseSystem.RawPath(c.CacheDirAbsPath)
+++	newHTTPCacheBasePath, err := c.baseSystem.RawPath(c.CacheDirAbsPath)
 ++	if err != nil {
 ++		return nil, err
 ++	}
-++	newHTTPCache := getNewHTTPCache(newHttpCacheBasePath.String())
+++	newHTTPCache := getNewHTTPCache(newHTTPCacheBasePath.String())
 + 
 + 	httpCacheBasePath, err := c.baseSystem.RawPath(c.CacheDirAbsPath.Join(httpCacheDirRelPath))
 + 	if err != nil {
-+@@ -1637,12 +1738,22 @@ func (c *Config) getHTTPClient() (*http.Client, error) {
++@@ -1637,12 +1743,22 @@ func (c *Config) getHTTPClient() (*http.Client, error) {
 + 	}
 + 	httpCache := diskcache.New(httpCacheBasePath.String())
 + 	httpTransport := httpcache.NewTransport(httpCache)
@@ -799,8 +804,8 @@ Index: b/new-httpcache.patch
 ++			totalRequests.Add(1)
 + 			req = req.Clone(req.Context())
 + 			req.Header.Add("User-Agent", "chezmoi.io/"+c.version.String())
-++			copy := req.Clone(req.Context())
-++			go newHTTPCache.Do(copy)
+++			copyReq := req.Clone(req.Context())
+++			go newHTTPCache.Do(copyReq)
 + 			return req, nil
 + 		},
 + 		c.httpClient.Transport,
