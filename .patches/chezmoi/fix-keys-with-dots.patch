@@ -1,6 +1,6 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Fri, 9 Jan 2026 00:24:23 -0300
-Last-Update: 2026-03-14
+Last-Update: 2026-06-03
 Subject: [PATCH] Update sprout to main.
 
 Includes <https://github.com/go-sprout/sprout/pull/160>
@@ -16,7 +16,7 @@ Index: b/.SRCINFO
 @@ -1,7 +1,7 @@
  pkgbase = chezmoi
  	pkgdesc = Manage your dotfiles across multiple machines
- 	pkgver = 2.70.0
+ 	pkgver = 2.70.4
 -	pkgrel = 1.1
 +	pkgrel = 1.2
  	url = https://www.chezmoi.io/
@@ -29,7 +29,7 @@ Index: b/PKGBUILD
 @@ -5,7 +5,7 @@
  
  pkgname=chezmoi
- pkgver=2.70.0
+ pkgver=2.70.4
 -pkgrel=1.1
 +pkgrel=1.2
  pkgdesc="Manage your dotfiles across multiple machines"
