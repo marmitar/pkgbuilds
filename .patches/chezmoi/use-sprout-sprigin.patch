@@ -5,10 +5,9 @@ Subject: [PATCH] Restore sprigin for testing sprout.
 
 Removed in <https://github.com/twpayne/chezmoi/pull/4877>
 ---
- .SRCINFO   |    4 +++-
- .gitignore |    3 +++
- PKGBUILD   |   12 ++++++++----
- 3 files changed, 14 insertions(+), 5 deletions(-)
+ .SRCINFO |    4 +++-
+ PKGBUILD |   12 ++++++++----
+ 2 files changed, 11 insertions(+), 5 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -17,7 +16,7 @@ Index: b/.SRCINFO
 @@ -1,7 +1,7 @@
  pkgbase = chezmoi
  	pkgdesc = Manage your dotfiles across multiple machines
- 	pkgver = 2.70.4
+ 	pkgver = 2.70.5
 -	pkgrel = 1
 +	pkgrel = 1.1
  	url = https://www.chezmoi.io/
@@ -26,20 +25,12 @@ Index: b/.SRCINFO
 @@ -12,6 +12,8 @@ pkgbase = chezmoi
  	optdepends = git: clone remote dotfiles over ssh
  	options = !lto
- 	source = chezmoi-2.70.4.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.70.4.tar.gz
+ 	source = chezmoi-2.70.5.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.70.5.tar.gz
 +	source = https://github.com/twpayne/chezmoi/commit/a08a575a051dbe93b9dadb63f683e437af1337ba.patch
- 	sha512sums = eb6606f02e5525fa48730376c87a3f1c2c06bc1c119bd991fdb8006eab05ebc99cf6265fb463115b32970dc96b41b7443ce24c3cce7ac3e36eb0c3585063f61f
+ 	sha512sums = 09eeeb1a55ec963751fdd4d1ccc0f4b0d7125b668665ba95bafdeda433e173882a439447052babacb73178e2afeb8af6eaf6ea7c343d7305e13f4c5c322ec7f3
 +	sha512sums = 55176706b1429e675e668f1fbe6df15d810e3d0f4562b10eaf262b18f3ba28c614e8b73139c84870e3d4cc340d93330ef856642a2288afa2d4bc7b99f799b719
  
  pkgname = chezmoi
-Index: b/.gitignore
-===================================================================
---- /dev/null
-+++ b/.gitignore
-@@ -0,0 +1,3 @@
-+*.pkg.tar.*
-+*.tar.gz
-+*.patch
 Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
@@ -47,7 +38,7 @@ Index: b/PKGBUILD
 @@ -5,7 +5,7 @@
  
  pkgname=chezmoi
- pkgver=2.70.4
+ pkgver=2.70.5
 -pkgrel=1
 +pkgrel=1.1
  pkgdesc="Manage your dotfiles across multiple machines"
@@ -58,10 +49,10 @@ Index: b/PKGBUILD
  optdepends=('git: clone remote dotfiles over ssh')
  options=('!lto')
 -source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
--sha512sums=('eb6606f02e5525fa48730376c87a3f1c2c06bc1c119bd991fdb8006eab05ebc99cf6265fb463115b32970dc96b41b7443ce24c3cce7ac3e36eb0c3585063f61f')
+-sha512sums=('09eeeb1a55ec963751fdd4d1ccc0f4b0d7125b668665ba95bafdeda433e173882a439447052babacb73178e2afeb8af6eaf6ea7c343d7305e13f4c5c322ec7f3')
 +source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz"
 +        'https://github.com/twpayne/chezmoi/commit/a08a575a051dbe93b9dadb63f683e437af1337ba.patch')
-+sha512sums=('eb6606f02e5525fa48730376c87a3f1c2c06bc1c119bd991fdb8006eab05ebc99cf6265fb463115b32970dc96b41b7443ce24c3cce7ac3e36eb0c3585063f61f'
++sha512sums=('09eeeb1a55ec963751fdd4d1ccc0f4b0d7125b668665ba95bafdeda433e173882a439447052babacb73178e2afeb8af6eaf6ea7c343d7305e13f4c5c322ec7f3'
 +            '55176706b1429e675e668f1fbe6df15d810e3d0f4562b10eaf262b18f3ba28c614e8b73139c84870e3d4cc340d93330ef856642a2288afa2d4bc7b99f799b719')
  
  prepare() {

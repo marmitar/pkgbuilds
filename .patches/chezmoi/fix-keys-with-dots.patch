@@ -16,7 +16,7 @@ Index: b/.SRCINFO
 @@ -1,7 +1,7 @@
  pkgbase = chezmoi
  	pkgdesc = Manage your dotfiles across multiple machines
- 	pkgver = 2.70.4
+ 	pkgver = 2.70.5
 -	pkgrel = 1.1
 +	pkgrel = 1.2
  	url = https://www.chezmoi.io/
@@ -29,7 +29,7 @@ Index: b/PKGBUILD
 @@ -5,7 +5,7 @@
  
  pkgname=chezmoi
- pkgver=2.70.4
+ pkgver=2.70.5
 -pkgrel=1.1
 +pkgrel=1.2
  pkgdesc="Manage your dotfiles across multiple machines"
