@@ -9,6 +9,7 @@ packages:
   - git
   - openssh
 secrets:
+  - 6a3a0da2-06fb-4fe4-b096-b070ea9ae53d # not an actual secret, see .gitconfig
   - f46c2a2d-4839-4181-9b58-ac673e2fccf9
 tasks:
   - mirror: |
