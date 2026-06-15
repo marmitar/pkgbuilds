@@ -9,8 +9,8 @@ packages:
   - git
   - openssh
 secrets:
-  - 6a3a0da2-06fb-4fe4-b096-b070ea9ae53d # not an actual secret, see .gitconfig
-  - f46c2a2d-4839-4181-9b58-ac673e2fccf9
+  - 7149b491-5808-4c07-9bf5-d33f9bef6659 # not an actual secret, see .gitconfig
+  - 143247c8-5c93-4b43-8a43-de7eaaf99d8f # ~marmis/pkgbuilds:github-mirror@sr.ht
 tasks:
   - mirror: |
       ssh-keyscan github.com >> ~/.ssh/known_hosts
