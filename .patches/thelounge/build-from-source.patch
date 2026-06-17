@@ -1,6 +1,6 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 18 Jan 2026 23:23:10 -0300
-Last-Update: 2026-05-29
+Last-Update: 2026-06-16
 Subject: [PATCH] Builds directly from a commit, for easier patching.
 
 Currently synced to <https://github.com/thelounge/thelounge/commit/84963db2ec783f87dd4ad456602db74862960ac5>
@@ -19,7 +19,7 @@ Index: b/.SRCINFO
  	pkgdesc = Modern self-hosted web IRC client
  	pkgver = 4.5.0
 -	pkgrel = 0
-+	pkgrel = 0.1
++	pkgrel = 0.2
  	url = https://thelounge.chat/
  	arch = any
  	license = MIT
@@ -34,7 +34,7 @@ Index: b/.SRCINFO
 -	source = https://registry.npmjs.org/thelounge/-/thelounge-4.5.0.tgz
 -	source = https://raw.githubusercontent.com/thelounge/thelounge/v4.5.0/yarn.lock
 -	source = https://raw.githubusercontent.com/thelounge/thelounge/v4.5.0/package.json
-+	source = thelounge-84963db2ec783f87dd4ad456602db74862960ac5.tar.gz::https://github.com/thelounge/thelounge/archive/84963db2ec783f87dd4ad456602db74862960ac5.tar.gz
++	source = thelounge-ce7f66e259160c337229776ac62e3931454bd439.tar.gz::https://github.com/thelounge/thelounge/archive/ce7f66e259160c337229776ac62e3931454bd439.tar.gz
  	source = system.service
  	source = user.service
  	source = sysusers.d
@@ -42,7 +42,7 @@ Index: b/.SRCINFO
 -	sha256sums = 11a2a5b8e49d722a1c1240e0e5ee68317017d4c9f984ea557e82b31bc769ff71
 -	sha256sums = ed84ecb09ed8aa357dceb5062b0c7751d809652bf7fdfe48354852f172b496cb
 -	sha256sums = 3e3319e694cd3e55d895f04d81f42cc708f2c41caf1961cc9733150ccb80c61e
-+	sha256sums = df12576461fc0c5ee177f271a2296b63b999dc69a5afdf78dda21f5b5b065001
++	sha256sums = cfbeb0543766d62d0d9e087cabc24a22c24cd0e16fdc7f2ed207af9f331425fc
  	sha256sums = c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20
  	sha256sums = c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0
  	sha256sums = 30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5
@@ -63,7 +63,7 @@ Index: b/PKGBUILD
  pkgver=4.5.0
  pkgsuffix="" #-rc.1
 -pkgrel=0
-+pkgrel=0.1
++pkgrel=0.2
  pkgdesc='Modern self-hosted web IRC client'
  url='https://thelounge.chat/'
  arch=('any')
@@ -73,7 +73,7 @@ Index: b/PKGBUILD
  options=('!lto')
  makedepends=('yarn')
  backup=('etc/thelounge/config.js')
-+_commit='84963db2ec783f87dd4ad456602db74862960ac5'
++_commit='ce7f66e259160c337229776ac62e3931454bd439'
  source=(
 -    "https://registry.npmjs.org/$pkgname/-/$pkgname-${pkgver}${pkgsuffix}.tgz"
 -    "https://raw.githubusercontent.com/thelounge/thelounge/v${pkgver}${pkgsuffix}/yarn.lock"
@@ -88,7 +88,7 @@ Index: b/PKGBUILD
 -sha256sums=('11a2a5b8e49d722a1c1240e0e5ee68317017d4c9f984ea557e82b31bc769ff71'
 -            'ed84ecb09ed8aa357dceb5062b0c7751d809652bf7fdfe48354852f172b496cb'
 -            '3e3319e694cd3e55d895f04d81f42cc708f2c41caf1961cc9733150ccb80c61e'
-+sha256sums=('df12576461fc0c5ee177f271a2296b63b999dc69a5afdf78dda21f5b5b065001'
++sha256sums=('cfbeb0543766d62d0d9e087cabc24a22c24cd0e16fdc7f2ed207af9f331425fc'
              'c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20'
              'c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0'
              '30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5'
