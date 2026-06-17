@@ -1,31 +1,32 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 21 Sep 2025 07:12:00 -0300
-Last-Update: 2026-05-30
+Last-Update: 2026-06-16
 Subject: [PATCH] Update to <https://gitlab.gnome.org/GNOME/sushi/-/tree/f1151ac0> (2026-05-29)
 
 Includes <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/43>
 and <https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/68>.
 ---
- .SRCINFO                                          |   15 ++----
+ .SRCINFO                                          |   16 +++---
  .gitignore                                        |    4 +
  0001-sushi-media-bin-Fix-llvmpipe-detection.patch |   51 ----------------------
- PKGBUILD                                          |   21 ++-------
- 4 files changed, 16 insertions(+), 75 deletions(-)
+ PKGBUILD                                          |   22 +++------
+ 4 files changed, 18 insertions(+), 75 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
 --- a/.SRCINFO
 +++ b/.SRCINFO
-@@ -1,7 +1,7 @@
+@@ -1,18 +1,20 @@
  pkgbase = sushi
  	pkgdesc = A quick previewer for Nautilus
  	pkgver = 50.0
 -	pkgrel = 1
-+	pkgrel = 1.7
++	pkgrel = 1.8
  	url = https://gitlab.gnome.org/GNOME/sushi
  	arch = x86_64
  	groups = gnome
-@@ -9,10 +9,11 @@ pkgbase = sushi
+ 	license = GPL-2.0-or-later
++	makedepends = blueprint-compiler
  	makedepends = git
  	makedepends = gobject-introspection
  	makedepends = meson
@@ -39,7 +40,7 @@ Index: b/.SRCINFO
  	depends = gjs
  	depends = glib2
  	depends = glibc
-@@ -28,11 +29,7 @@ pkgbase = sushi
+@@ -28,11 +30,7 @@ pkgbase = sushi
  	depends = pango
  	optdepends = libreoffice: OpenDocument formats
  	optdepends = webkit2gtk-4.1: Render HTML files
@@ -49,8 +50,8 @@ Index: b/.SRCINFO
 -	validpgpkeys = 3475CBA8D3483594C889B470D64A8D747F6FE706
 -	b2sums = 6d59a8719ab712f645413021861f8c0a394ddfe2c65fef9f5b8f64950831218e7b620ee3901006bab2aa1e928ff8c132e9217a75a6ec174a541a535ea5957cd2
 -	b2sums = 1506046e46557d87fabf860cff467682c04226d0bf4d2ecdcde5fba1ac1d608c78cd3e556dbdde72e17d449b9e5ae6e30616ec454d93335dbfd18a4f179afb79
-+	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=f1151ac01b98a87f0a5c29600fb53b6a481e1dd4
-+	b2sums = 8ef7f58f67639093df47492efabfe83295c8b113cfe99e9f74ef9af25c8595ef6bea0ff303ea5014881d0edf9723ca44a0d458a4b2dbe8502befdc013468aa72
++	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=d367b6d5f538cd33e53743847a34e5be94e2b22b
++	b2sums = d46c39f10e96910c47a6e8d08458813366067904ba4c3218c3d06c33c2d9c2f40c253534f678d53762ea5ccf7aea14039a219feed45714f18eb9b1a5d1245471
  
  pkgname = sushi
 Index: b/.gitignore
@@ -127,7 +128,7 @@ Index: b/PKGBUILD
  pkgname=sushi
  pkgver=50.0
 -pkgrel=1
-+pkgrel=1.7
++pkgrel=1.8
  pkgdesc="A quick previewer for Nautilus"
  url="https://gitlab.gnome.org/GNOME/sushi"
  arch=(x86_64)
@@ -142,7 +143,11 @@ Index: b/PKGBUILD
    gjs
    glib2
    glibc
-@@ -32,6 +32,7 @@ makedepends=(
+@@ -29,9 +29,11 @@ depends=(
+   pango
+ )
+ makedepends=(
++  blueprint-compiler
    git
    gobject-introspection
    meson
@@ -150,7 +155,7 @@ Index: b/PKGBUILD
  )
  optdepends=(
    'libreoffice: OpenDocument formats'
-@@ -39,22 +40,12 @@ optdepends=(
+@@ -39,22 +41,12 @@ optdepends=(
  )
  groups=(gnome)
  source=(
@@ -162,9 +167,9 @@ Index: b/PKGBUILD
 -validpgpkeys=(
 -  550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
 -  3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
-+  "git+$url.git#commit=f1151ac01b98a87f0a5c29600fb53b6a481e1dd4"
++  "git+$url.git#commit=d367b6d5f538cd33e53743847a34e5be94e2b22b"
  )
-+b2sums=('8ef7f58f67639093df47492efabfe83295c8b113cfe99e9f74ef9af25c8595ef6bea0ff303ea5014881d0edf9723ca44a0d458a4b2dbe8502befdc013468aa72')
++b2sums=('d46c39f10e96910c47a6e8d08458813366067904ba4c3218c3d06c33c2d9c2f40c253534f678d53762ea5ccf7aea14039a219feed45714f18eb9b1a5d1245471')
  
  prepare() {
    cd sushi
