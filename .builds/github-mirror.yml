@@ -17,3 +17,4 @@ tasks:
       cd ./pkgbuilds
       git remote add github git@github.com:marmitar/pkgbuilds.git
       git push --mirror github
+      echo "See https://github.com/marmitar/pkgbuilds/commits/$(git rev-parse --verify HEAD)"
