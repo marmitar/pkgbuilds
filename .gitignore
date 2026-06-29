@@ -1,6 +1,1 @@
 *.tar.*
-sushi/sushi
-openrgb/OpenRGB
-kmscon/*.patch
-qt6-base/qtbase
-chezmoi/*.patch

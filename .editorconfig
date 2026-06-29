@@ -40,6 +40,16 @@ indent_size = 2
 [*.{sh,quiltrc}]
 indent_size = 2
 
+# Most config files
+[*.{md,toml,json,jsonc,css}]
+indent_size = 2
+quote_type = double
+
+# Keep single quotes for YAML
+[*.{xml,yml,yaml}]
+indent_size = 2
+quote_type = single
+
 # Patch files need trailing spaces
 [*.{diff,patch}]
 trim_trailing_whitespace = false
