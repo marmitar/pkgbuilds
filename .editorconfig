@@ -37,11 +37,8 @@ indent_size = 2
 [[shell]]
 indent_size = 2
 
-[*.sh]
+[*.{sh,quiltrc}]
 indent_size = 2
-
-[*.quiltrc]
-indent_size = 4
 
 # Patch files need trailing spaces
 [*.{diff,patch}]

@@ -4,49 +4,49 @@
 # # Load .quiltrc from the directory tree
 # QUILTRC_DIR="${PWD}"
 # while [[ "${QUILTRC_DIR}" != / && ! -f "${QUILTRC_DIR}"/.quiltrc ]]; do
-#     QUILTRC_DIR="$(dirname "${QUILTRC_DIR}")"
+#   QUILTRC_DIR="$(dirname "${QUILTRC_DIR}")"
 # done
 # if [[ -f "${QUILTRC_DIR}"/.quiltrc ]]; then
-#     # shellcheck disable=SC1091
-#     source "${QUILTRC_DIR}"/.quiltrc
+#   # shellcheck disable=SC1091
+#   source "${QUILTRC_DIR}"/.quiltrc
 # else
-#     unset QUILTRC_DIR
+#   unset QUILTRC_DIR
 # fi
 
 ## Setup .pc at submodule root and print it.
 __setup_submodule_pc() (
-    set -euo pipefail # subshell only
+  set -euo pipefail # subshell only
 
-    # Ensure we are in a submodule, not the root.
-    GIT_ROOT="$(git rev-parse --show-superproject-working-tree)"
-    if [[ -z "${GIT_ROOT}" ]]; then
-        echo 'Please, use quilt in a submodule to avoid issues with the project root.' > /dev/stderr
-        return 1
-    fi
-    SUBMODULE_ROOT="$(git rev-parse --show-toplevel)"
-    SUBMODULE_DIR="$(realpath --canonicalize-existing --relative-to="${GIT_ROOT}" "${SUBMODULE_ROOT}")"
+  # Ensure we are in a submodule, not the root.
+  GIT_ROOT="$(git rev-parse --show-superproject-working-tree)"
+  if [[ -z "${GIT_ROOT}" ]]; then
+    echo 'Please, use quilt in a submodule to avoid issues with the project root.' > /dev/stderr
+    return 1
+  fi
+  SUBMODULE_ROOT="$(git rev-parse --show-toplevel)"
+  SUBMODULE_DIR="$(realpath --canonicalize-existing --relative-to="${GIT_ROOT}" "${SUBMODULE_ROOT}")"
 
-    # Exclude .pc from the worktree.
-    GIT_EXCLUDE="$(git rev-parse --git-dir)"/info/exclude
-    if ! grep -qxF '.pc/' "${GIT_EXCLUDE}"; then
-        echo '.pc/' > "${GIT_EXCLUDE}"
-    fi
+  # Exclude .pc from the worktree.
+  GIT_EXCLUDE="$(git rev-parse --git-dir)"/info/exclude
+  if ! grep -qxF '.pc/' "${GIT_EXCLUDE}"; then
+    echo '.pc/' > "${GIT_EXCLUDE}"
+  fi
 
-    # Enforce $QUILT_PC with expected values.
-    QUILT_PC="${SUBMODULE_ROOT}/.pc"
-    mkdir -p "${QUILT_PC}" 1>&2
-    printf '../.patches/%s\n' "${SUBMODULE_DIR}" > "${QUILT_PC}"/.quilt_patches
-    printf '.series\n' > "${QUILT_PC}"/.quilt_series
-    printf '2\n' > "${QUILT_PC}"/.version
+  # Enforce $QUILT_PC with expected values.
+  QUILT_PC="${SUBMODULE_ROOT}/.pc"
+  mkdir -p "${QUILT_PC}" 1>&2
+  printf '../.patches/%s\n' "${SUBMODULE_DIR}" > "${QUILT_PC}"/.quilt_patches
+  printf '.series\n' > "${QUILT_PC}"/.quilt_series
+  printf '2\n' > "${QUILT_PC}"/.version
 
-    # Send $QUILT_PC out of the subshell.
-    printf '%s\n' "${QUILT_PC}"
+  # Send $QUILT_PC out of the subshell.
+  printf '%s\n' "${QUILT_PC}"
 )
 
 ## See /etc/quilt.quiltrc
 # shellcheck disable=SC2310
 if ! QUILT_PC="$(__setup_submodule_pc)"; then
-    exit 1
+  exit 1
 fi
 export QUILT_PC
 
@@ -68,28 +68,28 @@ unset QUILT_PATCHES_PREFIX
 
 # Customize pager
 case "${QUILT_COMMAND:-}" in
-    diff | refresh)
-        # show side-by-side diff
-        export QUILT_PAGER=delta
-        ;;
-    annotate)
-        # add filename for syntax highlighting
-        export QUILT_PAGER="bat --file-name ${!#} -p"
-        ;;
-    *)
-        # page only when needed
-        export QUILT_PAGER='bat -p'
-        ;;
+  diff | refresh)
+    # show side-by-side diff
+    export QUILT_PAGER=delta
+    ;;
+  annotate)
+    # add filename for syntax highlighting
+    export QUILT_PAGER="bat --file-name ${!#} -p"
+    ;;
+  *)
+    # page only when needed
+    export QUILT_PAGER='bat -p'
+    ;;
 esac
 
 # Customize editor
 case "${QUILT_COMMAND:-}" in
-    header | mail)
-        # use markdown for patches
-        export EDITOR='nano --syntax markdown'
-        ;;
-    *)
-        # no syntax for editing files
-        export EDITOR=nano
-        ;;
+  header | mail)
+    # use markdown for patches
+    export EDITOR='nano --syntax markdown'
+    ;;
+  *)
+    # no syntax for editing files
+    export EDITOR=nano
+    ;;
 esac
