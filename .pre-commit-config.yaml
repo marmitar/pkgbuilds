@@ -21,3 +21,20 @@ repos:
       # filesystems checkers
       - id: check-symlinks
       - id: check-executables-have-shebangs
+
+  # Markdown formatter
+  - repo: https://github.com/hukkin/mdformat
+    rev: 82912cdaea4fb830f751504486a7879c70526547 # 1.0.0
+    hooks:
+      - id: mdformat
+        # https://mdformat.readthedocs.io/en/stable/users/plugins.html
+        additional_dependencies:
+          - mdformat-config
+          - mdformat-footnote
+          - mdformat-gfm
+          - mdformat-gfm-alerts
+          - mdformat-ruff
+          - mdformat-shfmt
+          - mdformat-myst
+          - mdformat-front-matters
+        args: [--strict-front-matter]
