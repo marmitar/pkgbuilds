@@ -28,6 +28,12 @@ repos:
       #- id: check-symlinks
       - id: check-executables-have-shebangs
 
+  # Spell checker
+  - repo: https://github.com/crate-ci/typos
+    rev: 37bb98842b0d8c4ffebdb75301a13db0267cef89  # frozen: v1.47.2
+    hooks:
+      - id: typos
+
   # Markdown formatter
   - repo: https://github.com/hukkin/mdformat
     rev: 82912cdaea4fb830f751504486a7879c70526547 # frozen: 1.0.0

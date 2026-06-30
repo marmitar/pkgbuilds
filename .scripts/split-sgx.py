@@ -297,7 +297,7 @@ def root() -> Path:
 
 
 def main() -> None:
-    parser = ArgumentParser(description='Graph depencies of local sgx_*_debian_local_repo')
+    parser = ArgumentParser(description='Graph dependencies of local sgx_*_debian_local_repo')
     parser.add_argument('-v', '--verbose', action='count', default=0)
     parser.add_argument('-i', '--internal', action='store_true')
 

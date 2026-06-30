@@ -1,0 +1,5 @@
+[type.diff]
+extend-ignore-re = [
+  # ignore content after quilt separator
+  "(?s)\\n={67}\\n.*$",
+]
