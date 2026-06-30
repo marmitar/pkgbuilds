@@ -46,3 +46,10 @@ repos:
       - id: ruff-check
         args: [--fix]
       - id: ruff-format
+
+  # TOML formatter
+  - repo: https://github.com/tombi-toml/tombi-pre-commit
+    rev: 1376e3d73ce106474179c8adfda11d1e50b7d4dc # v1.1.6
+    hooks:
+      - id: tombi-format
+      - id: tombi-lint
