@@ -38,3 +38,11 @@ repos:
           - mdformat-myst
           - mdformat-front-matters
         args: [--strict-front-matter]
+
+  # Python formatter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: c59bba8fb259db0fec2bbb77ad8ba51ea7341b56 # v0.15.20
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
