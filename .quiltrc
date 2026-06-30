@@ -19,7 +19,7 @@ __setup_submodule_pc() (
 
   # Ensure we are in a submodule, not the root.
   GIT_ROOT="$(git rev-parse --show-superproject-working-tree)"
-  if [[ -z "${GIT_ROOT}" ]]; then
+  if [[ -z ${GIT_ROOT} ]]; then
     echo 'Please, use quilt in a submodule to avoid issues with the project root.' > /dev/stderr
     return 1
   fi
