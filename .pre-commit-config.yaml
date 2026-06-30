@@ -5,6 +5,13 @@ default_install_hook_types:
   - pre-push
 
 repos:
+  # Self checks
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+      - id: check-useless-excludes
+
+  # Text files
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
     hooks:
@@ -19,7 +26,7 @@ repos:
       - id: check-yaml
       - id: check-toml
       # filesystems checkers
-      - id: check-symlinks
+      #- id: check-symlinks
       - id: check-executables-have-shebangs
 
   # Markdown formatter
