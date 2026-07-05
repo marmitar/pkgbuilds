@@ -1,10 +1,11 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Wed, 03 Jun 2026 23:28:40 -0300
-Last-Update: 2026-06-04
+Last-Update: 2026-07-05
 Subject: [PATCH] Update chezmoi to the latest version
 ---
  .gitignore |    3 +++
- 1 file changed, 3 insertions(+)
+ REUSE.toml |   30 +++++++++++++++---------------
+ 2 files changed, 18 insertions(+), 15 deletions(-)
 
 Index: b/.gitignore
 ===================================================================
@@ -14,3 +15,44 @@ Index: b/.gitignore
 +*.pkg.tar.*
 +*.tar.gz
 +*.patch
+Index: b/REUSE.toml
+===================================================================
+--- a/REUSE.toml
++++ b/REUSE.toml
+@@ -2,21 +2,21 @@ version = 1
+ 
+ [[annotations]]
+ path = [
+-    "PKGBUILD",
+-    "README.md",
+-    "keys/**",
+-    ".SRCINFO",
+-    ".nvchecker.toml",
+-    "*.install",
+-    "*.sysusers",
+-    "*.tmpfiles",
+-    "*.logrotate",
+-    "*.pam",
+-    "*.service",
+-    "*.socket",
+-    "*.timer",
+-    "*.desktop",
+-    "*.hook",
++  "PKGBUILD",
++  "README.md",
++  "keys/**",
++  ".SRCINFO",
++  ".nvchecker.toml",
++  "*.install",
++  "*.sysusers",
++  "*.tmpfiles",
++  "*.logrotate",
++  "*.pam",
++  "*.service",
++  "*.socket",
++  "*.timer",
++  "*.desktop",
++  "*.hook",
+ ]
+ SPDX-FileCopyrightText = "Arch Linux contributors"
+ SPDX-License-Identifier = "0BSD"
