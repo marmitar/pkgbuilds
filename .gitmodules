@@ -1,6 +1,12 @@
 # sorted by: creation date (earliest commit)
+# > .scripts/sort-submodules.sh
 
 ## AUR Maintainer
+
+[submodule "python-speechrecognition"]
+	path = python-speechrecognition
+	url = ssh://aur@aur.archlinux.org/python-speechrecognition.git
+	branch = master
 
 [submodule "mathematica"]
 	path = mathematica
@@ -15,11 +21,6 @@
 [submodule "esound"]
 	path = esound
 	url = ssh://aur@aur.archlinux.org/esound.git
-	branch = master
-
-[submodule "shellcheck-bin-doc"]
-	path = shellcheck-bin-doc
-	url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
 	branch = master
 
 [submodule "perl-log-any"]
@@ -72,14 +73,29 @@
 	url = ssh://aur@aur.archlinux.org/tela-circle-icon-theme-spl-git.git
 	branch = master
 
+[submodule "pnpm-shell-completion"]
+	path = pnpm-shell-completion
+	url = ssh://aur@aur.archlinux.org/pnpm-shell-completion.git
+	branch = master
+
 [submodule "perl-test-future-io-impl"]
 	path = perl-test-future-io-impl
 	url = ssh://aur@aur.archlinux.org/perl-test-future-io-impl.git
 	branch = master
 
+[submodule "shellcheck-bin-doc"]
+    path = shellcheck-bin-doc
+    url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
+    branch = master
+
 [submodule "vscode-xdg-patch-hook"]
 	path = vscode-xdg-patch-hook
 	url = ssh://aur@aur.archlinux.org/vscode-xdg-patch-hook.git
+	branch = master
+
+[submodule "alpaca-ai"]
+	path = alpaca-ai
+	url = ssh://aur@aur.archlinux.org/alpaca-ai.git
 	branch = master
 
 [submodule "perl-string-license"]
@@ -102,29 +118,14 @@
 	url = ssh://aur@aur.archlinux.org/perl-test2-tools-command.git
 	branch = master
 
-[submodule "intel-sgx-psw-bin"]
-	path = intel-sgx-psw-bin
-	url = ssh://aur@aur.archlinux.org/intel-sgx-psw-bin.git
-	branch = master
-
 [submodule "intel-sgx-sdk-bin"]
 	path = intel-sgx-sdk-bin
 	url = ssh://aur@aur.archlinux.org/intel-sgx-sdk-bin.git
 	branch = master
 
-[submodule "python-speechrecognition"]
-	path = python-speechrecognition
-	url = ssh://aur@aur.archlinux.org/python-speechrecognition.git
-	branch = master
-
-[submodule "alpaca-ai"]
-	path = alpaca-ai
-	url = ssh://aur@aur.archlinux.org/alpaca-ai.git
-	branch = master
-
-[submodule "pnpm-shell-completion"]
-	path = pnpm-shell-completion
-	url = ssh://aur@aur.archlinux.org/pnpm-shell-completion.git
+[submodule "intel-sgx-psw-bin"]
+	path = intel-sgx-psw-bin
+	url = ssh://aur@aur.archlinux.org/intel-sgx-psw-bin.git
 	branch = master
 
 ## Custom patches

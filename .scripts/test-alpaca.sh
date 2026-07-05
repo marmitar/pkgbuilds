@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 exec podman run --rm -it \
   -v "${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}":/run/w0 \
   -e XDG_RUNTIME_DIR=/run \
