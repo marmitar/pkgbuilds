@@ -122,6 +122,11 @@
 	url = ssh://aur@aur.archlinux.org/alpaca-ai.git
 	branch = master
 
+[submodule "pnpm-shell-completion"]
+	path = pnpm-shell-completion
+	url = ssh://aur@aur.archlinux.org/pnpm-shell-completion.git
+	branch = master
+
 ## Custom patches
 
 [submodule "sushi"]
