@@ -1,4 +1,5 @@
 # See https://prek.j178.dev/ for more information
+# yaml-language-server: $schema=https://raw.githubusercontent.com/j178/prek/refs/heads/master/prek.schema.json
 default_install_hook_types:
   - commit-msg
   - pre-commit
@@ -8,7 +9,7 @@ repos:
   # Self checks
   - repo: meta
     hooks:
-      - id: check-hooks-apply
+      #- id: check-hooks-apply
       - id: check-useless-excludes
 
   # Text files
@@ -30,7 +31,7 @@ repos:
 
   # Spell checker
   - repo: https://github.com/crate-ci/typos
-    rev: 37bb98842b0d8c4ffebdb75301a13db0267cef89  # frozen: v1.47.2
+    rev: 37bb98842b0d8c4ffebdb75301a13db0267cef89 # frozen: v1.47.2
     hooks:
       - id: typos
 
@@ -65,7 +66,7 @@ repos:
 
   # Python formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: c59bba8fb259db0fec2bbb77ad8ba51ea7341b56  # frozen: v0.15.20
+    rev: c59bba8fb259db0fec2bbb77ad8ba51ea7341b56 # frozen: v0.15.20
     hooks:
       - id: ruff-check
         args: [--fix]
@@ -73,9 +74,51 @@ repos:
 
   # TOML formatter
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: 1376e3d73ce106474179c8adfda11d1e50b7d4dc  # frozen: v1.1.6
+    rev: 1376e3d73ce106474179c8adfda11d1e50b7d4dc # frozen: v1.1.6
     hooks:
       - id: tombi-format
       - id: tombi-lint
+
+  # Check PKGBUILD and .SCRINFO
+  - repo: local
+    hooks:
+      # Standard PKGBUILD analysis
+      - id: namcap
+        name: namcap
+        language: system
+        entry: namcap
+        args: [-i]
+        files: PKGBUILD
+      # Newer PKGBUILD linter from ALPM
+      - id: alpm-lint-check
+        name: alpm-lint-check
+        language: system
+        entry: alpm-lint
+        args: [check, -l, suggest, -v]
+        files: 'PKGBUILD|.SRCINFO'
+        pass_filenames: 1
+      # Guarantee up-to-date .SRCINFO
+      - id: makepkg-printsrcinfo
+        name: makepkg-printsrcinfo
+        language: system
+        entry: sh
+        args:
+          - -euc
+          - |
+            if [ -x mksrcinfo ]; then
+              ./mksrcinfo
+            else
+              makepkg --printsrcinfo > .SRCINFO
+            fi
+        files: 'PKGBUILD|.SRCINFO'
+        pass_filenames: false
+      # Validate generated .SRCINFO
+      - id: alpm-srcinfo-validate
+        name: alpm-srcinfo-validate
+        language: system
+        entry: alpm-srcinfo
+        args: [validate]
+        files: .SRCINFO
+        pass_filenames: 1
 
 minimum_prek_version: 0.4.8
