@@ -1,2 +1,9 @@
+[fetch]
+parallel = 0
+
+[submodule]
+fetchJobs = 0
+recurse = true
+
 [url "https://aur.archlinux.org"]
 insteadOf = ssh://aur@aur.archlinux.org
