@@ -10,8 +10,10 @@ configure-git:
     git submodule update --recursive
     git submodule foreach prek install --config {{ quote(prek-config) }}
 
+submodule-root := shell('realpath --canonicalize-existing --relative-to="$2" "$(cd "$1" && git rev-parse --show-toplevel)"', invocation_directory(), justfile_directory())
+
 # Check state of a single repository
-check submodule='.':
+check submodule=submodule-root:
     cd {{ quote(submodule) }} && prek run -a --config {{ quote(prek-config) }}
 
 # Check the state of all submodules
