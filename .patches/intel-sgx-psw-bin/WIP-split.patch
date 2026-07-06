@@ -1,21 +1,20 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Thu, 5 Feb 2026 23:59:22 -0300
-Last-Update: 2026-02-08
+Last-Update: 2026-07-27
 Subject: [WIP] Split PSW package groups
 ---
- PKGBUILD |  198 ++++++++++++++++++++++++++++++++++++++++++++++++---------------
- 1 file changed, 151 insertions(+), 47 deletions(-)
+ PKGBUILD |  194 ++++++++++++++++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 149 insertions(+), 45 deletions(-)
 
 Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -1,21 +1,21 @@
+@@ -1,7 +1,14 @@
  # Maintainer: marmis <tiagodepalves@gmail.com>
  # Contributor: "marmis" Tiago de Paula <tiagodepalves@gmail.com>
  
 -pkgname=intel-sgx-psw-bin
--pkgdesc='Intel® Software Guard Extensions Platform Software for Linux* OS'
 +pkgbase=intel-sgx-psw-bin
 +pkgname=(
 +  intel-sgx-psw-common-bin
@@ -24,34 +23,39 @@ Index: b/PKGBUILD
 +  intel-sgx-dcap-bin
 +  intel-sgx-ra-bin
 +)
-+pkgdesc='Intel® Software Guard Extensions (SGX) Platform Software for Linux* OS'
- pkgver=2.27
- pkgrel=2
- url='https://github.com/intel/linux-sgx'
+ pkgdesc='Intel® Software Guard Extensions Platform Software for Linux* OS'
+ pkgver=2.29
+ pkgrel=1
+@@ -9,13 +16,6 @@ url='https://github.com/intel/confidenti
  arch=('x86_64')
- license=('BSD-3-Clause AND LicenseRef-IntelSgx-ThirdParty') # https://github.com/intel/linux-sgx?tab=License-1-ov-file
+ license=('BSD-3-Clause AND LicenseRef-Intel-SGX-Third-Party') # https://github.com/intel/confidential-computing.sgx/blob/main/License.txt
  makedepends=()
 -depends=('glibc' 'gcc-libs' 'bash')
 -optdepends=(
 -  'protobuf-21: required for the AESM service'
 -  'nodejs: for running the SGX DCAP PCCS Server'
 -  'curl: required for SGX Remote Attestation Service (RA)'
--  'boost183: required by the TDX Quote Generation Service (QGS)'
+-  'boost190: required by the TDX Quote Generation Service (QGS)'
 -)
  provides=("intel-sgx-psw=${pkgver}")
  conflicts=('intel-sgx-psw')
- options=(!strip !debug) # debug symbols already included from upstream, which shouldn't be stripped
+ options=(!strip !debug) # debug symbols already included from upstream, better not to strip them
 @@ -25,55 +25,159 @@ source=("sgx_${pkgver}_debian_local_repo
- b2sums=('aaa33087d8002a643f95d6699273738bdc847ea6b910e0f0ce61d42857a31f71517faaa9f4ea62396682622cdb0e01fec110e99d47d47fbec59bdddbb0a563e2'
-         '258d4bf13a00b299f72f1fe720fa1adc40201dfdb45ca2f557d9fff660c3233163e82114e2b5f5037cbb07fee82676e79c7def8bdf62b06e3d14b30ed6148761')
+ b2sums=('5832a7537c7bb0b50376bf6818e647bd738ba54da6263249ddf7c6a6483b60a0458bc7177c893ea7a364ddfa9c9ab9abcb5925ef12dd30c3f4ab61b9c0d62180'
+         'f0a1415f8e88ffe2fe189c56a701a9756f74947375f142aa3965679129d3182f1b380beea02d70e07cbe7c9443461b8cbb674193ae07f71d543d13a10ecaf7ff')
  
--package() {
--  # shellcheck disable=SC2016
--  find "${srcdir}"/sgx_debian_local_repo -name "*.deb" -exec \
--    sh -c 'ar -p "$1" -O data.tar.zst | tar -x --zstd -C "$0"' "${pkgdir}" {} \;
+-# Move files to standard Arch Linux folders
+-_fix_debian_paths() {
 +# Move files to standard Arch Linux folders (namcap rule: directoryname)
 +_fix_non_standard_paths() {
-+  # /etc/udev is for user files, packages should use /usr/lib/udev instead
+   # /etc/udev is for user files, packages should use /usr/lib/udev instead
+-  install -d -m755 "${pkgdir}"/usr/lib/udev
+-  mv "${pkgdir}"/etc/udev/rules.d "${pkgdir}"/usr/lib/udev/rules.d
+-  rmdir "${pkgdir}"/etc/udev
+-
+-  # Debian has a /usr/lib/$TARGET folder, but you won't find them in Arch
+-  mv "${pkgdir}"/usr/lib/"${CARCH}"-linux-gnu/*.so* "${pkgdir}"/usr/lib/
+-  rmdir "${pkgdir}"/usr/lib/"${CARCH}"-linux-gnu
 +  if [[ -d "${pkgdir}"/etc/udev ]]; then
 +    install -d -m755 "${pkgdir}"/usr/lib/udev
 +    mv "${pkgdir}"/etc/udev/rules.d "${pkgdir}"/usr/lib/udev/rules.d
@@ -63,8 +67,10 @@ Index: b/PKGBUILD
 +    mv "${pkgdir}"/usr/lib/"${CARCH}"-linux-gnu/*.so* "${pkgdir}"/usr/lib/
 +    rmdir "${pkgdir}"/usr/lib/"${CARCH}"-linux-gnu
 +  fi
-+
-+  # Debian has an actual /lib folder, which in Arch is just a symlink to /usr/lib
+ 
+   # Debian has an actual /lib folder, which in Arch is just a symlink to /usr/lib
+-  mv "${pkgdir}"/lib/systemd/system/*.service "${pkgdir}"/usr/lib/systemd/system/
+-  rmdir "${pkgdir}"/lib/systemd/system "${pkgdir}"/lib/systemd "${pkgdir}"/lib
 +  if [[ -d "${pkgdir}"/lib/systemd/system ]]; then
 +    mv "${pkgdir}"/lib/systemd/system/*.service "${pkgdir}"/usr/lib/systemd/system/
 +    rmdir "${pkgdir}"/lib/systemd/system "${pkgdir}"/lib/systemd "${pkgdir}"/lib
@@ -102,13 +108,12 @@ Index: b/PKGBUILD
 +  _pick libsgx-urts
 +  _fix_non_standard_paths
  
--  # required users and groups
-   install -Dm644 intel-sgx-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx.conf
+-  # Debian also supports /include, which is empty here
+-  rmdir "${pkgdir}"/include
++  install -Dm644 intel-sgx-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx.conf
 +  install -Dm644 "${pkgdir}"/usr/share/doc/libsgx-enclave-common/copyright -t "${pkgdir}/usr/share/licenses/intel-sgx-psw-bin"
 +}
- 
--  # composed license
--  install -Dm644 "${pkgdir}"/usr/share/doc/libsgx-enclave-common/copyright -t "${pkgdir}/usr/share/licenses/${pkgname}"
++
 +package_intel-sgx-aesm-bin() {
 +  pkgdesc='Intel® SGX Application Enclave Services Manager (AESM)'
 +  depends=('intel-sgx-psw-common-bin' 'glibc' 'gcc-libs' 'protobuf-21')
@@ -138,34 +143,32 @@ Index: b/PKGBUILD
 +  _fix_symlink "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_pce.signed.so.1"
 +  _fix_symlink "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_qe3.signed.so"
 +  _fix_symlink "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_qe3.signed.so.1"
- 
--  _fix_non_standard_paths # namcap rule: directoryname
--  _fix_binary_symlinks # namcap rule: symlink
++
 +  # TODO: install -Dm644 intel-sgx-aesm-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx-aesm.conf
  }
  
--# Move files to standard Arch Linux folders
--_fix_non_standard_paths() {
--  # /etc/udev is for user files, packages should use /usr/lib/udev instead
--  install -d -m755 "${pkgdir}"/usr/lib/udev
--  mv "${pkgdir}"/etc/udev/rules.d "${pkgdir}"/usr/lib/udev/rules.d
--  rmdir "${pkgdir}"/etc/udev
--
--  # Debian has a /usr/lib/$TARGET folder, but you won't find them in Arch
--  mv "${pkgdir}"/usr/lib/"${CARCH}"-linux-gnu/*.so* "${pkgdir}"/usr/lib/
--  rmdir "${pkgdir}"/usr/lib/"${CARCH}"-linux-gnu
+-# Update symbolic links using non-standard Arch Linux paths
+-_fix_binary_symlinks() {
+-  local broken_symlinks=(
+-    "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_pce.signed.so"
+-    "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_pce.signed.so.1"
+-    "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_qe3.signed.so"
+-    "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_qe3.signed.so.1"
+-    "${pkgdir}/opt/intel/sgx-pck-id-retrieval-tool/libsgx_id_enclave.signed.so.1"
+-    "${pkgdir}/opt/intel/sgx-pck-id-retrieval-tool/libsgx_pce.signed.so.1"
 +package_intel-sgx-qgs-bin() {
 +  pkgdesc='Intel® SGX Quote Generation Service (QGS)'
 +  depends=('intel-sgx-psw-common-bin' 'glibc' 'gcc-libs' 'protobuf-21' 'boost183')
 +  optdepends=(
 +    'intel-sgx-aesm-bin: for Trust Domain Extension (TDX) QE logic'
 +    'intel-sgx-dcap-bin: for Trust Domain Extension (TDX) QE logic'
-+  )
+   )
 +  conflicts=('intel-sgx-qgs')
  
--  # Debian has an actual /lib folder, which in Arch is just a symlink to /usr/lib
--  mv "${pkgdir}"/lib/systemd/system/*.service "${pkgdir}"/usr/lib/systemd/system/
--  rmdir "${pkgdir}"/lib/systemd/system "${pkgdir}"/lib/systemd "${pkgdir}"/lib
+-  local symlink target
+-  for symlink in "${broken_symlinks[@]}"; do
+-    target="${pkgdir}/usr/lib/$(basename "${symlink}")"
+-    target="$(realpath --relative-to="$(dirname "${symlink}")" "${target}")"
 +  _pick tdx-qgs
 +  _pick libsgx-tdx-logic
 +  _pick libsgx-tdx-logic-dev
@@ -176,20 +179,14 @@ Index: b/PKGBUILD
 +  _pick libtdx-attest-dev
 +  _fix_non_standard_paths
  
--  # Debian also supports /include, which is empty here
--  rmdir "${pkgdir}"/include
+-    ln -sf "${target}" "${symlink}"
+-  done
 +  # TODO: install -Dm644 intel-sgx-qgs-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx-qgs.conf
  }
  
--# Update symbolic links using non-standard Arch Linux paths
--_fix_binary_symlinks() {
--  broken_symlinks=(
--    "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_pce.signed.so"
--    "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_pce.signed.so.1"
--    "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_qe3.signed.so"
--    "${pkgdir}/opt/intel/sgx-aesm-service/aesm/libsgx_qe3.signed.so.1"
--    "${pkgdir}/opt/intel/sgx-pck-id-retrieval-tool/libsgx_id_enclave.signed.so.1"
--    "${pkgdir}/opt/intel/sgx-pck-id-retrieval-tool/libsgx_pce.signed.so.1"
+-package() {
+-  find "${srcdir}"/sgx_debian_local_repo -name "*.deb" -exec \
+-    sh -c 'ar -p "$1" -O data.tar.zst | tar -x --zstd -C "$0"' "${pkgdir}" {} \;
 +package_intel-sgx-dcap-bin() {
 +  pkgdesc='Intel® SGX Data Center Attestation Primitives (DCAP)'
 +  depends=('intel-sgx-psw-common-bin' 'intel-sgx-awsm-bin' 'glibc' 'gcc-libs' 'curl')
@@ -200,9 +197,11 @@ Index: b/PKGBUILD
 +    'python-venv: Provisioning Certificate Caching Service'
 +    'npm: for the Provisioning Certificate Caching Service'
 +    'nodejs: Provisioning Certificate Caching Service'
-   )
++  )
 +  conflicts=('intel-sgx-dcap')
-+
+ 
+-  # required users and groups
+-  install -Dm644 intel-sgx-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx.conf
 +  _pick sgx-dcap-pccs
 +  _pick libsgx-dcap-ql
 +  _pick libsgx-dcap-ql-dev
@@ -216,17 +215,16 @@ Index: b/PKGBUILD
 +  _pick tee-appraisal-tool
 +  _fix_non_standard_paths
  
--  for symlink in "${broken_symlinks[@]}"; do
--    target="${pkgdir}/usr/lib/$(basename "${symlink}")"
--    target="$(realpath --relative-to="$(dirname "${symlink}")" "${target}")"
+-  # composed license
+-  install -Dm644 "${pkgdir}"/usr/share/doc/libsgx-enclave-common/copyright -t "${pkgdir}/usr/share/licenses/${pkgname}"
 +  _fix_symlink "${pkgdir}/opt/intel/sgx-pck-id-retrieval-tool/libsgx_id_enclave.signed.so.1"
 +  _fix_symlink "${pkgdir}/opt/intel/sgx-pck-id-retrieval-tool/libsgx_pce.signed.so.1"
 +
 +  # TODO: install -Dm644 intel-sgx-pccs-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx-pccs.conf
 +}
  
--    ln -sf "${target}" "${symlink}"
--  done
+-  _fix_debian_paths # namcap rule: directoryname
+-  _fix_binary_symlinks # namcap rule: symlink
 +package_intel-sgx-ra-bin() {
 +  pkgdesc='Intel® SGX Remote Attestation (RA) Service'
 +  depends=('glibc' 'gcc-libs')

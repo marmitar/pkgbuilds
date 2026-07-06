@@ -1,0 +1,51 @@
+Author: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Mon, 27 Jul 2026 13:48:37 -0300
+Last-Update: 2026-07-27
+Subject: [PATCH] Sort helper functions
+---
+ PKGBUILD |   28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
+
+Index: b/PKGBUILD
+===================================================================
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -25,20 +25,6 @@ source=("sgx_${pkgver}_debian_local_repo
+ b2sums=('5832a7537c7bb0b50376bf6818e647bd738ba54da6263249ddf7c6a6483b60a0458bc7177c893ea7a364ddfa9c9ab9abcb5925ef12dd30c3f4ab61b9c0d62180'
+         'f0a1415f8e88ffe2fe189c56a701a9756f74947375f142aa3965679129d3182f1b380beea02d70e07cbe7c9443461b8cbb674193ae07f71d543d13a10ecaf7ff')
+ 
+-package() {
+-  find "${srcdir}"/sgx_debian_local_repo -name "*.deb" -exec \
+-    sh -c 'ar -p "$1" -O data.tar.zst | tar -x --zstd -C "$0"' "${pkgdir}" {} \;
+-
+-  # required users and groups
+-  install -Dm644 intel-sgx-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx.conf
+-
+-  # composed license
+-  install -Dm644 "${pkgdir}"/usr/share/doc/libsgx-enclave-common/copyright -t "${pkgdir}/usr/share/licenses/${pkgname}"
+-
+-  _fix_debian_paths # namcap rule: directoryname
+-  _fix_binary_symlinks # namcap rule: symlink
+-}
+-
+ # Move files to standard Arch Linux folders
+ _fix_debian_paths() {
+   # /etc/udev is for user files, packages should use /usr/lib/udev instead
+@@ -77,3 +63,17 @@ _fix_binary_symlinks() {
+     ln -sf "${target}" "${symlink}"
+   done
+ }
++
++package() {
++  find "${srcdir}"/sgx_debian_local_repo -name "*.deb" -exec \
++    sh -c 'ar -p "$1" -O data.tar.zst | tar -x --zstd -C "$0"' "${pkgdir}" {} \;
++
++  # required users and groups
++  install -Dm644 intel-sgx-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx.conf
++
++  # composed license
++  install -Dm644 "${pkgdir}"/usr/share/doc/libsgx-enclave-common/copyright -t "${pkgdir}/usr/share/licenses/${pkgname}"
++
++  _fix_debian_paths # namcap rule: directoryname
++  _fix_binary_symlinks # namcap rule: symlink
++}
