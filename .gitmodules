@@ -7,150 +7,175 @@
 	path = python-speechrecognition
 	url = ssh://aur@aur.archlinux.org/python-speechrecognition.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "mathematica"]
 	path = mathematica
 	url = ssh://aur@aur.archlinux.org/mathematica.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "perl-string-escape"]
 	path = perl-string-escape
 	url = ssh://aur@aur.archlinux.org/perl-string-escape.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "esound"]
 	path = esound
 	url = ssh://aur@aur.archlinux.org/esound.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "perl-log-any"]
 	path = perl-log-any
 	url = ssh://aur@aur.archlinux.org/perl-log-any.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "perl-struct-dumb"]
 	path = perl-struct-dumb
 	url = ssh://aur@aur.archlinux.org/perl-struct-dumb.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "physlock"]
 	path = physlock
 	url = ssh://aur@aur.archlinux.org/physlock.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "pam_mount-git"]
 	path = pam_mount-git
 	url = ssh://aur@aur.archlinux.org/pam_mount-git.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "vkbasalt-redemp-git"]
 	path = vkbasalt-redemp-git
 	url = ssh://aur@aur.archlinux.org/vkbasalt-redemp-git.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "licensecheck"]
 	path = licensecheck
 	url = ssh://aur@aur.archlinux.org/licensecheck.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "xpadneo-dkms"]
 	path = xpadneo-dkms
 	url = ssh://aur@aur.archlinux.org/xpadneo-dkms.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "mathematica-light"]
 	path = mathematica-light
 	url = ssh://aur@aur.archlinux.org/mathematica-light.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "perl-tree-rb-xs"]
 	path = perl-tree-rb-xs
 	url = ssh://aur@aur.archlinux.org/perl-tree-rb-xs.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "tela-circle-icon-theme-spl-git"]
 	path = tela-circle-icon-theme-spl-git
 	url = ssh://aur@aur.archlinux.org/tela-circle-icon-theme-spl-git.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "pnpm-shell-completion"]
 	path = pnpm-shell-completion
 	url = ssh://aur@aur.archlinux.org/pnpm-shell-completion.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "perl-test-future-io-impl"]
 	path = perl-test-future-io-impl
 	url = ssh://aur@aur.archlinux.org/perl-test-future-io-impl.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "shellcheck-bin-doc"]
     path = shellcheck-bin-doc
     url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
     branch = master
+    update = rebase
     shallow = true
 
 [submodule "vscode-xdg-patch-hook"]
 	path = vscode-xdg-patch-hook
 	url = ssh://aur@aur.archlinux.org/vscode-xdg-patch-hook.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "alpaca-ai"]
 	path = alpaca-ai
 	url = ssh://aur@aur.archlinux.org/alpaca-ai.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "perl-string-license"]
 	path = perl-string-license
 	url = ssh://aur@aur.archlinux.org/perl-string-license.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "perl-feature-compat-class"]
 	path = perl-feature-compat-class
 	url = ssh://aur@aur.archlinux.org/perl-feature-compat-class.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "perl-feature-compat-try"]
 	path = perl-feature-compat-try
 	url = ssh://aur@aur.archlinux.org/perl-feature-compat-try.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "perl-test2-tools-command"]
 	path = perl-test2-tools-command
 	url = ssh://aur@aur.archlinux.org/perl-test2-tools-command.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "intel-sgx-sdk-bin"]
 	path = intel-sgx-sdk-bin
 	url = ssh://aur@aur.archlinux.org/intel-sgx-sdk-bin.git
 	branch = master
+	update = rebase
 	shallow = true
 
 [submodule "intel-sgx-psw-bin"]
 	path = intel-sgx-psw-bin
 	url = ssh://aur@aur.archlinux.org/intel-sgx-psw-bin.git
 	branch = master
+	update = rebase
 	shallow = true
 
 ## Custom patches
@@ -159,16 +184,22 @@
 	path = sushi
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git
 	branch = main
+	update = rebase
 	shallow = false
+	ignore = dirty
 
 [submodule "thelounge"]
 	path = thelounge
 	url = https://aur.archlinux.org/thelounge.git
 	branch = master
+	update = rebase
 	shallow = false
+	ignore = dirty
 
 [submodule "chezmoi"]
 	path = chezmoi
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git
 	branch = main
+	update = rebase
 	shallow = false
+	ignore = dirty
