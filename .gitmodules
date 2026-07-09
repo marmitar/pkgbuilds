@@ -159,16 +159,16 @@
 	path = sushi
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git
 	branch = main
-	shallow = true
+	shallow = false
 
 [submodule "thelounge"]
 	path = thelounge
 	url = https://aur.archlinux.org/thelounge.git
 	branch = master
-	shallow = true
+	shallow = false
 
 [submodule "chezmoi"]
 	path = chezmoi
 	url = https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git
 	branch = main
-	shallow = true
+	shallow = false
