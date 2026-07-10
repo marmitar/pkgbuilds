@@ -5,21 +5,29 @@ set default-list
 configure-git:
     prek install
     git submodule update --init --recursive
-    git submodule foreach \
+    git submodule foreach --recursive \
         'prek install --config="$(realpath -e --relative-to="$(pwd)" "${toplevel}/.pre-commit-config.yaml")"'
 
 submodule-root := shell('realpath -e --relative-to="${1}" "$(git -C "${2}" rev-parse --show-toplevel)"', justfile_directory(), invocation_directory())
 
 # Check state of a single repository
-check submodule=submodule-root:
-    cd {{ quote(submodule) }} && \
-        prek run --all-files --config={{ quote(shell('realpath -e --relative-to="${1}" "${2}/.pre-commit-config.yaml"', submodule, justfile_directory())) }}
+[script]
+@check submodule=submodule-root:
+    cd {{ quote(submodule) }}
+    toplevel={{ quote(justfile_directory()) }}
+    prek run --all-files --config="${toplevel}/.pre-commit-config.yaml" {{
+        if shell('git -C "${1}" remote get-url origin', submodule) =~ '^https?://' {
+            '--dry-run'
+        } else {
+            ''
+        }
+    }}
 
 # Check the state of all submodules
 check-all:
     prek run --all-files --config='.pre-commit-config.yaml'
-    git submodule foreach \
-        'prek run --all-files --config="${toplevel}/.pre-commit-config.yaml" || :'
+    git submodule foreach --recursive \
+        'just check "${displaypath}" || :'
 
 prek-version := `prek --version | awk '{print $2}'`
 
