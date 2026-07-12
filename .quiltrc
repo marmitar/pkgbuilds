@@ -27,17 +27,15 @@ __setup_submodule_pc() (
   SUBMODULE_DIR="$(realpath --canonicalize-existing --relative-to="${GIT_ROOT}" "${SUBMODULE_ROOT}")"
 
   # Exclude .pc from the worktree.
-  GIT_EXCLUDE="$(git rev-parse --git-dir)"/info/exclude
-  if ! grep -qxF '.pc/' "${GIT_EXCLUDE}"; then
-    echo '.pc/' > "${GIT_EXCLUDE}"
-  fi
+  GIT_EXCLUDE="$(git rev-parse --git-dir)/info/exclude"
+  sed -i -E '/^\.pc\/?$/ q; $ a .pc/' "${GIT_EXCLUDE}"
 
   # Enforce $QUILT_PC with expected values.
   QUILT_PC="${SUBMODULE_ROOT}/.pc"
   mkdir -p "${QUILT_PC}" 1>&2
-  printf '../.patches/%s\n' "${SUBMODULE_DIR}" > "${QUILT_PC}"/.quilt_patches
-  printf '.series\n' > "${QUILT_PC}"/.quilt_series
-  printf '2\n' > "${QUILT_PC}"/.version
+  printf '../.patches/%s\n' "${SUBMODULE_DIR}" > "${QUILT_PC}/.quilt_patches"
+  printf '.series\n' > "${QUILT_PC}/.quilt_series"
+  printf '2\n' > "${QUILT_PC}/.version"
 
   # Send $QUILT_PC out of the subshell.
   printf '%s\n' "${QUILT_PC}"

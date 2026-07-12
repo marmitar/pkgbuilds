@@ -15,36 +15,36 @@ Index: b/PKGBUILD
          'f0a1415f8e88ffe2fe189c56a701a9756f74947375f142aa3965679129d3182f1b380beea02d70e07cbe7c9443461b8cbb674193ae07f71d543d13a10ecaf7ff')
  
 -package() {
--  find "${srcdir}"/sgx_debian_local_repo -name "*.deb" -exec \
--    sh -c 'ar -p "$1" -O data.tar.zst | tar -x --zstd -C "$0"' "${pkgdir}" {} \;
+-  find sgx_debian_local_repo -name '*.deb' -exec \
+-    sh -c 'ar -p "$1" -O data.tar.zst | tar -x --zstd -C "$2"' -- {} "${pkgdir}" \;
 -
 -  # required users and groups
--  install -Dm644 intel-sgx-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx.conf
+-  install -Dm644 intel-sgx-sysusers.conf "${pkgdir}/usr/lib/sysusers.d/intel-sgx.conf"
 -
 -  # composed license
--  install -Dm644 "${pkgdir}"/usr/share/doc/libsgx-enclave-common/copyright -t "${pkgdir}/usr/share/licenses/${pkgname}"
+-  install -Dm644 "${pkgdir}/usr/share/doc/libsgx-enclave-common/copyright" -t "${pkgdir}/usr/share/licenses/${pkgname}"
 -
 -  _fix_debian_paths # namcap rule: directoryname
 -  _fix_binary_symlinks # namcap rule: symlink
 -}
 -
- # Move files to standard Arch Linux folders
+ # Move files to standard Arch Linux folders.
+ # See https://wiki.archlinux.org/title/Arch_package_guidelines#Directories
  _fix_debian_paths() {
-   # /etc/udev is for user files, packages should use /usr/lib/udev instead
-@@ -77,3 +63,17 @@ _fix_binary_symlinks() {
+@@ -78,3 +64,17 @@ _fix_binary_symlinks() {
      ln -sf "${target}" "${symlink}"
    done
  }
 +
 +package() {
-+  find "${srcdir}"/sgx_debian_local_repo -name "*.deb" -exec \
-+    sh -c 'ar -p "$1" -O data.tar.zst | tar -x --zstd -C "$0"' "${pkgdir}" {} \;
++  find sgx_debian_local_repo -name '*.deb' -exec \
++    sh -c 'ar -p "$1" -O data.tar.zst | tar -x --zstd -C "$2"' -- {} "${pkgdir}" \;
 +
 +  # required users and groups
-+  install -Dm644 intel-sgx-sysusers.conf "${pkgdir}"/usr/lib/sysusers.d/intel-sgx.conf
++  install -Dm644 intel-sgx-sysusers.conf "${pkgdir}/usr/lib/sysusers.d/intel-sgx.conf"
 +
 +  # composed license
-+  install -Dm644 "${pkgdir}"/usr/share/doc/libsgx-enclave-common/copyright -t "${pkgdir}/usr/share/licenses/${pkgname}"
++  install -Dm644 "${pkgdir}/usr/share/doc/libsgx-enclave-common/copyright" -t "${pkgdir}/usr/share/licenses/${pkgname}"
 +
 +  _fix_debian_paths # namcap rule: directoryname
 +  _fix_binary_symlinks # namcap rule: symlink

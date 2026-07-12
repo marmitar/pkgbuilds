@@ -23,15 +23,16 @@ repos:
       - id: mixed-line-ending
         args: [--fix, lf]
       # config syntax checkers
-      - id: check-yaml
       - id: check-toml
+      - id: check-yaml
+      - id: check-xml
       # filesystems checkers
       #- id: check-symlinks
       - id: check-executables-have-shebangs
 
   # Spell checker
   - repo: https://github.com/crate-ci/typos
-    rev: 37bb98842b0d8c4ffebdb75301a13db0267cef89 # frozen: v1.47.2
+    rev: bee27e3a4fd1ea2111cf90ab89cd076c870fce14 # frozen: v1.48.0
     hooks:
       - id: typos
 
@@ -74,7 +75,7 @@ repos:
 
   # TOML formatter
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: 1376e3d73ce106474179c8adfda11d1e50b7d4dc # frozen: v1.1.6
+    rev: fcb0ac886b00dd0305756b1e8466432e11601b5a # frozen: v1.2.0
     hooks:
       - id: tombi-format
       - id: tombi-lint
