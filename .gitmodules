@@ -136,6 +136,13 @@
 	update = rebase
 	shallow = true
 
+[submodule "python-funk"]
+	path = python-funk
+	url = ssh://aur@aur.archlinux.org/python-funk.git
+	branch = master
+	update = rebase
+	shallow = true
+
 [submodule "perl-string-license"]
 	path = perl-string-license
 	url = ssh://aur@aur.archlinux.org/perl-string-license.git
