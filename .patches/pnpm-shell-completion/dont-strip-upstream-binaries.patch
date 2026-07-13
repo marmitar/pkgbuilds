@@ -1,0 +1,33 @@
+Author: Tiago de Paula <tiagodepalves@gmail.com>
+Date: Sun, 12 Jul 2026 23:34:35 -0300
+Last-Update: 2026-07-12
+Subject: [PATCH] fix: don't strip upstream binaries
+---
+ .SRCINFO |    2 ++
+ PKGBUILD |    1 +
+ 2 files changed, 3 insertions(+)
+
+Index: b/.SRCINFO
+===================================================================
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -7,6 +7,8 @@ pkgbase = pnpm-shell-completion
+ 	license = MIT
+ 	depends = glibc
+ 	depends = gcc-libs
++	options = !strip
++	options = !debug
+ 	source = pnpm-shell-completion-0.5.5.tar.gz::https://github.com/g-plane/pnpm-shell-completion/releases/download/v0.5.5/pnpm-shell-completion_x86_64-unknown-linux-gnu.tar.gz
+ 	sha256sums = eae0a5ab8dc26e296a9735753cfb569e7e2bcd9f29a686294ac6f68871b0e712
+ 
+Index: b/PKGBUILD
+===================================================================
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -9,6 +9,7 @@ arch=('x86_64')
+ url='https://github.com/g-plane/pnpm-shell-completion'
+ license=('MIT')
+ depends=('glibc' 'gcc-libs')
++options=(!strip !debug)
+ source=("$pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/pnpm-shell-completion_$arch-unknown-linux-gnu.tar.gz")
+ sha256sums=('eae0a5ab8dc26e296a9735753cfb569e7e2bcd9f29a686294ac6f68871b0e712')
