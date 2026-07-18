@@ -115,6 +115,13 @@
 	update = rebase
 	shallow = true
 
+[submodule "python-cohere"]
+	path = python-cohere
+	url = ssh://aur@aur.archlinux.org/python-cohere.git
+	branch = master
+	update = rebase
+    shallow = true
+
 [submodule "shellcheck-bin-doc"]
     path = shellcheck-bin-doc
     url = ssh://aur@aur.archlinux.org/shellcheck-bin-doc.git
