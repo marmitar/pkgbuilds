@@ -6,7 +6,9 @@ configure-git:
     prek install
     git submodule update --init --recursive
     git submodule foreach --recursive \
-        'prek install --config="$(realpath -e --relative-to="$(pwd)" "${toplevel}/.pre-commit-config.yaml")"'
+        'prek install \
+            --config="$(realpath -e --relative-to="$(pwd)" "${toplevel}/.pre-commit-config.yaml")" \
+            --skip=mdsh'
 
 submodule-root := shell('realpath -e --relative-to="${1}" "$(git -C "${2}" rev-parse --show-toplevel)"', justfile_directory(), invocation_directory())
 
@@ -16,6 +18,12 @@ submodule-root := shell('realpath -e --relative-to="${1}" "$(git -C "${2}" rev-p
     cd {{ quote(submodule) }}
     toplevel={{ quote(justfile_directory()) }}
     prek run --all-files --config="${toplevel}/.pre-commit-config.yaml" {{
+        if path_exists(join(submodule, 'README.md')) == 'true' {
+            ''
+        } else {
+            '--skip=mdsh'
+        }
+    }} {{
         if shell('git -C "${1}" remote get-url origin', submodule) =~ '^https?://' {
             '--dry-run'
         } else {

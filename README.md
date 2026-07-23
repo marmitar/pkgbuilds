@@ -1,4 +1,4 @@
-# My PKGBUILDs
+# Personal PKGBUILDs
 
 ## AUR
 
@@ -33,7 +33,7 @@ git submodule --quiet foreach "
 - [perl-tree-rb-xs 0.21-1](https://aur.archlinux.org/packages/perl-tree-rb-xs)
 - [physlock 13-5](https://aur.archlinux.org/packages/physlock)
 - [pnpm-shell-completion 0.5.5-1](https://aur.archlinux.org/packages/pnpm-shell-completion)
-- [python-cohere 7.0.7-1](https://aur.archlinux.org/packages/python-cohere)
+- [python-cohere 7.0.8-1](https://aur.archlinux.org/packages/python-cohere)
 - [python-funk 0.5.0.r12.gc9415c2-1](https://aur.archlinux.org/packages/python-funk)
 - [python-speechrecognition 3.17.0-1](https://aur.archlinux.org/packages/python-speechrecognition)
 - [shellcheck-bin-doc 0.11.0-1](https://aur.archlinux.org/packages/shellcheck-bin-doc)
@@ -41,4 +41,36 @@ git submodule --quiet foreach "
 - [vkbasalt-redemp-git r470.d5c38ed-2](https://aur.archlinux.org/packages/vkbasalt-redemp-git)
 - [vscode-xdg-patch-hook 1.0.5-1](https://aur.archlinux.org/packages/vscode-xdg-patch-hook)
 - [xpadneo-dkms 0.10.4-1](https://aur.archlinux.org/packages/xpadneo-dkms)
+<!-- END mdsh -->
+
+## Custom patches
+
+<!-- > $
+export PRINTSRCINFO=1
+git submodule --quiet foreach "
+  if ! git remote get-url origin | grep -qF 'ssh://aur@aur.archlinux.org/'; then
+    version=\$(bash -c '. PKGBUILD; printf \"\${epoch/%?/&:}\${pkgver}-\${pkgrel}\"')
+    printf '%s [%s %s](%s)\n' - \
+      \"\${displaypath}\" \"\${version}\" \"\$(git remote get-url origin)\"
+
+    series=\"../.patches/\${displaypath}/.series\"
+    if [ ! -f \"\${series}\" ]; then
+      exit
+    fi
+
+    while read -r patch; do
+      printf '  1. [%s](.patches/%s/%s)\n' \
+        \"\${patch}\" \"\${displaypath}\" \"\${patch}\"
+    done < \"\${series}\"
+  fi
+"
+-->
+
+<!-- BEGIN mdsh -->
+- [chezmoi 2.70.5-1](https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git)
+  1. [get-latest-version.patch](.patches/chezmoi/get-latest-version.patch)
+  1. [new-httpcache.patch](.patches/chezmoi/new-httpcache.patch)
+- [sushi 51alpha-1](https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git)
+- [thelounge 4.5.0-0](https://aur.archlinux.org/thelounge.git)
+  1. [build-from-source.patch](.patches/thelounge/build-from-source.patch)
 <!-- END mdsh -->
