@@ -101,12 +101,7 @@ repos:
         name: makepkg-printsrcinfo
         language: system
         shell: sh
-        entry: |
-          if [ -x mksrcinfo ]; then
-            ./mksrcinfo
-          else
-            makepkg --printsrcinfo > .SRCINFO
-          fi
+        entry: makepkg --printsrcinfo > .SRCINFO
         files: 'PKGBUILD|.SRCINFO'
         pass_filenames: false
       # Validate generated .SRCINFO

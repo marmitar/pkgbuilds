@@ -9,7 +9,7 @@ indent_size = 4
 indent_style = space
 trim_trailing_whitespace = true
 insert_final_newline = true
-max_line_length = 120
+max_line_length = 100
 # Proposals
 indent_brace_style = K&R
 curly_bracket_next_line = false
@@ -20,6 +20,7 @@ switch_case_indent = true
 function_next_line = false
 binary_next_line = true
 space_redirects = true
+simplify = true
 
 # Arch Linux scripts
 [PKGBUILD]
