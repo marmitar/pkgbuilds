@@ -32,7 +32,7 @@ git submodule --quiet foreach "
 - [perl-test2-tools-command 0.20-2](https://aur.archlinux.org/packages/perl-test2-tools-command)
 - [perl-tree-rb-xs 0.21-1](https://aur.archlinux.org/packages/perl-tree-rb-xs)
 - [physlock 13-5](https://aur.archlinux.org/packages/physlock)
-- [pnpm-shell-completion 0.5.5-1](https://aur.archlinux.org/packages/pnpm-shell-completion)
+- [pnpm-shell-completion 0.5.5-2](https://aur.archlinux.org/packages/pnpm-shell-completion)
 - [python-cohere 7.0.8-1](https://aur.archlinux.org/packages/python-cohere)
 - [python-funk 0.5.0.r12.gc9415c2-1](https://aur.archlinux.org/packages/python-funk)
 - [python-speechrecognition 3.17.0-1](https://aur.archlinux.org/packages/python-speechrecognition)
