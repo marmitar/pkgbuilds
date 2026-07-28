@@ -25,7 +25,7 @@ git submodule --quiet foreach "
 - [perl-feature-compat-class 0.08-1](https://aur.archlinux.org/packages/perl-feature-compat-class)
 - [perl-feature-compat-try 0.05-3](https://aur.archlinux.org/packages/perl-feature-compat-try)
 - [perl-log-any 1.720-1](https://aur.archlinux.org/packages/perl-log-any)
-- [perl-string-escape 2010.002-3](https://aur.archlinux.org/packages/perl-string-escape)
+- [perl-string-escape 2010.002-4](https://aur.archlinux.org/packages/perl-string-escape)
 - [perl-string-license 0.0.11-1](https://aur.archlinux.org/packages/perl-string-license)
 - [perl-struct-dumb 0.16-1](https://aur.archlinux.org/packages/perl-struct-dumb)
 - [perl-test-future-io-impl 0.21-1](https://aur.archlinux.org/packages/perl-test-future-io-impl)
