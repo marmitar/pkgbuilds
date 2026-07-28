@@ -72,6 +72,6 @@ git submodule --quiet foreach "
   1. [use-sprout-sprigin.patch](.patches/chezmoi/use-sprout-sprigin.patch)
   1. [fix-keys-with-dots.patch](.patches/chezmoi/fix-keys-with-dots.patch)
   1. [fix-empty-derivePassword.patch](.patches/chezmoi/fix-empty-derivePassword.patch)
-- [thelounge 4.5.0-0](https://aur.archlinux.org/thelounge.git)
-  1. [build-from-source.patch](.patches/thelounge/build-from-source.patch)
+- [thelounge-beta 4.6.0pre.1-1](https://aur.archlinux.org/thelounge-beta.git)
+  1. [build-from-source.patch](.patches/thelounge-beta/build-from-source.patch)
 <!-- END mdsh -->

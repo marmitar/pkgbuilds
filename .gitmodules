@@ -194,9 +194,9 @@
 
 ## Custom patches
 
-[submodule "thelounge"]
-	path = thelounge
-	url = https://aur.archlinux.org/thelounge.git
+[submodule "thelounge-beta"]
+	path = thelounge-beta
+	url = https://aur.archlinux.org/thelounge-beta.git
 	branch = master
 	update = rebase
 	shallow = false
