@@ -70,7 +70,6 @@ git submodule --quiet foreach "
 - [chezmoi 2.70.5-1](https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git)
   1. [get-latest-version.patch](.patches/chezmoi/get-latest-version.patch)
   1. [new-httpcache.patch](.patches/chezmoi/new-httpcache.patch)
-- [sushi 51alpha-1](https://gitlab.archlinux.org/archlinux/packaging/packages/sushi.git)
 - [thelounge 4.5.0-0](https://aur.archlinux.org/thelounge.git)
   1. [build-from-source.patch](.patches/thelounge/build-from-source.patch)
 <!-- END mdsh -->
