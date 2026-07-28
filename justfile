@@ -48,3 +48,12 @@ update-prek:
 # List managed packages in README.md
 update-readme:
     mdsh
+
+# Check for upstream updates
+[script]
+nvchecker:
+    git submodule --quiet foreach '
+        if [ -f .nvchecker.toml ]; then
+            printf "%s\n" "${displaypath}"
+        fi
+    ' | xargs pkgctl version check
