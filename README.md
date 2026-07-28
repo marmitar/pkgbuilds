@@ -67,9 +67,11 @@ git submodule --quiet foreach "
 -->
 
 <!-- BEGIN mdsh -->
-- [chezmoi 2.70.5-1](https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git)
+- [chezmoi 2.71.1-1](https://gitlab.archlinux.org/archlinux/packaging/packages/chezmoi.git)
   1. [get-latest-version.patch](.patches/chezmoi/get-latest-version.patch)
-  1. [new-httpcache.patch](.patches/chezmoi/new-httpcache.patch)
+  1. [use-sprout-sprigin.patch](.patches/chezmoi/use-sprout-sprigin.patch)
+  1. [fix-keys-with-dots.patch](.patches/chezmoi/fix-keys-with-dots.patch)
+  1. [fix-empty-derivePassword.patch](.patches/chezmoi/fix-empty-derivePassword.patch)
 - [thelounge 4.5.0-0](https://aur.archlinux.org/thelounge.git)
   1. [build-from-source.patch](.patches/thelounge/build-from-source.patch)
 <!-- END mdsh -->

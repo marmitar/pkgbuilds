@@ -1,2 +1,4 @@
 get-latest-version.patch
-new-httpcache.patch
+use-sprout-sprigin.patch
+fix-keys-with-dots.patch
+fix-empty-derivePassword.patch

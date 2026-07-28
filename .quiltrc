@@ -55,7 +55,7 @@ export QUILT_DIFF_OPTS='--show-c-function'
 #export QUILT_DIFFSTAT_OPTS="-f0"
 
 # Options to pass to commands (QUILT_${COMMAND}_ARGS).
-export QUILT_PUSH_ARGS='--color=auto'
+export QUILT_PUSH_ARGS='--color=auto --merge=diff3'
 export QUILT_DIFF_ARGS='-u -pab --no-timestamps --color=never'
 export QUILT_REFRESH_ARGS='-u -pab --diffstat --sort --no-timestamps'
 export QUILT_SERIES_ARGS='--color=auto'
