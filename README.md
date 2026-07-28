@@ -74,4 +74,6 @@ git submodule --quiet foreach "
   1. [fix-empty-derivePassword.patch](.patches/chezmoi/fix-empty-derivePassword.patch)
 - [thelounge-beta 4.6.0pre.1-1](https://aur.archlinux.org/thelounge-beta.git)
   1. [build-from-source.patch](.patches/thelounge-beta/build-from-source.patch)
+  1. [update-dependencies.patch](.patches/thelounge-beta/update-dependencies.patch)
+  1. [update-dependencies-wip.patch](.patches/thelounge-beta/update-dependencies-wip.patch)
 <!-- END mdsh -->

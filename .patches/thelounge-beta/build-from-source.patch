@@ -1,48 +1,49 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 18 Jan 2026 23:23:10 -0300
-Last-Update: 2026-06-16
+Last-Update: 2026-07-27
 Subject: [PATCH] Builds directly from a commit, for easier patching.
 
 Currently synced to <https://github.com/thelounge/thelounge/commit/84963db2ec783f87dd4ad456602db74862960ac5>
 ---
- .SRCINFO   |   15 +++++----------
- .gitignore |    3 +++
- PKGBUILD   |   28 ++++++++++++++++------------
- 3 files changed, 24 insertions(+), 22 deletions(-)
+ .SRCINFO   |   12 ++++--------
+ .gitignore |    4 ++++
+ PKGBUILD   |   32 ++++++++++++++++++--------------
+ 3 files changed, 26 insertions(+), 22 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
 --- a/.SRCINFO
 +++ b/.SRCINFO
-@@ -1,26 +1,21 @@
- pkgbase = thelounge
- 	pkgdesc = Modern self-hosted web IRC client
- 	pkgver = 4.5.0
--	pkgrel = 0
-+	pkgrel = 0.2
+@@ -1,28 +1,24 @@
+ pkgbase = thelounge-beta
+ 	pkgdesc = Modern self-hosted web IRC client (Latest release/pre-release)
+ 	pkgver = 4.6.0pre.1
+-	pkgrel = 1
++	pkgrel = 1.1
  	url = https://thelounge.chat/
  	arch = any
  	license = MIT
  	makedepends = yarn
--	depends = nodejs>=22
--	depends = nodejs<25
--	noextract = thelounge-4.5.0.tgz
-+	depends = nodejs
-+	depends = npm
+ 	makedepends = git
++	makedepends = npm
+ 	depends = nodejs>=22
+ 	provides = thelounge
+ 	conflicts = thelounge
+-	noextract = thelounge-4.6.0-pre.1.tgz
  	options = !lto
  	backup = etc/thelounge/config.js
--	source = https://registry.npmjs.org/thelounge/-/thelounge-4.5.0.tgz
--	source = https://raw.githubusercontent.com/thelounge/thelounge/v4.5.0/yarn.lock
--	source = https://raw.githubusercontent.com/thelounge/thelounge/v4.5.0/package.json
-+	source = thelounge-ce7f66e259160c337229776ac62e3931454bd439.tar.gz::https://github.com/thelounge/thelounge/archive/ce7f66e259160c337229776ac62e3931454bd439.tar.gz
+-	source = https://registry.npmjs.org/thelounge/-/thelounge-4.6.0-pre.1.tgz
+-	source = thelounge-4.6.0-pre.1.yarn.lock::https://raw.githubusercontent.com/thelounge/thelounge/v4.6.0-pre.1/yarn.lock
+-	source = thelounge-4.6.0-pre.1.package.json::https://raw.githubusercontent.com/thelounge/thelounge/v4.6.0-pre.1/package.json
++	source = thelounge-438525ff10281b07864b3c7456d151d7e96b0032.tar.gz::https://github.com/thelounge/thelounge/archive/438525ff10281b07864b3c7456d151d7e96b0032.tar.gz
  	source = system.service
  	source = user.service
  	source = sysusers.d
  	source = tmpfiles.d
--	sha256sums = 11a2a5b8e49d722a1c1240e0e5ee68317017d4c9f984ea557e82b31bc769ff71
--	sha256sums = ed84ecb09ed8aa357dceb5062b0c7751d809652bf7fdfe48354852f172b496cb
--	sha256sums = 3e3319e694cd3e55d895f04d81f42cc708f2c41caf1961cc9733150ccb80c61e
-+	sha256sums = cfbeb0543766d62d0d9e087cabc24a22c24cd0e16fdc7f2ed207af9f331425fc
+-	sha256sums = e41e21bd1db518c73d45518d6454869fdcad750d91ff4dc67565a9cbc2041595
+-	sha256sums = 00aa626c8427d4c7059235dc03e8e2201e2231d4caa13afacdc4342ad4f7041c
+-	sha256sums = 0f1d64e8806f534a7074500749b9c39c5dae1141181e987705a37a287df443ee
++	sha256sums = 9c7db14ad7a8e2a8207ab07a187813045d7267efdc89eaa654f1dc7d573615d5
  	sha256sums = c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20
  	sha256sums = c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0
  	sha256sums = 30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5
@@ -50,80 +51,86 @@ Index: b/.gitignore
 ===================================================================
 --- /dev/null
 +++ b/.gitignore
-@@ -0,0 +1,3 @@
+@@ -0,0 +1,4 @@
 +*.pkg.tar.*
 +*.tar.gz
 +*.tgz
++*.log
 Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -3,39 +3,43 @@
- pkgname=thelounge
- pkgver=4.5.0
- pkgsuffix="" #-rc.1
--pkgrel=0
-+pkgrel=0.2
- pkgdesc='Modern self-hosted web IRC client'
+@@ -5,40 +5,44 @@ _pkgname=thelounge
+ pkgname=thelounge-beta
+ _pkgver=4.6.0-pre.1
+ pkgver=${_pkgver/-/}
+-pkgrel=1
++pkgrel=1.1
+ pkgdesc='Modern self-hosted web IRC client (Latest release/pre-release)'
  url='https://thelounge.chat/'
  arch=('any')
  license=('MIT')
--depends=('nodejs>=22' 'nodejs<25')
-+depends=('nodejs' 'npm')
+ depends=('nodejs>=22')
  options=('!lto')
- makedepends=('yarn')
+-makedepends=('yarn' 'git')
++makedepends=('yarn' 'git' 'npm')
+ conflicts=('thelounge')
+ provides=('thelounge')
  backup=('etc/thelounge/config.js')
-+_commit='ce7f66e259160c337229776ac62e3931454bd439'
++_commit='438525ff10281b07864b3c7456d151d7e96b0032'
  source=(
--    "https://registry.npmjs.org/$pkgname/-/$pkgname-${pkgver}${pkgsuffix}.tgz"
--    "https://raw.githubusercontent.com/thelounge/thelounge/v${pkgver}${pkgsuffix}/yarn.lock"
--    "https://raw.githubusercontent.com/thelounge/thelounge/v${pkgver}${pkgsuffix}/package.json"
+-    "https://registry.npmjs.org/$_pkgname/-/$_pkgname-$_pkgver.tgz"
+-    "$_pkgname-$_pkgver.yarn.lock::https://raw.githubusercontent.com/thelounge/thelounge/v${_pkgver}/yarn.lock"
+-    "$_pkgname-$_pkgver.package.json::https://raw.githubusercontent.com/thelounge/thelounge/v${_pkgver}/package.json"
 +    "thelounge-${_commit}.tar.gz::https://github.com/thelounge/thelounge/archive/${_commit}.tar.gz"
      'system.service'
      'user.service'
      'sysusers.d'
      'tmpfiles.d'
  )
--noextract=("$pkgname-${pkgver}${pkgsuffix}.tgz")
--sha256sums=('11a2a5b8e49d722a1c1240e0e5ee68317017d4c9f984ea557e82b31bc769ff71'
--            'ed84ecb09ed8aa357dceb5062b0c7751d809652bf7fdfe48354852f172b496cb'
--            '3e3319e694cd3e55d895f04d81f42cc708f2c41caf1961cc9733150ccb80c61e'
-+sha256sums=('cfbeb0543766d62d0d9e087cabc24a22c24cd0e16fdc7f2ed207af9f331425fc'
+-noextract=("$_pkgname-$_pkgver.tgz")
+-sha256sums=('e41e21bd1db518c73d45518d6454869fdcad750d91ff4dc67565a9cbc2041595'
+-            '00aa626c8427d4c7059235dc03e8e2201e2231d4caa13afacdc4342ad4f7041c'
+-            '0f1d64e8806f534a7074500749b9c39c5dae1141181e987705a37a287df443ee'
++sha256sums=('9c7db14ad7a8e2a8207ab07a187813045d7267efdc89eaa654f1dc7d573615d5'
              'c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20'
              'c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0'
              '30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5'
              'c07fc7aaa91f6d2407d9ea2d15bfa780bfc06e3487efa138a9385307dcf9f41d')
  
- prepare() {
--    yarn install --prod --frozen-lockfile --non-interactive --ignore-scripts --cache-folder "$srcdir/yarn-cache"
-+    echo /etc/thelounge > "$pkgname-${_commit}/.thelounge_home"
-+    cd "$pkgname-${_commit}" || exit 1
++prepare() {
++    cd "${_pkgname}-${_commit}"
++    echo /etc/thelounge > .thelounge_home
 +    yarn install --frozen-lockfile --non-interactive --ignore-scripts --cache-folder "$srcdir/yarn-cache"
- }
- 
++}
++
  build() {
-+    cd "$pkgname-${_commit}" || exit 1
+-    cp "$_pkgname-$_pkgver.package.json" package.json
+-    cp "$_pkgname-$_pkgver.yarn.lock" yarn.lock
+-    yarn install --prod --frozen-lockfile --non-interactive --ignore-scripts --cache-folder "$srcdir/yarn-cache"
++    cd "${_pkgname}-${_commit}"
 +    export NODE_ENV=production
 +    yarn build
-     mkdir _build
-+    local tarball=$(npm pack --pack-destination _build)
 +
-+    # ensure we get the lockfile that we expect and fetch the deps
+     mkdir -p _build
++    local tarball=$(npm pack --pack-destination _build)
      cp package.json yarn.lock _build
      cd _build || exit 1
  
-@@ -45,12 +49,12 @@ build() {
+@@ -48,14 +52,14 @@ build() {
      yarn add --no-default-rc --frozen-lockfile \
      --prod --non-interactive --ignore-scripts \
      --cache-folder "$srcdir/yarn-cache" --offline \
--    file:"$srcdir/$pkgname-${pkgver}${pkgsuffix}.tgz"
-+    file:"$(readlink -e "./$tarball")"
+-    file:"$srcdir/$_pkgname-${_pkgver}.tgz"
++    file:"$(readlink -e "./${tarball}")"
+ 
+     # sqlite support now uses Node.js built-in node:sqlite, so no extra native blob is needed
  }
  
  package() {
      install -dm755 "$pkgdir/usr/lib/thelounge"
 -    cp -r "$srcdir/_build/node_modules" "$pkgdir/usr/lib/thelounge"
-+    cp -r "$pkgname-${_commit}/_build/node_modules" "$pkgdir/usr/lib/thelounge"
++    cp -r "${_pkgname}-${_commit}/_build/node_modules" "$pkgdir/usr/lib/thelounge"
+     rm -f "$pkgdir/usr/lib/thelounge/node_modules/.yarn-integrity"
  
      install -dm755 "$pkgdir/usr/bin/"
-     ln -s "/usr/lib/thelounge/node_modules/thelounge/index.js" "$pkgdir/usr/bin/thelounge"

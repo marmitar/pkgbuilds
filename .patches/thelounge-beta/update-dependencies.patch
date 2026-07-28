@@ -1,6 +1,6 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Tue, 4 Nov 2025 07:59:00 -0300
-Last-Update: 2026-05-29
+Last-Update: 2026-07-28
 Subject: [PATCH] See <https://github.com/thelounge/thelounge/pull/5003>
 ---
  .SRCINFO   |    4 +++-
@@ -13,24 +13,24 @@ Index: b/.SRCINFO
 --- a/.SRCINFO
 +++ b/.SRCINFO
 @@ -1,7 +1,7 @@
- pkgbase = thelounge
- 	pkgdesc = Modern self-hosted web IRC client
- 	pkgver = 4.5.0
--	pkgrel = 0.1
-+	pkgrel = 0.2
+ pkgbase = thelounge-beta
+ 	pkgdesc = Modern self-hosted web IRC client (Latest release/pre-release)
+ 	pkgver = 4.6.0pre.1
+-	pkgrel = 1.1
++	pkgrel = 1.2
  	url = https://thelounge.chat/
  	arch = any
  	license = MIT
-@@ -11,11 +11,13 @@ pkgbase = thelounge
+@@ -14,11 +14,13 @@ pkgbase = thelounge-beta
  	options = !lto
  	backup = etc/thelounge/config.js
- 	source = thelounge-84963db2ec783f87dd4ad456602db74862960ac5.tar.gz::https://github.com/thelounge/thelounge/archive/84963db2ec783f87dd4ad456602db74862960ac5.tar.gz
+ 	source = thelounge-438525ff10281b07864b3c7456d151d7e96b0032.tar.gz::https://github.com/thelounge/thelounge/archive/438525ff10281b07864b3c7456d151d7e96b0032.tar.gz
 +	source = https://github.com/thelounge/thelounge/pull/5003.patch
  	source = system.service
  	source = user.service
  	source = sysusers.d
  	source = tmpfiles.d
- 	sha256sums = df12576461fc0c5ee177f271a2296b63b999dc69a5afdf78dda21f5b5b065001
+ 	sha256sums = 9c7db14ad7a8e2a8207ab07a187813045d7267efdc89eaa654f1dc7d573615d5
 +	sha256sums = 311307583dc9098bb1e08d6fb763232f791fec34b8b331230f09857ff35fd013
  	sha256sums = c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20
  	sha256sums = c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0
@@ -39,26 +39,26 @@ Index: b/.gitignore
 ===================================================================
 --- a/.gitignore
 +++ b/.gitignore
-@@ -1,3 +1,4 @@
- *.pkg.tar.*
+@@ -2,3 +2,4 @@
  *.tar.gz
  *.tgz
+ *.log
 +5003.patch
 Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -3,7 +3,7 @@
- pkgname=thelounge
- pkgver=4.5.0
- pkgsuffix="" #-rc.1
--pkgrel=0.1
-+pkgrel=0.2
- pkgdesc='Modern self-hosted web IRC client'
+@@ -5,7 +5,7 @@ _pkgname=thelounge
+ pkgname=thelounge-beta
+ _pkgver=4.6.0-pre.1
+ pkgver=${_pkgver/-/}
+-pkgrel=1.1
++pkgrel=1.2
+ pkgdesc='Modern self-hosted web IRC client (Latest release/pre-release)'
  url='https://thelounge.chat/'
  arch=('any')
-@@ -15,12 +15,14 @@ backup=('etc/thelounge/config.js')
- _commit='84963db2ec783f87dd4ad456602db74862960ac5'
+@@ -19,12 +19,14 @@ backup=('etc/thelounge/config.js')
+ _commit='438525ff10281b07864b3c7456d151d7e96b0032'
  source=(
      "thelounge-${_commit}.tar.gz::https://github.com/thelounge/thelounge/archive/${_commit}.tar.gz"
 +    'https://github.com/thelounge/thelounge/pull/5003.patch'
@@ -67,16 +67,16 @@ Index: b/PKGBUILD
      'sysusers.d'
      'tmpfiles.d'
  )
- sha256sums=('df12576461fc0c5ee177f271a2296b63b999dc69a5afdf78dda21f5b5b065001'
+ sha256sums=('9c7db14ad7a8e2a8207ab07a187813045d7267efdc89eaa654f1dc7d573615d5'
 +            '311307583dc9098bb1e08d6fb763232f791fec34b8b331230f09857ff35fd013'
              'c92210f6ac8f01c1cd01b6b26793094cd2feea583ed21fab3564d6bcafdc7a20'
              'c609f3309f54bd6285e99ff29ca2464828bec7bbbca67243ee688bd2d605dbf0'
              '30fab63b8a4ffcfdda4c5b8d7c66822a323c4f1de6ca62b77fe9500f4befc0a5'
-@@ -29,6 +31,7 @@ sha256sums=('df12576461fc0c5ee177f271a22
+@@ -33,6 +35,7 @@ sha256sums=('9c7db14ad7a8e2a8207ab07a187
  prepare() {
-     echo /etc/thelounge > "$pkgname-${_commit}/.thelounge_home"
-     cd "$pkgname-${_commit}" || exit 1
-+    patch -p1 -i "${srcdir}"/5003.patch
+     cd "${_pkgname}-${_commit}"
+     echo /etc/thelounge > .thelounge_home
++    patch -t -Np1 -i ../5003.patch
      yarn install --frozen-lockfile --non-interactive --ignore-scripts --cache-folder "$srcdir/yarn-cache"
  }
  
