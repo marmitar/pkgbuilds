@@ -38,7 +38,7 @@ git submodule --quiet foreach "
 - [python-speechrecognition 3.17.0-1](https://aur.archlinux.org/packages/python-speechrecognition)
 - [shellcheck-bin-doc 0.11.0-1](https://aur.archlinux.org/packages/shellcheck-bin-doc)
 - [tela-circle-icon-theme-spl-git 2026.07.07.r0.gc0adf1ab-1](https://aur.archlinux.org/packages/tela-circle-icon-theme-spl-git)
-- [vkbasalt-redemp-git r470.d5c38ed-2](https://aur.archlinux.org/packages/vkbasalt-redemp-git)
+- [vkbasalt-redemp-git r470.gd5c38ed-1](https://aur.archlinux.org/packages/vkbasalt-redemp-git)
 - [vscode-xdg-patch-hook 1.0.5-1](https://aur.archlinux.org/packages/vscode-xdg-patch-hook)
 - [xpadneo-dkms 0.10.4-1](https://aur.archlinux.org/packages/xpadneo-dkms)
 <!-- END mdsh -->
