@@ -36,6 +36,12 @@ repos:
     rev: bee27e3a4fd1ea2111cf90ab89cd076c870fce14 # frozen: v1.48.0
     hooks:
       - id: typos
+      # From https://github.com/crate-ci/typos/issues/1473
+      - id: typos
+        alias: typos-commit-msg
+        args: [--force-exclude]
+        stages:
+          - commit-msg
 
   # Markdown formatter
   - repo: https://github.com/hukkin/mdformat
@@ -78,7 +84,7 @@ repos:
 
   # Python formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 01a675ea018f2fb714478a5ffb83fcea8374bb06 # frozen: v0.15.21
+    rev: 2700fd5671c633760d912769c041bfcde2b9a01b # frozen: v0.15.22
     hooks:
       - id: ruff-check
         args: [--fix]
@@ -86,7 +92,7 @@ repos:
 
   # TOML formatter
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: fcb0ac886b00dd0305756b1e8466432e11601b5a # frozen: v1.2.0
+    rev: 5421ca8ca3d6a659b6c097512b486395676a6af1 # frozen: v1.2.4
     hooks:
       - id: tombi-format
       - id: tombi-lint
@@ -129,4 +135,4 @@ repos:
     hooks:
       - id: reuse
 
-minimum_prek_version: 0.4.10
+minimum_prek_version: 0.4.11
