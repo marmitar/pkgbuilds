@@ -16,6 +16,7 @@ git submodule --quiet foreach "
 <!-- BEGIN mdsh -->
 - [alpaca-ai 9.2.4-1](https://aur.archlinux.org/packages/alpaca-ai)
 - [esound 0.2.41-7](https://aur.archlinux.org/packages/esound)
+- [hunk 0.17.7-0](https://aur.archlinux.org/packages/hunk)
 - [intel-sgx-psw-bin 2.29-1](https://aur.archlinux.org/packages/intel-sgx-psw-bin)
 - [intel-sgx-sdk-bin 2.29-1](https://aur.archlinux.org/packages/intel-sgx-sdk-bin)
 - [licensecheck 3.3.10-1](https://aur.archlinux.org/packages/licensecheck)

@@ -192,6 +192,13 @@
 	update = rebase
 	shallow = true
 
+[submodule "hunk"]
+	path = hunk
+	url = ssh://aur@aur.archlinux.org/hunk.git
+	branch = master
+	update = rebase
+	shallow = true
+
 ## Custom patches
 
 [submodule "thelounge-beta"]

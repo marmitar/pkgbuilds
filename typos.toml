@@ -1,3 +1,8 @@
+[files]
+extend-exclude = [
+  "*.changelog",
+]
+
 [default.extend-identifiers]
 envolution = "envolution"
 
