@@ -4,13 +4,20 @@
 
 <!-- > $
 export PRINTSRCINFO=1
-git submodule --quiet foreach "
-  if git remote get-url origin | grep -qF 'ssh://aur@aur.archlinux.org/'; then
-    version=\$(bash -c '. PKGBUILD; printf \"\${epoch/%?/&:}\${pkgver}-\${pkgrel}\"')
-    printf '%s [%s %s](https://aur.archlinux.org/packages/%s)\n' - \
-      \"\${displaypath}\" \"\${version}\" \"\${displaypath}\"
+git submodule --quiet foreach '
+  if git remote get-url origin | grep -qF "ssh://aur@aur.archlinux.org/"; then
+    epoch=$(git show "${sha1}":.SRCINFO | sed -nE "s/^\s*epoch\s*=\s*(.*)$/\1/ p")
+    pkgver=$(git show "${sha1}":.SRCINFO | sed -nE "s/^\s*pkgver\s*=\s*(.*)$/\1/ p")
+    pkgrel=$(git show "${sha1}":.SRCINFO | sed -nE "s/^\s*pkgrel\s*=\s*(.*)$/\1/ p")
+    if [ -n "${epoch}" ]; then
+      version="${epoch}:${pkgver}-${pkgrel}"
+    else
+      version="${pkgver}-${pkgrel}"
+    fi
+    printf "%s [%s %s](https://aur.archlinux.org/packages/%s)\n" - \
+      "${displaypath}" "${version}" "${displaypath}"
   fi
-"
+'
 -->
 
 <!-- BEGIN mdsh -->
