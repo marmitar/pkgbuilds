@@ -26,9 +26,9 @@ Index: b/PKGBUILD
  pkgdesc='Intel® Software Guard Extensions Platform Software for Linux* OS'
  pkgver=2.30
  pkgrel=1
- url='https://github.com/intel/confidential-computing.sgx'
+ url='https://github.com/intel/confidential-computing.sgx.sdk'
  arch=(x86_64)
- license=('BSD-3-Clause AND LicenseRef-Intel-SGX-Third-Party') # https://github.com/intel/confidential-computing.sgx/blob/main/License.txt
+ license=('BSD-3-Clause AND LicenseRef-Intel-SGX-Third-Party') # https://github.com/intel/confidential-computing.sgx.sdk/blob/main/License.txt
 -depends=('glibc' 'libstdc++' 'bash')
 -optdepends=(
 -  'protobuf-21: required for the AESM service'
@@ -38,7 +38,7 @@ Index: b/PKGBUILD
 -)
  provides=("intel-sgx-psw=${pkgver}")
  conflicts=('intel-sgx-psw')
- options=(!strip !debug) # debug symbols already included from upstream, better not to strip them
+ options=(!strip !debug)
 @@ -28,23 +28,31 @@ b2sums=('18d61906b851196a0f955b1cdbf86f2
  # See https://wiki.archlinux.org/title/Arch_package_guidelines#Directories
  _fix_non_standard_paths() {
@@ -46,22 +46,22 @@ Index: b/PKGBUILD
 -  install -vd "${pkgdir}/usr/lib/udev/"
 -  mv -v --no-copy "${pkgdir}/etc/udev/rules.d" \
 -    -T "${pkgdir}/usr/lib/udev/rules.d"
--  rmdir "${pkgdir}/etc/udev"
+-  rmdir -v "${pkgdir}/etc/udev"
 +  if [[ -d "${pkgdir}/etc/udev" ]]; then
 +    install -vd "${pkgdir}/usr/lib/udev/"
 +    mv -v --no-copy "${pkgdir}/etc/udev/rules.d" \
 +      -T "${pkgdir}/usr/lib/udev/rules.d"
-+    rmdir "${pkgdir}/etc/udev"
++    rmdir -v "${pkgdir}/etc/udev"
 +  fi
  
    # Debian has a /usr/lib/$TARGET folder, but not in Arch
 -  mv -v -t "${pkgdir}/usr/lib/" \
 -    --no-copy "${pkgdir}/usr/lib/${CARCH}-linux-gnu"/*.so*
--  rmdir "${pkgdir}/usr/lib/${CARCH}-linux-gnu"
+-  rmdir -v "${pkgdir}/usr/lib/${CARCH}-linux-gnu"
 +  if [[ -d "${pkgdir}/usr/lib/${CARCH}-linux-gnu" ]]; then
 +    mv -v -t "${pkgdir}/usr/lib/" \
 +      --no-copy "${pkgdir}/usr/lib/${CARCH}-linux-gnu"/*.so*
-+    rmdir "${pkgdir}/usr/lib/${CARCH}-linux-gnu"
++    rmdir -v "${pkgdir}/usr/lib/${CARCH}-linux-gnu"
 +  fi
  
    # Debian has an actual /lib folder, which in Arch is just a symlink to /usr/lib
@@ -75,9 +75,9 @@ Index: b/PKGBUILD
 +  fi
  
    # Debian also supports /include, which should be empty here
--  rmdir "${pkgdir}/include"
+-  rmdir -v "${pkgdir}/include"
 +  if [[ -d "${pkgdir}/include" ]]; then
-+    rmdir "${pkgdir}/include"
++    rmdir -v "${pkgdir}/include"
 +  fi
  }
  
