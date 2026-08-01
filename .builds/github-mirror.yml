@@ -18,3 +18,7 @@ tasks:
       git remote add github git@github.com:marmitar/pkgbuilds.git
       git push --mirror github
       printf 'See https://github.com/marmitar/pkgbuilds/commits/%s\n' "$(git rev-parse --verify HEAD)"
+triggers:
+  - action: email
+    to: ~marmis <tiagodepalves@gmail.com>
+    condition: failure
