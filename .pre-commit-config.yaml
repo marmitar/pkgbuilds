@@ -65,6 +65,9 @@ repos:
     rev: c78e9090d1450a748d4a21a194d458ee51ad9e7f # 0.9.2+
     hooks:
       - id: mdsh
+        args: [README.md]
+        pass_filenames: false
+        always_run: true
 
   # Shell formatter
   - repo: https://github.com/scop/pre-commit-shfmt
