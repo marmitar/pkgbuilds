@@ -20,5 +20,5 @@ tasks:
       printf 'See https://github.com/marmitar/pkgbuilds/commits/%s\n' "$(git rev-parse --verify HEAD)"
 triggers:
   - action: email
-    to: ~marmis <tiagodepalves@gmail.com>
     condition: failure
+    to: ~marmis/build-issues@lists.sr.ht
