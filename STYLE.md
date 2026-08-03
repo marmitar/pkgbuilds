@@ -5,28 +5,41 @@ Somewhat based on <https://man.archlinux.org/man/PKGBUILD.5>.
 ## Variables
 
 - `pkgname`, `pkgver`, `pkgrel`, `epoch`, `install`, `changelog`: **unquoted**
-- `pkgdesc`: preferably **single-quoted**
+- `pkgdesc`: preferably **single-quoted** (short, 80 chars, no extra punctuantion)
 - `url`: always **single-quoted** (no string interpolation, easier to access)
-- All arrays (except `arch` and `options`): **single-quoted elements**, double-quote only when interpolating
+- All arrays (except `arch` and `options`): **single-quoted elements**, double-quote only when
+  interpolating
 - `arch`: **unquoted** (based on [alpm-lint][systemarchitecture] and [RFC 32][rfc0032])
 - `options`: **unquoted** (similar to `OPTIONS` in [`makepkg.conf`][makepkg-conf])
 
 In general:
 
 1. **unquoted** for strings that cannot have spaces in them (package names, versions, etc.)
-2. **single-quoted** for static strings that may have spaces (including dependencies, which can contains complex version
-   requirements with spaces)
+2. **single-quoted** for static strings that may have spaces (including dependencies, which can
+   contains complex version requirements with spaces)
 3. **double-quoted** for all interpolations, so it's clear these strings depend on other strings
 4. mixed **quoted** and **unquoted** for globbing, if necessary
 
-I try to sort them like `.SRCINFO`, but in some cases (e.g. with variable references), it might work better in another
-ordering.
+I try to sort them like `.SRCINFO`, but in some cases (e.g. with variable references), it might work
+better in another ordering.
+
+Oh, also use versioned names for downloaded sources, like `${pkgname}-${pkgver}` or
+`${pkgname}-v${pkgver}` depending on how upstream names their versions. This should avoid conflicts
+in single repo mode (where each package has a branch, instead of a whole repository) and files not
+being updated on new releases. For external patches and other unversioned sources, just a
+`${pkgname}-` prefix should be enough. If upstream already provides good versioned names, keep them.
+Matching upstream is always better maintainability and review, when they don't go against Arch Linux
+guidelines. Tracked source (as in, not downloaded) can have any name.
+
+List each file in `REUSE.toml`, without blanket matches or paths to files not in the index
+(`git ls-files`).
 
 ## Commands
 
-No unnecessary `${srcdir}` usages. They just clutter strings and make it harder to review the PKGBUILD.
+No unnecessary `${srcdir}` usages. They just clutter strings and make it harder to review the
+PKGBUILD.
 
-For `install` and `ln`, I tend to favor:
+For `install`, `mv` and `ln`, I tend to favor:
 
 1. `install -vD -t DIRECTORY/ -m644 FILES...` (note: basenames only)
 2. `install -vD -m755 FILE -T TARGET` (rename file)
@@ -34,6 +47,15 @@ For `install` and `ln`, I tend to favor:
 4. `install -vd DIRECTORIES/...` (for commands that won't create the directories themselves)
 
 To avoid prompts, use `patch -t -Npx -i PATCH` or `patch -t -d DIR/ -Npx < PATCH`.
+
+I usually use verbose mode, but not always. At least helps catching packaging issues earlier.
+
+Always `/usr/bin/${command}` instead of `/bin/${command}` since `/usr/bin` is the default for Arch
+Linux. Similar case with `.gitignore`, but a bit less restrictive.
+
+## [Package etiquette](https://wiki.archlinux.org/title/Arch_package_guidelines#Package_etiquette)
+
+I'll catch up to them at some point (hopefully).
 
 ## See also
 

@@ -8,11 +8,11 @@ rm -rf issues
 mkdir -p issues
 
 libdeps() {
-  echo "$@" | awk '{print $4}' | awk -F'=' '{print $1}'
+  printf '%s\n' "$@" | awk '{print $4}' | awk -F'=' '{print $1}'
 }
 
 python_list() {
-  LIST="$(rg --only-matching '\[[^\]]*\]' | head -n 1)"
+  LIST=$(rg --only-matching '\[[^\]]*\]' | head -n 1)
   python -c "print(*${LIST}, sep='\n')"
 }
 
@@ -25,8 +25,8 @@ parse_dependency() {
   KIND="$1"
   LINE="$2"
 
-  NEEDED="$(echo "${LINE}" | awk '{print $5}' | sed -E 's/^\(//')"
-  echo "${LINE}" | case "${NEEDED}" in
+  NEEDED=$(printf '%s\n' "${LINE}" | awk '{print $5}' | sed -E 's/^\(//')
+  printf '%s\n' "${LINE}" | case "${NEEDED}" in
     libraries-needed)
       # shellcheck disable=SC2046
       basename -a $(python_list) >> issues/DEPENDS/"soname-${KIND}".list
@@ -45,7 +45,7 @@ parse_dependency() {
 
 namcap --info --machine-readable "${PACKAGE}" | while IFS= read -r line; do
   # see /usr/share/namcap/namcap-tags
-  TAG="$(echo "${line}" | awk '{print $3}')"
+  TAG=$(awk '{print $3}' <<< "${line}")
   case "${TAG}" in
     elffile-* | insecure-r*path | unused-sodepend)
       # ELF files are provided from upstream
@@ -71,7 +71,7 @@ namcap --info --machine-readable "${PACKAGE}" | while IFS= read -r line; do
       ;;
     *) ;;
   esac
-  echo "${line}" >> issues/"${TAG}.list"
+  printf '%s\n' "${line}" >> issues/"${TAG}.list"
 done
 
 check_sonames() {
@@ -79,8 +79,8 @@ check_sonames() {
 
   echo > "$1"
   for soname in "${SONAMES[@]}"; do
-    MATCHES="$(fd -HIs "${soname}" /opt/Mathematica | grep -E '.' || echo '❌')"
-    echo "${soname}" "${MATCHES}" >> "$1"
+    MATCHES=$(fd -HIs "${soname}" /opt/Mathematica | grep -E '.' || echo ❌)
+    printf '%s\n' "${soname}" "${MATCHES}" >> "$1"
   done
 }
 
@@ -89,4 +89,4 @@ for file in issues/*/soname-*.list; do
 done
 
 echo '## POSSIBLY MISSING DEPENDENCIES ##'
-rg --no-filename '❌' issues/*/soname-*.list | awk '{print $1}' | sort | uniq
+rg -F '❌' --no-filename issues/*/soname-*.list | awk '{print $1}' | sort | uniq

@@ -20,14 +20,14 @@ git submodule --quiet foreach '
     maintainer="![AUR Maintainer](https://img.shields.io/aur/maintainer/${pkgname})"
     modified="![AUR Last Modified](https://img.shields.io/aur/last-modified/${pkgname})"
     license="![AUR License](https://img.shields.io/aur/license/${pkgname})"
-    badges="$(printf "  %s\n" "${maintainer}" "${modified}" "${license}")"
+    badges=$(printf "  %s\n" "${maintainer}" "${modified}" "${license}")
     printf "%s\n" "- \`${pkgbase} ${version}\` [[AUR](${url})] <br/>" "${badges}"
   fi
 '
 -->
 
 <!-- BEGIN mdsh -->
-- `alpaca-ai 9.2.4-1` [[AUR](https://aur.archlinux.org/pkgbase/alpaca-ai)] <br/>
+- `alpaca-ai 9.2.5-1` [[AUR](https://aur.archlinux.org/pkgbase/alpaca-ai)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/alpaca-ai)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/alpaca-ai)
   ![AUR License](https://img.shields.io/aur/license/alpaca-ai)
@@ -131,7 +131,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/vkbasalt-redemp-git)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/vkbasalt-redemp-git)
   ![AUR License](https://img.shields.io/aur/license/vkbasalt-redemp-git)
-- `vscode-xdg-patch-hook 1.0.5-1` [[AUR](https://aur.archlinux.org/pkgbase/vscode-xdg-patch-hook)] <br/>
+- `vscode-xdg-patch-hook 1.0.6-1` [[AUR](https://aur.archlinux.org/pkgbase/vscode-xdg-patch-hook)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/vscode-xdg-patch-hook)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/vscode-xdg-patch-hook)
   ![AUR License](https://img.shields.io/aur/license/vscode-xdg-patch-hook)

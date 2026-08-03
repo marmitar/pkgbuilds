@@ -3,10 +3,10 @@
 ## Add this to /etc/quilt.quiltrc:
 # # Load .quiltrc from the directory tree
 # QUILTRC_DIR="${PWD}"
-# while [[ "${QUILTRC_DIR}" != / && ! -f "${QUILTRC_DIR}"/.quiltrc ]]; do
-#   QUILTRC_DIR="$(dirname "${QUILTRC_DIR}")"
+# while [[ "${QUILTRC_DIR}" != / && ! -f "${QUILTRC_DIR}/.quiltrc" ]]; do
+#   QUILTRC_DIR=$(dirname "${QUILTRC_DIR}")
 # done
-# if [[ -f "${QUILTRC_DIR}"/.quiltrc ]]; then
+# if [[ -f "${QUILTRC_DIR}/.quiltrc" ]]; then
 #   # shellcheck disable=SC1091
 #   source "${QUILTRC_DIR}"/.quiltrc
 # else
@@ -18,13 +18,13 @@ __setup_submodule_pc() (
   set -euo pipefail # subshell only
 
   # Ensure we are in a submodule, not the root.
-  GIT_ROOT="$(git rev-parse --show-superproject-working-tree)"
+  GIT_ROOT=$(git rev-parse --show-superproject-working-tree)
   if [[ -z ${GIT_ROOT} ]]; then
-    echo 'Please, use quilt in a submodule to avoid issues with the project root.' > /dev/stderr
+    echo Please, use quilt in a submodule to avoid issues with the project root. > /dev/stderr
     return 1
   fi
-  SUBMODULE_ROOT="$(git rev-parse --show-toplevel)"
-  SUBMODULE_DIR="$(realpath --canonicalize-existing --relative-to="${GIT_ROOT}" "${SUBMODULE_ROOT}")"
+  SUBMODULE_ROOT=$(git rev-parse --show-toplevel)
+  SUBMODULE_DIR=$(realpath --canonicalize-existing --relative-to="${GIT_ROOT}" "${SUBMODULE_ROOT}")
 
   # Exclude .pc from the worktree.
   GIT_EXCLUDE="$(git rev-parse --git-dir)/info/exclude"
@@ -43,7 +43,7 @@ __setup_submodule_pc() (
 
 ## See /etc/quilt.quiltrc
 # shellcheck disable=SC2310
-if ! QUILT_PC="$(__setup_submodule_pc)"; then
+if ! QUILT_PC=$(__setup_submodule_pc); then
   exit 1
 fi
 export QUILT_PC
