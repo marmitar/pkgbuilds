@@ -58,7 +58,7 @@ repos:
           - mdformat-myst
           - mdformat-front-matters
         args: [--strict-front-matter]
-        exclude: 'README\.md'
+        exclude: 'README\.md|CHANGELOG\.md'
 
   # Update README examples
   - repo: https://github.com/zimbatm/mdsh

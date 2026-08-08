@@ -11,3 +11,9 @@ extend-ignore-re = [
   # ignore content after quilt separator
   "(?s)\\n={67}\\n.*$",
 ]
+
+[type.md]
+extend-ignore-identifiers-re = [
+  # ignore commit hashes
+  "\\b[a-f0-9]{7,40}\\b",
+]

@@ -31,11 +31,11 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/alpaca-ai)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/alpaca-ai)
   ![AUR License](https://img.shields.io/aur/license/alpaca-ai)
-- `esound 0.2.41-7` [[AUR](https://aur.archlinux.org/pkgbase/esound)] <br/>
+- `esound 0.2.41-8` [[AUR](https://aur.archlinux.org/pkgbase/esound)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/esound)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/esound)
   ![AUR License](https://img.shields.io/aur/license/esound)
-- `hunk 0.17.7-2` [[AUR](https://aur.archlinux.org/pkgbase/hunk)] <br/>
+- `hunk 0.18.0-1` [[AUR](https://aur.archlinux.org/pkgbase/hunk)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/hunk)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/hunk)
   ![AUR License](https://img.shields.io/aur/license/hunk)
@@ -59,7 +59,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/mathematica-light)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/mathematica-light)
   ![AUR License](https://img.shields.io/aur/license/mathematica-light)
-- `pam_mount-git 2.22.r7.g78787d2-1` [[AUR](https://aur.archlinux.org/pkgbase/pam_mount-git)] <br/>
+- `pam_mount-git 2.22.r7.g78787d2-2` [[AUR](https://aur.archlinux.org/pkgbase/pam_mount-git)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/pam_mount-git)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/pam_mount-git)
   ![AUR License](https://img.shields.io/aur/license/pam_mount-git)
