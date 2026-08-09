@@ -10,6 +10,7 @@
     "ini": [
       ".shellcheckrc",
       "**/*.SRCINFO",
+      "**/*.hook",
     ],
     "Shell Script": [
       "**/*.install",

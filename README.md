@@ -131,10 +131,6 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/vkbasalt-redemp-git)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/vkbasalt-redemp-git)
   ![AUR License](https://img.shields.io/aur/license/vkbasalt-redemp-git)
-- `vscode-xdg-patch-hook 1.0.6-1` [[AUR](https://aur.archlinux.org/pkgbase/vscode-xdg-patch-hook)] <br/>
-  ![AUR Maintainer](https://img.shields.io/aur/maintainer/vscode-xdg-patch-hook)
-  ![AUR Last Modified](https://img.shields.io/aur/last-modified/vscode-xdg-patch-hook)
-  ![AUR License](https://img.shields.io/aur/license/vscode-xdg-patch-hook)
 - `xpadneo-dkms 0.10.4-1` [[AUR](https://aur.archlinux.org/pkgbase/xpadneo-dkms)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/xpadneo-dkms)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/xpadneo-dkms)

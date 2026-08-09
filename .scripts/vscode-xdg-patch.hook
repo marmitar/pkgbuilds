@@ -1,0 +1,16 @@
+[Trigger]
+Type = Path
+Operation = Install
+Operation = Upgrade
+Target = usr/share/applications/code*.desktop
+Target = usr/share/applications/vscode*.desktop
+Target = usr/share/applications/vscodium*.desktop
+Target = !usr/share/applications/*-url-handler.desktop
+
+[Action]
+Description = Patching Desktop files for Visual Studio Code...
+When = PostTransaction
+# https://github.com/microsoft/vscode/issues/15741
+# https://github.com/microsoft/vscode/issues/214741
+Exec = /usr/bin/sh -euc 'while read -r file; do sed -i -E "s|^(MimeType=.*);\$|\1;text/plain;inode/directory;|" "${file}"; printf "patched %s\n" "${file}"; done'
+NeedsTargets
