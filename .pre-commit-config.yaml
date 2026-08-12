@@ -32,7 +32,7 @@ repos:
 
   # Spell checker
   - repo: https://github.com/crate-ci/typos
-    rev: bee27e3a4fd1ea2111cf90ab89cd076c870fce14 # frozen: v1.48.0
+    rev: 8a48f81b6c64dcfea44b3633223084c4be58ac5f # frozen: v1.49.0
     hooks:
       - id: typos
       # From https://github.com/crate-ci/typos/issues/1473
@@ -83,7 +83,7 @@ repos:
 
   # Python formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: cb8c523fd4835aba42af70f4cad5568db4df0b6c # frozen: v0.16.0
+    rev: 39d9ac5938dadb73df0564a45f163e25ff9fa6e2 # frozen: v0.16.1
     hooks:
       - id: ruff-check
         args: [--fix]
@@ -91,7 +91,7 @@ repos:
 
   # TOML formatter
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: 5421ca8ca3d6a659b6c097512b486395676a6af1 # frozen: v1.2.4
+    rev: 8fbf394367746670a106c96680aaacace367d5e2 # frozen: v1.2.6
     hooks:
       - id: tombi-format
       - id: tombi-lint
@@ -134,4 +134,4 @@ repos:
     hooks:
       - id: reuse
 
-minimum_prek_version: 0.4.11
+minimum_prek_version: 0.4.13
