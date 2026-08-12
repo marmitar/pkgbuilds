@@ -63,7 +63,7 @@ printf 'Server = https://archive.archlinux.org/repos/%s/$repo/os/$arch' $snapsho
 cat /etc/pacman.conf | string replace '/etc/pacman.d/mirrorlist' $cfg/mirrorlist > $cfg/pacman.conf
 chmod ugo+r $cfg/{mirrorlist,pacman.conf}
 
-printf '#!/bin/sh\nexec pacman-conf "$@" --config "%s"\n' $cfg/pacman.conf > $cfg/pacman-conf
+printf '#!/usr/bin/sh\nexec pacman-conf "$@" --config "%s"\n' $cfg/pacman.conf > $cfg/pacman-conf
 chmod ugo+rx $cfg/pacman-conf
 
 deactivate
