@@ -35,7 +35,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/esound)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/esound)
   ![AUR License](https://img.shields.io/aur/license/esound)
-- `hunk 0.18.0-1` [[AUR](https://aur.archlinux.org/pkgbase/hunk)] <br/>
+- `hunk 0.18.1-1` [[AUR](https://aur.archlinux.org/pkgbase/hunk)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/hunk)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/hunk)
   ![AUR License](https://img.shields.io/aur/license/hunk)
