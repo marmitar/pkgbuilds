@@ -39,11 +39,11 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/hunk)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/hunk)
   ![AUR License](https://img.shields.io/aur/license/hunk)
-- `intel-sgx-psw-bin 2.30-1` [[AUR](https://aur.archlinux.org/pkgbase/intel-sgx-psw-bin)] <br/>
+- `intel-sgx-psw-bin 2.30.1-1` [[AUR](https://aur.archlinux.org/pkgbase/intel-sgx-psw-bin)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/intel-sgx-psw-bin)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/intel-sgx-psw-bin)
   ![AUR License](https://img.shields.io/aur/license/intel-sgx-psw-bin)
-- `intel-sgx-sdk-bin 2.30-1` [[AUR](https://aur.archlinux.org/pkgbase/intel-sgx-sdk-bin)] <br/>
+- `intel-sgx-sdk-bin 2.30.1-1` [[AUR](https://aur.archlinux.org/pkgbase/intel-sgx-sdk-bin)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/intel-sgx-sdk-bin)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/intel-sgx-sdk-bin)
   ![AUR License](https://img.shields.io/aur/license/intel-sgx-sdk-bin)
