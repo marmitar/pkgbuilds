@@ -187,6 +187,8 @@ git submodule --quiet foreach '
   1. [`use-sprout-sprigin.patch`](.patches/chezmoi/use-sprout-sprigin.patch)
   1. [`fix-keys-with-dots.patch`](.patches/chezmoi/fix-keys-with-dots.patch)
   1. [`fix-empty-derivePassword.patch`](.patches/chezmoi/fix-empty-derivePassword.patch)
+- `python-bencode2 0.3.33-1` [[upstream](https://aur.archlinux.org/pkgbase/python-bencode2)]
+  ![AUR Version](https://img.shields.io/aur/version/python-bencode2)
 - `thelounge-beta 4.6.0pre.1-1` [[upstream](https://aur.archlinux.org/pkgbase/thelounge-beta)]
   ![AUR Version](https://img.shields.io/aur/version/thelounge-beta)
   1. [`build-from-source.patch`](.patches/thelounge-beta/build-from-source.patch)

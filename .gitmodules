@@ -192,6 +192,13 @@
 	update = rebase
 	shallow = true
 
+[submodule "python-bencode2"]
+	path = python-bencode2
+	url = https://aur.archlinux.org/python-bencode2.git
+	branch = master
+	update = rebase
+	shallow = true
+
 ## Custom patches
 
 [submodule "thelounge-beta"]
