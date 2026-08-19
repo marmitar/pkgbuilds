@@ -1,12 +1,37 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Wed, 03 Jun 2026 23:28:40 -0300
-Last-Update: 2026-07-05
+Last-Update: 2026-08-19
 Subject: [PATCH] Update chezmoi to the latest version
 ---
+ .SRCINFO   |    6 +++---
  .gitignore |    3 +++
+ PKGBUILD   |   15 +++++++++------
  REUSE.toml |   30 +++++++++++++++---------------
- 2 files changed, 18 insertions(+), 15 deletions(-)
+ 4 files changed, 30 insertions(+), 24 deletions(-)
 
+Index: b/.SRCINFO
+===================================================================
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,7 +1,7 @@
+ pkgbase = chezmoi
+ 	pkgdesc = Manage your dotfiles across multiple machines
+ 	pkgver = 2.72.0
+-	pkgrel = 1
++	pkgrel = 1.0
+ 	url = https://www.chezmoi.io/
+ 	arch = x86_64
+ 	license = MIT
+@@ -11,7 +11,7 @@ pkgbase = chezmoi
+ 	depends = glibc
+ 	optdepends = git: clone remote dotfiles over ssh
+ 	options = !lto
+-	source = chezmoi-2.72.0.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.72.0.tar.gz
+-	sha512sums = 56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1
++	source = chezmoi-f81cb321789aa3df62871248f5e4d361a59e7cc1.tar.gz::https://github.com/twpayne/chezmoi/archive/f81cb321789aa3df62871248f5e4d361a59e7cc1.tar.gz
++	sha512sums = f53bff01a46faaf68561f161f8e60434eb8b17d082f4ee99a47dfbdc65ca32709f9f28d778785ee403d23db62e72329e4c69d2afea36b9bd67148585d66ec296
+ 
+ pkgname = chezmoi
 Index: b/.gitignore
 ===================================================================
 --- /dev/null
@@ -15,6 +40,55 @@ Index: b/.gitignore
 +*.pkg.tar.*
 +*.tar.gz
 +*.patch
+Index: b/PKGBUILD
+===================================================================
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -15,17 +15,18 @@ depends=('glibc')
+ checkdepends=('zip')
+ optdepends=('git: clone remote dotfiles over ssh')
+ options=('!lto')
+-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
+-sha512sums=('56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1')
++_commit=f81cb321789aa3df62871248f5e4d361a59e7cc1
++source=("${pkgname}-${_commit}.tar.gz::https://github.com/twpayne/chezmoi/archive/${_commit}.tar.gz")
++sha512sums=('f53bff01a46faaf68561f161f8e60434eb8b17d082f4ee99a47dfbdc65ca32709f9f28d778785ee403d23db62e72329e4c69d2afea36b9bd67148585d66ec296')
+ 
+ prepare() {
+-  cd "$pkgname-$pkgver"
++  cd "$pkgname-$_commit"
+ 
+   go mod download
+ }
+ 
+ build() {
+-  cd "$pkgname-$pkgver"
++  cd "$pkgname-$_commit"
+ 
+   export CGO_LDFLAGS="$LDFLAGS"
+   export CGO_CFLAGS="$CFLAGS"
+@@ -45,13 +46,13 @@ build() {
+ }
+ 
+ check() {
+-  cd "$pkgname-$pkgver"
++  cd "$pkgname-$_commit"
+ 
+   go test -v ./...
+ }
+ 
+ package() {
+-  cd "$pkgname-$pkgver"
++  cd "$pkgname-$_commit"
+ 
+   install -D "$pkgname" "$pkgdir/usr/bin/$pkgname"
+ 
+@@ -61,3 +62,5 @@ package() {
+ 
+   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+ }
++
++pkgrel+=.0
 Index: b/REUSE.toml
 ===================================================================
 --- a/REUSE.toml
