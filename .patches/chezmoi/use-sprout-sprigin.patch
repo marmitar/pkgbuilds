@@ -5,9 +5,9 @@ Subject: [PATCH] Restore sprigin for testing sprout.
 
 Removed in <https://github.com/twpayne/chezmoi/pull/4877>
 ---
- .SRCINFO |    6 +++---
- PKGBUILD |    8 ++++----
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ .SRCINFO |    4 +++-
+ PKGBUILD |   13 +++++++++----
+ 2 files changed, 12 insertions(+), 5 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -22,42 +22,49 @@ Index: b/.SRCINFO
  	url = https://www.chezmoi.io/
  	arch = x86_64
  	license = MIT
-@@ -11,7 +11,7 @@ pkgbase = chezmoi
- 	depends = glibc
+@@ -12,6 +12,8 @@ pkgbase = chezmoi
  	optdepends = git: clone remote dotfiles over ssh
  	options = !lto
--	source = chezmoi-f81cb321789aa3df62871248f5e4d361a59e7cc1.tar.gz::https://github.com/twpayne/chezmoi/archive/f81cb321789aa3df62871248f5e4d361a59e7cc1.tar.gz
--	sha512sums = f53bff01a46faaf68561f161f8e60434eb8b17d082f4ee99a47dfbdc65ca32709f9f28d778785ee403d23db62e72329e4c69d2afea36b9bd67148585d66ec296
-+	source = chezmoi-d969d39c82998301ca87582e27f01127cc626a65.tar.gz::https://github.com/twpayne/chezmoi/archive/d969d39c82998301ca87582e27f01127cc626a65.tar.gz
-+	sha512sums = 080b7543497a5a1ed76b27d475d0be552785383c4887b50c79665644173efd24892ca03b3a0c88759e9c6349d801d44f5f072255f9e29f48300cd8e77b3cd7c8
+ 	source = chezmoi-2.72.0.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.72.0.tar.gz
++	source = d969d39c82998301ca87582e27f01127cc626a65.patch::https://github.com/twpayne/chezmoi/compare/v2.72.0...d969d39c82998301ca87582e27f01127cc626a65.patch
+ 	sha512sums = 56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1
++	sha512sums = 7059e9387a91719ec5cc3c4f3cd12e1ff0382ee0c1e5dda10f6c23f9292c83189ff05539fec85c77d47f0d6960c84995a465f7382aa67acbc1c8d4f36ceacd76
  
  pkgname = chezmoi
 Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -15,9 +15,9 @@ depends=('glibc')
+@@ -15,12 +15,17 @@ depends=('glibc')
  checkdepends=('zip')
  optdepends=('git: clone remote dotfiles over ssh')
  options=('!lto')
--_commit=f81cb321789aa3df62871248f5e4d361a59e7cc1
+-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
+-sha512sums=('56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1')
 +_commit=d969d39c82998301ca87582e27f01127cc626a65
- source=("${pkgname}-${_commit}.tar.gz::https://github.com/twpayne/chezmoi/archive/${_commit}.tar.gz")
--sha512sums=('f53bff01a46faaf68561f161f8e60434eb8b17d082f4ee99a47dfbdc65ca32709f9f28d778785ee403d23db62e72329e4c69d2afea36b9bd67148585d66ec296')
-+sha512sums=('080b7543497a5a1ed76b27d475d0be552785383c4887b50c79665644173efd24892ca03b3a0c88759e9c6349d801d44f5f072255f9e29f48300cd8e77b3cd7c8')
++source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz"
++        "${_commit}.patch::https://github.com/twpayne/chezmoi/compare/v${pkgver}...${_commit}.patch")
++sha512sums=('56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1'
++            '7059e9387a91719ec5cc3c4f3cd12e1ff0382ee0c1e5dda10f6c23f9292c83189ff05539fec85c77d47f0d6960c84995a465f7382aa67acbc1c8d4f36ceacd76')
  
  prepare() {
-   cd "$pkgname-$_commit"
-@@ -39,7 +39,7 @@ build() {
-     -tags noupgrade \
-     -ldflags "-compressdwarf=false \
-               -X github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/$pkgname \
--              -X main.version=$pkgver \
-+              -X main.version=$pkgver+sprout \
-               -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@$SOURCE_DATE_EPOCH) \
-               -extldflags \"$LDFLAGS\"" \
-     .
-@@ -63,4 +63,4 @@ package() {
+   cd "$pkgname-$pkgver"
+ 
++  git apply "../${_commit}.patch"
++
+   go mod download
+ }
+ 
+@@ -35,7 +40,7 @@ build() {
+   local go_ldflags=(
+     -compressdwarf=false
+     -X "'github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/${pkgname}'"
+-    -X "'main.version=${pkgver}'"
++    -X "'main.version=${pkgver}+${_commit:0:8}'"
+     -X "'main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date="@${SOURCE_DATE_EPOCH}")'"
+     -extldflags "'${LDFLAGS}'"
+   )
+@@ -66,4 +71,4 @@ package() {
    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
  }
  
