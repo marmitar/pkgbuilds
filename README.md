@@ -107,7 +107,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/pnpm-shell-completion)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/pnpm-shell-completion)
   ![AUR License](https://img.shields.io/aur/license/pnpm-shell-completion)
-- `python-cohere 7.0.8-1` [[AUR](https://aur.archlinux.org/pkgbase/python-cohere)] <br/>
+- `python-cohere 7.0.9-1` [[AUR](https://aur.archlinux.org/pkgbase/python-cohere)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-cohere)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-cohere)
   ![AUR License](https://img.shields.io/aur/license/python-cohere)
