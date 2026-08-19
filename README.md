@@ -107,6 +107,10 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/pnpm-shell-completion)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/pnpm-shell-completion)
   ![AUR License](https://img.shields.io/aur/license/pnpm-shell-completion)
+- `python-bencode2 0.3.33-1` [[AUR](https://aur.archlinux.org/pkgbase/python-bencode2)] <br/>
+  ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-bencode2)
+  ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-bencode2)
+  ![AUR License](https://img.shields.io/aur/license/python-bencode2)
 - `python-cohere 7.0.9-1` [[AUR](https://aur.archlinux.org/pkgbase/python-cohere)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-cohere)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-cohere)
@@ -185,8 +189,6 @@ git submodule --quiet foreach '
   ![GitLab Tag](https://img.shields.io/gitlab/v/tag/archlinux%2Fpackaging%2Fpackages%2Fchezmoi?gitlab_url=https%3A%2F%2Fgitlab.archlinux.org)
   1. [`get-latest-version.patch`](.patches/chezmoi/get-latest-version.patch)
   1. [`use-sprout-sprigin.patch`](.patches/chezmoi/use-sprout-sprigin.patch)
-- `python-bencode2 0.3.33-1` [[upstream](https://aur.archlinux.org/pkgbase/python-bencode2)]
-  ![AUR Version](https://img.shields.io/aur/version/python-bencode2)
 - `thelounge-beta 4.6.0pre.1-1` [[upstream](https://aur.archlinux.org/pkgbase/thelounge-beta)]
   ![AUR Version](https://img.shields.io/aur/version/thelounge-beta)
   1. [`build-from-source.patch`](.patches/thelounge-beta/build-from-source.patch)
