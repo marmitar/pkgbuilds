@@ -1,4 +1,2 @@
 get-latest-version.patch
 use-sprout-sprigin.patch
-fix-keys-with-dots.patch
-fix-empty-derivePassword.patch
