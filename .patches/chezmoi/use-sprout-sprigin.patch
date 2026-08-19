@@ -5,9 +5,9 @@ Subject: [PATCH] Restore sprigin for testing sprout.
 
 Removed in <https://github.com/twpayne/chezmoi/pull/4877>
 ---
- .SRCINFO |    6 +++---
- PKGBUILD |   19 ++++++++++++-------
- 2 files changed, 15 insertions(+), 10 deletions(-)
+ .SRCINFO |    4 +++-
+ PKGBUILD |   24 +++++++++++++++++-------
+ 2 files changed, 20 insertions(+), 8 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -22,70 +22,64 @@ Index: b/.SRCINFO
  	url = https://www.chezmoi.io/
  	arch = x86_64
  	license = MIT
-@@ -11,7 +11,7 @@ pkgbase = chezmoi
- 	depends = glibc
+@@ -12,6 +12,8 @@ pkgbase = chezmoi
  	optdepends = git: clone remote dotfiles over ssh
  	options = !lto
--	source = chezmoi-2.72.0.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.72.0.tar.gz
--	sha512sums = 56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1
-+	source = chezmoi-d969d39c82998301ca87582e27f01127cc626a65.tar.gz::https://github.com/twpayne/chezmoi/archive/d969d39c82998301ca87582e27f01127cc626a65.tar.gz
-+	sha512sums = 080b7543497a5a1ed76b27d475d0be552785383c4887b50c79665644173efd24892ca03b3a0c88759e9c6349d801d44f5f072255f9e29f48300cd8e77b3cd7c8
+ 	source = chezmoi-2.72.0.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.72.0.tar.gz
++	source = d969d39c82998301ca87582e27f01127cc626a65.patch::https://github.com/twpayne/chezmoi/compare/v2.72.0...d969d39c82998301ca87582e27f01127cc626a65.patch
+ 	sha512sums = 56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1
++	sha512sums = 7059e9387a91719ec5cc3c4f3cd12e1ff0382ee0c1e5dda10f6c23f9292c83189ff05539fec85c77d47f0d6960c84995a465f7382aa67acbc1c8d4f36ceacd76
  
  pkgname = chezmoi
 Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
 +++ b/PKGBUILD
-@@ -15,17 +15,20 @@ depends=('glibc')
+@@ -15,12 +15,17 @@ depends=('glibc')
  checkdepends=('zip')
  optdepends=('git: clone remote dotfiles over ssh')
  options=('!lto')
 -source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
 -sha512sums=('56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1')
 +_commit=d969d39c82998301ca87582e27f01127cc626a65
-+source=("${pkgname}-${_commit}.tar.gz::https://github.com/twpayne/chezmoi/archive/${_commit}.tar.gz")
-+sha512sums=('080b7543497a5a1ed76b27d475d0be552785383c4887b50c79665644173efd24892ca03b3a0c88759e9c6349d801d44f5f072255f9e29f48300cd8e77b3cd7c8')
++source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz"
++        "${_commit}.patch::https://github.com/twpayne/chezmoi/compare/v${pkgver}...${_commit}.patch")
++sha512sums=('56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1'
++            '7059e9387a91719ec5cc3c4f3cd12e1ff0382ee0c1e5dda10f6c23f9292c83189ff05539fec85c77d47f0d6960c84995a465f7382aa67acbc1c8d4f36ceacd76')
  
  prepare() {
--  cd "$pkgname-$pkgver"
-+  cd "$pkgname-$_commit"
-+
-+  git apply --reverse --reject ../a08a575a051dbe93b9dadb63f683e437af1337ba.patch || :
+   cd "$pkgname-$pkgver"
  
++  git apply "../${_commit}.patch"
++
    go mod download
  }
  
- build() {
--  cd "$pkgname-$pkgver"
-+  cd "$pkgname-$_commit"
- 
-   export CGO_LDFLAGS="$LDFLAGS"
-   export CGO_CFLAGS="$CFLAGS"
-@@ -38,20 +41,20 @@ build() {
+@@ -32,15 +37,18 @@ build() {
+   export CGO_CPPFLAGS="$CPPFLAGS"
+   export CGO_CXXFLAGS="$CXXFLAGS"
+   export GOPROXY=off
++  local go_ldflags=(
++    -compressdwarf=false
++    -X "'github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/${pkgname}'" \
++    -X "'main.version=${pkgver}+${_commit:0:8}'" \
++    -X "'main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date="@${SOURCE_DATE_EPOCH}")'" \
++    -extldflags "'${LDFLAGS}'"
++  )
+   go build \
+     -buildmode=pie \
+     -mod=readonly \
      -tags noupgrade \
-     -ldflags "-compressdwarf=false \
-               -X github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/$pkgname \
+-    -ldflags "-compressdwarf=false \
+-              -X github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/$pkgname \
 -              -X main.version=$pkgver \
-+              -X main.version=$pkgver+sprout \
-               -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@$SOURCE_DATE_EPOCH) \
-               -extldflags \"$LDFLAGS\"" \
+-              -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@$SOURCE_DATE_EPOCH) \
+-              -extldflags \"$LDFLAGS\"" \
++    -ldflags "${go_ldflags[*]}" \
      .
  }
  
- check() {
--  cd "$pkgname-$pkgver"
-+  cd "$pkgname-$_commit"
- 
-   go test -v ./...
- }
- 
- package() {
--  cd "$pkgname-$pkgver"
-+  cd "$pkgname-$_commit"
- 
-   install -D "$pkgname" "$pkgdir/usr/bin/$pkgname"
- 
-@@ -61,3 +64,5 @@ package() {
+@@ -61,3 +69,5 @@ package() {
  
    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
  }
