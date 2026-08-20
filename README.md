@@ -189,6 +189,7 @@ git submodule --quiet foreach '
   ![GitLab Tag](https://img.shields.io/gitlab/v/tag/archlinux%2Fpackaging%2Fpackages%2Fchezmoi?gitlab_url=https%3A%2F%2Fgitlab.archlinux.org)
   1. [`get-latest-version.patch`](.patches/chezmoi/get-latest-version.patch)
   1. [`use-sprout-sprigin.patch`](.patches/chezmoi/use-sprout-sprigin.patch)
+  1. [`fix-empty-derivePassword.patch`](.patches/chezmoi/fix-empty-derivePassword.patch)
 - `thelounge-beta 4.6.0pre.1-1` [[upstream](https://aur.archlinux.org/pkgbase/thelounge-beta)]
   ![AUR Version](https://img.shields.io/aur/version/thelounge-beta)
   1. [`build-from-source.patch`](.patches/thelounge-beta/build-from-source.patch)

@@ -1,12 +1,27 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Wed, 03 Jun 2026 23:28:40 -0300
-Last-Update: 2026-07-05
+Last-Update: 2026-08-19
 Subject: [PATCH] Update chezmoi to the latest version
 ---
+ .SRCINFO   |    2 +-
  .gitignore |    3 +++
+ PKGBUILD   |   16 +++++++++++-----
  REUSE.toml |   30 +++++++++++++++---------------
- 2 files changed, 18 insertions(+), 15 deletions(-)
+ 4 files changed, 30 insertions(+), 21 deletions(-)
 
+Index: b/.SRCINFO
+===================================================================
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,7 +1,7 @@
+ pkgbase = chezmoi
+ 	pkgdesc = Manage your dotfiles across multiple machines
+ 	pkgver = 2.72.0
+-	pkgrel = 1
++	pkgrel = 1.0
+ 	url = https://www.chezmoi.io/
+ 	arch = x86_64
+ 	license = MIT
 Index: b/.gitignore
 ===================================================================
 --- /dev/null
@@ -15,6 +30,41 @@ Index: b/.gitignore
 +*.pkg.tar.*
 +*.tar.gz
 +*.patch
+Index: b/PKGBUILD
+===================================================================
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -32,15 +32,19 @@ build() {
+   export CGO_CPPFLAGS="$CPPFLAGS"
+   export CGO_CXXFLAGS="$CXXFLAGS"
+   export GOPROXY=off
++  local go_ldflags=(
++    -compressdwarf=false
++    -X "'github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/${pkgname}'"
++    -X "'main.version=${pkgver}'"
++    -X "'main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date="@${SOURCE_DATE_EPOCH}")'"
++    -extldflags "'${LDFLAGS}'"
++  )
++
+   go build \
+     -buildmode=pie \
+     -mod=readonly \
+     -tags noupgrade \
+-    -ldflags "-compressdwarf=false \
+-              -X github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/$pkgname \
+-              -X main.version=$pkgver \
+-              -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@$SOURCE_DATE_EPOCH) \
+-              -extldflags \"$LDFLAGS\"" \
++    -ldflags "${go_ldflags[*]}" \
+     .
+ }
+ 
+@@ -61,3 +65,5 @@ package() {
+ 
+   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+ }
++
++pkgrel+=.0
 Index: b/REUSE.toml
 ===================================================================
 --- a/REUSE.toml

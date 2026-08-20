@@ -1,13 +1,13 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 25 Jan 2026 07:17:48 -0300
-Last-Update: 2026-07-27
+Last-Update: 2026-08-19
 Subject: [PATCH] Restore sprigin for testing sprout.
 
 Removed in <https://github.com/twpayne/chezmoi/pull/4877>
 ---
  .SRCINFO |    4 +++-
- PKGBUILD |   24 +++++++++++++++++-------
- 2 files changed, 20 insertions(+), 8 deletions(-)
+ PKGBUILD |   13 +++++++++----
+ 2 files changed, 12 insertions(+), 5 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -17,7 +17,7 @@ Index: b/.SRCINFO
  pkgbase = chezmoi
  	pkgdesc = Manage your dotfiles across multiple machines
  	pkgver = 2.72.0
--	pkgrel = 1
+-	pkgrel = 1.0
 +	pkgrel = 1.1
  	url = https://www.chezmoi.io/
  	arch = x86_64
@@ -55,33 +55,18 @@ Index: b/PKGBUILD
    go mod download
  }
  
-@@ -32,15 +37,18 @@ build() {
-   export CGO_CPPFLAGS="$CPPFLAGS"
-   export CGO_CXXFLAGS="$CXXFLAGS"
-   export GOPROXY=off
-+  local go_ldflags=(
-+    -compressdwarf=false
-+    -X "'github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/${pkgname}'" \
-+    -X "'main.version=${pkgver}+${_commit:0:8}'" \
-+    -X "'main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date="@${SOURCE_DATE_EPOCH}")'" \
-+    -extldflags "'${LDFLAGS}'"
-+  )
-   go build \
-     -buildmode=pie \
-     -mod=readonly \
-     -tags noupgrade \
--    -ldflags "-compressdwarf=false \
--              -X github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/$pkgname \
--              -X main.version=$pkgver \
--              -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@$SOURCE_DATE_EPOCH) \
--              -extldflags \"$LDFLAGS\"" \
-+    -ldflags "${go_ldflags[*]}" \
-     .
- }
- 
-@@ -61,3 +69,5 @@ package() {
- 
+@@ -35,7 +40,7 @@ build() {
+   local go_ldflags=(
+     -compressdwarf=false
+     -X "'github.com/twpayne/chezmoi/cmd.DocsDir=/usr/share/doc/${pkgname}'"
+-    -X "'main.version=${pkgver}'"
++    -X "'main.version=${pkgver}+${_commit:0:8}'"
+     -X "'main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date="@${SOURCE_DATE_EPOCH}")'"
+     -extldflags "'${LDFLAGS}'"
+   )
+@@ -66,4 +71,4 @@ package() {
    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
  }
-+
+ 
+-pkgrel+=.0
 +pkgrel+=.1
