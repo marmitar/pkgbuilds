@@ -26,9 +26,9 @@ Index: b/.SRCINFO
  	optdepends = git: clone remote dotfiles over ssh
  	options = !lto
  	source = chezmoi-2.72.0.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.72.0.tar.gz
-+	source = d969d39c82998301ca87582e27f01127cc626a65.patch::https://github.com/twpayne/chezmoi/compare/v2.72.0...d969d39c82998301ca87582e27f01127cc626a65.patch
++	source = 38b49b6c70daf0071be98b2ec01b2ab08498e011.patch::https://github.com/twpayne/chezmoi/compare/v2.72.0...38b49b6c70daf0071be98b2ec01b2ab08498e011.patch
  	sha512sums = 56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1
-+	sha512sums = 7059e9387a91719ec5cc3c4f3cd12e1ff0382ee0c1e5dda10f6c23f9292c83189ff05539fec85c77d47f0d6960c84995a465f7382aa67acbc1c8d4f36ceacd76
++	sha512sums = 7a2774a9511fb3fbb1a97aeaadab75967085cf35599018acedecfb324495834f15dea7d1d6b23d26cb9e8fbf0b6c3abdd2099980f428eb107cad0a0a638f221d
  
  pkgname = chezmoi
 Index: b/PKGBUILD
@@ -41,11 +41,11 @@ Index: b/PKGBUILD
  options=('!lto')
 -source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
 -sha512sums=('56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1')
-+_commit=d969d39c82998301ca87582e27f01127cc626a65
++_commit=38b49b6c70daf0071be98b2ec01b2ab08498e011
 +source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz"
 +        "${_commit}.patch::https://github.com/twpayne/chezmoi/compare/v${pkgver}...${_commit}.patch")
 +sha512sums=('56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1'
-+            '7059e9387a91719ec5cc3c4f3cd12e1ff0382ee0c1e5dda10f6c23f9292c83189ff05539fec85c77d47f0d6960c84995a465f7382aa67acbc1c8d4f36ceacd76')
++            '7a2774a9511fb3fbb1a97aeaadab75967085cf35599018acedecfb324495834f15dea7d1d6b23d26cb9e8fbf0b6c3abdd2099980f428eb107cad0a0a638f221d')
  
  prepare() {
    cd "$pkgname-$pkgver"

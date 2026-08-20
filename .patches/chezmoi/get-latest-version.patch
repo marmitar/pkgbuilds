@@ -4,10 +4,10 @@ Last-Update: 2026-08-19
 Subject: [PATCH] Update chezmoi to the latest version
 ---
  .SRCINFO   |    2 +-
- .gitignore |    3 +++
+ .gitignore |   11 +++++++++++
  PKGBUILD   |   16 +++++++++++-----
  REUSE.toml |   30 +++++++++++++++---------------
- 4 files changed, 30 insertions(+), 21 deletions(-)
+ 4 files changed, 38 insertions(+), 21 deletions(-)
 
 Index: b/.SRCINFO
 ===================================================================
@@ -26,10 +26,18 @@ Index: b/.gitignore
 ===================================================================
 --- /dev/null
 +++ b/.gitignore
-@@ -0,0 +1,3 @@
-+*.pkg.tar.*
-+*.tar.gz
-+*.patch
+@@ -0,0 +1,11 @@
++*
++# dev tools
++!.gitignore
++!.nvchecker.toml
++!LICENSE
++!LICENSES
++!LICENSES/*
++!REUSE.toml
++# actual package
++!PKGBUILD
++!.SRCINFO
 Index: b/PKGBUILD
 ===================================================================
 --- a/PKGBUILD
