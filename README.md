@@ -127,7 +127,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/shellcheck-bin-doc)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/shellcheck-bin-doc)
   ![AUR License](https://img.shields.io/aur/license/shellcheck-bin-doc)
-- `tela-circle-icon-theme-spl-git 2026.07.07.r0.gc0adf1ab-1` [[AUR](https://aur.archlinux.org/pkgbase/tela-circle-icon-theme-spl-git)] <br/>
+- `tela-circle-icon-theme-spl-git 2026.07.07.r12.gee3cf47b-1` [[AUR](https://aur.archlinux.org/pkgbase/tela-circle-icon-theme-spl-git)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/tela-circle-icon-theme-all-git)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/tela-circle-icon-theme-all-git)
   ![AUR License](https://img.shields.io/aur/license/tela-circle-icon-theme-all-git)
