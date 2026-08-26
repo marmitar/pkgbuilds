@@ -111,7 +111,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-bencode2)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-bencode2)
   ![AUR License](https://img.shields.io/aur/license/python-bencode2)
-- `python-cohere 7.0.9-1` [[AUR](https://aur.archlinux.org/pkgbase/python-cohere)] <br/>
+- `python-cohere 7.1.0-1` [[AUR](https://aur.archlinux.org/pkgbase/python-cohere)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-cohere)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-cohere)
   ![AUR License](https://img.shields.io/aur/license/python-cohere)
