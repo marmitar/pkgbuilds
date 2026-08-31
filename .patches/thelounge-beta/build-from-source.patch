@@ -1,7 +1,7 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 18 Jan 2026 23:23:10 -0300
 Last-Update: 2026-07-27
-Subject: [PATCH] Builds directly from a commit, for easier patching.
+Description: Builds directly from a commit, for easier patching.
 
 Currently synced to <https://github.com/thelounge/thelounge/commit/84963db2ec783f87dd4ad456602db74862960ac5>
 ---

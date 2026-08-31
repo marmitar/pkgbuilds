@@ -1,7 +1,7 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Wed, 03 Jun 2026 23:28:40 -0300
 Last-Update: 2026-08-19
-Subject: [PATCH] Update chezmoi to the latest version
+Description: Update chezmoi to the latest version
 ---
  .SRCINFO   |    2 +-
  .gitignore |   11 +++++++++++
