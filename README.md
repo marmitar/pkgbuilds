@@ -35,10 +35,6 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/compressonator-git)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/compressonator-git)
   ![AUR License](https://img.shields.io/aur/license/compressonator-git)
-- `dlt-viewer 2.30.0-1` [[AUR](https://aur.archlinux.org/pkgbase/dlt-viewer)] <br/>
-  ![AUR Maintainer](https://img.shields.io/aur/maintainer/dlt-viewer)
-  ![AUR Last Modified](https://img.shields.io/aur/last-modified/dlt-viewer)
-  ![AUR License](https://img.shields.io/aur/license/dlt-viewer)
 - `esound 0.2.41-8` [[AUR](https://aur.archlinux.org/pkgbase/esound)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/esound)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/esound)

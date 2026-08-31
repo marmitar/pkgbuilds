@@ -31,13 +31,6 @@
 	update = rebase
 	shallow = true
 
-[submodule "dlt-viewer"]
-	path = dlt-viewer
-	url = ssh://aur@aur.archlinux.org/dlt-viewer.git
-	branch = master
-	update = rebase
-	shallow = true
-
 [submodule "perl-log-any"]
 	path = perl-log-any
 	url = ssh://aur@aur.archlinux.org/perl-log-any.git
