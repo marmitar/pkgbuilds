@@ -31,6 +31,10 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/alpaca-ai)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/alpaca-ai)
   ![AUR License](https://img.shields.io/aur/license/alpaca-ai)
+- `compressonator-git v3.2.4691+44+gbfc4b162-1` [[AUR](https://aur.archlinux.org/pkgbase/compressonator-git)] <br/>
+  ![AUR Maintainer](https://img.shields.io/aur/maintainer/compressonator-git)
+  ![AUR Last Modified](https://img.shields.io/aur/last-modified/compressonator-git)
+  ![AUR License](https://img.shields.io/aur/license/compressonator-git)
 - `esound 0.2.41-8` [[AUR](https://aur.archlinux.org/pkgbase/esound)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/esound)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/esound)
