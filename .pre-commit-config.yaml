@@ -77,13 +77,13 @@ repos:
 
   # Shell linter
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: 745eface02aef23e168a8afb6b5737818efbea95 # frozen: v0.11.0.1
+    rev: a6564f5d57444e123433a5c9af733e3975c77229 # frozen: v0.11.0.1-1
     hooks:
       - id: shellcheck
 
   # Python formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 7c55798a78262d14b2074abf623d8a992ebb70d4 # frozen: v0.16.2
+    rev: aab412d509121cb5f7533134b7e67f9fab59c682 # frozen: v0.16.4
     hooks:
       - id: ruff-check
         args: [--fix]
@@ -91,7 +91,7 @@ repos:
 
   # TOML formatter
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: 7e92180e5c23476eed538f0e26aa70c30da58b18 # frozen: v1.3.0
+    rev: dd68bbd8cdd8891c942fb6f33a6e87a477b2c375 # frozen: v1.4.1
     hooks:
       - id: tombi-format
       - id: tombi-lint
@@ -134,4 +134,4 @@ repos:
     hooks:
       - id: reuse
 
-minimum_prek_version: 0.4.14
+minimum_prek_version: 0.5.1

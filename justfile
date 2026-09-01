@@ -41,7 +41,7 @@ prek-version := `prek --version | awk '{print $2}'`
 
 # Update .pre-commit-config.yaml
 update-prek:
-    prek auto-update --freeze --exclude-repo https://github.com/zimbatm/mdsh
+    prek update --freeze --exclude-repo https://github.com/zimbatm/mdsh
     grep -qE '^minimum_prek_version:' .pre-commit-config.yaml
     sed -i -E "s/(minimum_prek_version:).*/\1 {{ prek-version }}/" .pre-commit-config.yaml
 
