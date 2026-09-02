@@ -63,7 +63,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/mathematica-light)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/mathematica-light)
   ![AUR License](https://img.shields.io/aur/license/mathematica-light)
-- `mdsh 0.9.2-1` [[AUR](https://aur.archlinux.org/pkgbase/mdsh)] <br/>
+- `mdsh 0.9.2.r10.gc78e909-1` [[AUR](https://aur.archlinux.org/pkgbase/mdsh)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/mdsh)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/mdsh)
   ![AUR License](https://img.shields.io/aur/license/mdsh)
