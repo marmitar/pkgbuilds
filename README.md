@@ -87,7 +87,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/perl-string-escape)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/perl-string-escape)
   ![AUR License](https://img.shields.io/aur/license/perl-string-escape)
-- `perl-string-license 0.0.11-1` [[AUR](https://aur.archlinux.org/pkgbase/perl-string-license)] <br/>
+- `perl-string-license 0.1.1-1` [[AUR](https://aur.archlinux.org/pkgbase/perl-string-license)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/perl-string-license)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/perl-string-license)
   ![AUR License](https://img.shields.io/aur/license/perl-string-license)
