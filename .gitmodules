@@ -70,6 +70,8 @@
 	path = compressonator-git
 	url = ssh://aur@aur.archlinux.org/compressonator-git.git
 	branch = master
+	update = rebase
+	shallow = true
 
 [submodule "licensecheck"]
 	path = licensecheck
