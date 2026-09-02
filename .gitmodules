@@ -206,6 +206,13 @@
 	update = rebase
 	shallow = true
 
+[submodule "mdsh"]
+	path = mdsh
+	url = ssh://aur@aur.archlinux.org/mdsh.git
+	branch = master
+	update = rebase
+	shallow = true
+
 ## Custom patches
 
 [submodule "thelounge-beta"]
