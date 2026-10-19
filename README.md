@@ -143,7 +143,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/vkbasalt-redemp-git)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/vkbasalt-redemp-git)
   ![AUR License](https://img.shields.io/aur/license/vkbasalt-redemp-git)
-- `xpadneo-dkms 0.10.4-1` [[AUR](https://aur.archlinux.org/pkgbase/xpadneo-dkms)] <br/>
+- `xpadneo-dkms 0.10.5-1` [[AUR](https://aur.archlinux.org/pkgbase/xpadneo-dkms)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/xpadneo-dkms)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/xpadneo-dkms)
   ![AUR License](https://img.shields.io/aur/license/xpadneo-dkms)
