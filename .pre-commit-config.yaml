@@ -91,7 +91,7 @@ repos:
 
   # TOML formatter
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: c96e08ac5fa1474f3ae716009539a6ed16267465 # frozen: v1.8.1
+    rev: 0d5fcb91ac3b9ebc04fddc5331601511fd744701 # frozen: v1.8.2
     hooks:
       - id: tombi-format
       - id: tombi-lint
