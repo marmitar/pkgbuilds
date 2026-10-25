@@ -83,7 +83,7 @@ repos:
 
   # Python formatter
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 44b5042edab9382aba712eed4f9c7bab7a3d6a3e # frozen: v0.17.0
+    rev: 38bfb07c0c64c304f47eb52090f8288150c77730 # frozen: v0.17.1
     hooks:
       - id: ruff-check
         args: [--fix]
@@ -91,7 +91,7 @@ repos:
 
   # TOML formatter
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: 0d5fcb91ac3b9ebc04fddc5331601511fd744701 # frozen: v1.8.2
+    rev: aad16d7708e3953be04c0b4ed5c604c42d24eb8a # frozen: v1.8.6
     hooks:
       - id: tombi-format
       - id: tombi-lint
@@ -134,4 +134,4 @@ repos:
     hooks:
       - id: reuse
 
-minimum_prek_version: 0.5.5
+minimum_prek_version: 0.5.7
