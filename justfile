@@ -10,7 +10,11 @@ configure-git:
             --config="$(realpath -e --relative-to="$(pwd)" "${toplevel}/.pre-commit-config.yaml")" \
             --skip=mdsh'
 
-submodule-root := shell('realpath -e --relative-to="${1}" "$(git -C "${2}" rev-parse --show-toplevel)"', justfile_directory(), invocation_directory())
+submodule-root := shell(
+    'realpath -e --relative-to="${1}" "$(git -C "${2}" rev-parse --show-toplevel)"',
+    justfile_directory(),
+    invocation_directory(),
+)
 
 # Check state of a single repository
 [script]

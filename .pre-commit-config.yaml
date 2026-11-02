@@ -1,5 +1,5 @@
 # See https://prek.j178.dev/ for more information
-# yaml-language-server: $schema=https://raw.githubusercontent.com/j178/prek/refs/heads/master/prek.schema.json
+# yaml-language-server: $schema=https://www.schemastore.org/prek.json
 default_install_hook_types:
   - commit-msg
   - pre-commit
@@ -91,7 +91,7 @@ repos:
 
   # TOML formatter
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: 69174e0716a3900d9ada7f01f14c2514ed6fb965 # frozen: v1.9.1
+    rev: b3f6e09de51290a21d6c7b05b4f5cbe6cfe65b4f # frozen: v1.9.6
     hooks:
       - id: tombi-format
       - id: tombi-lint
