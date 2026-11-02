@@ -1,6 +1,6 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Wed, 03 Jun 2026 23:28:40 -0300
-Last-Update: 2026-08-19
+Last-Update: 2026-11-02
 Description: Update chezmoi to the latest version
 ---
  .SRCINFO   |    2 +-
@@ -16,7 +16,7 @@ Index: b/.SRCINFO
 @@ -1,7 +1,7 @@
  pkgbase = chezmoi
  	pkgdesc = Manage your dotfiles across multiple machines
- 	pkgver = 2.72.0
+ 	pkgver = 2.74.0
 -	pkgrel = 1
 +	pkgrel = 1.0
  	url = https://www.chezmoi.io/

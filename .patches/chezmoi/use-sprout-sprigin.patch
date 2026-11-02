@@ -1,6 +1,6 @@
 Author: Tiago de Paula <tiagodepalves@gmail.com>
 Date: Sun, 25 Jan 2026 07:17:48 -0300
-Last-Update: 2026-08-19
+Last-Update: 2026-11-02
 Description: Restore sprigin for testing sprout.
 
 Removed in <https://github.com/twpayne/chezmoi/pull/4877>
@@ -16,7 +16,7 @@ Index: b/.SRCINFO
 @@ -1,7 +1,7 @@
  pkgbase = chezmoi
  	pkgdesc = Manage your dotfiles across multiple machines
- 	pkgver = 2.72.0
+ 	pkgver = 2.74.0
 -	pkgrel = 1.0
 +	pkgrel = 1.1
  	url = https://www.chezmoi.io/
@@ -25,10 +25,10 @@ Index: b/.SRCINFO
 @@ -12,6 +12,8 @@ pkgbase = chezmoi
  	optdepends = git: clone remote dotfiles over ssh
  	options = !lto
- 	source = chezmoi-2.72.0.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.72.0.tar.gz
-+	source = 38b49b6c70daf0071be98b2ec01b2ab08498e011.patch::https://github.com/twpayne/chezmoi/compare/v2.72.0...38b49b6c70daf0071be98b2ec01b2ab08498e011.patch
- 	sha512sums = 56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1
-+	sha512sums = 7a2774a9511fb3fbb1a97aeaadab75967085cf35599018acedecfb324495834f15dea7d1d6b23d26cb9e8fbf0b6c3abdd2099980f428eb107cad0a0a638f221d
+ 	source = chezmoi-2.74.0.tar.gz::https://github.com/twpayne/chezmoi/archive/v2.74.0.tar.gz
++	source = 38b49b6c70daf0071be98b2ec01b2ab08498e011.patch::https://github.com/twpayne/chezmoi/compare/v2.74.0...38b49b6c70daf0071be98b2ec01b2ab08498e011.patch
+ 	sha512sums = 2886e5946df22bc4f49e317dd45a01afed7ba5f26208d9a6afc5afc1c46f4ad63ca2d09d1e6df8b50c9497d31cfc7721e839a2146e2fd9472e789c9bcf9503dd
++	sha512sums = cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e
  
  pkgname = chezmoi
 Index: b/PKGBUILD
@@ -40,12 +40,12 @@ Index: b/PKGBUILD
  optdepends=('git: clone remote dotfiles over ssh')
  options=('!lto')
 -source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
--sha512sums=('56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1')
+-sha512sums=('2886e5946df22bc4f49e317dd45a01afed7ba5f26208d9a6afc5afc1c46f4ad63ca2d09d1e6df8b50c9497d31cfc7721e839a2146e2fd9472e789c9bcf9503dd')
 +_commit=38b49b6c70daf0071be98b2ec01b2ab08498e011
 +source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz"
 +        "${_commit}.patch::https://github.com/twpayne/chezmoi/compare/v${pkgver}...${_commit}.patch")
-+sha512sums=('56c750fca8410f5cc8b7cf7d81ce1c8c373954323741e8f95cf8576f0995b9b3ea276343f3b19448c557877029ba78320205410f2c798adc101aec4572f4c3f1'
-+            '7a2774a9511fb3fbb1a97aeaadab75967085cf35599018acedecfb324495834f15dea7d1d6b23d26cb9e8fbf0b6c3abdd2099980f428eb107cad0a0a638f221d')
++sha512sums=('2886e5946df22bc4f49e317dd45a01afed7ba5f26208d9a6afc5afc1c46f4ad63ca2d09d1e6df8b50c9497d31cfc7721e839a2146e2fd9472e789c9bcf9503dd'
++            'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e')
  
  prepare() {
    cd "$pkgname-$pkgver"
