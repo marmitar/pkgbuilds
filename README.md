@@ -51,7 +51,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/intel-sgx-sdk-bin)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/intel-sgx-sdk-bin)
   ![AUR License](https://img.shields.io/aur/license/intel-sgx-sdk-bin)
-- `licensecheck 3.3.10-1` [[AUR](https://aur.archlinux.org/pkgbase/licensecheck)] <br/>
+- `licensecheck 3.3.10-2` [[AUR](https://aur.archlinux.org/pkgbase/licensecheck)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/licensecheck)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/licensecheck)
   ![AUR License](https://img.shields.io/aur/license/licensecheck)
@@ -107,7 +107,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/perl-tree-rb-xs)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/perl-tree-rb-xs)
   ![AUR License](https://img.shields.io/aur/license/perl-tree-rb-xs)
-- `physlock 13-5` [[AUR](https://aur.archlinux.org/pkgbase/physlock)] <br/>
+- `physlock 13-6` [[AUR](https://aur.archlinux.org/pkgbase/physlock)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/physlock)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/physlock)
   ![AUR License](https://img.shields.io/aur/license/physlock)
@@ -119,7 +119,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-bencode2)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-bencode2)
   ![AUR License](https://img.shields.io/aur/license/python-bencode2)
-- `python-cohere 7.3.0-1` [[AUR](https://aur.archlinux.org/pkgbase/python-cohere)] <br/>
+- `python-cohere 7.3.1-1` [[AUR](https://aur.archlinux.org/pkgbase/python-cohere)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-cohere)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-cohere)
   ![AUR License](https://img.shields.io/aur/license/python-cohere)
