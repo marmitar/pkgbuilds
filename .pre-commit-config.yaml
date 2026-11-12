@@ -32,7 +32,7 @@ repos:
 
   # Spell checker
   - repo: https://github.com/crate-ci/typos
-    rev: 7f9d0819ca1c008ade73f4b41fa9d258d48f605b # frozen: v1.51.1
+    rev: 4c8b7f51ca60df14e3c5ca82770dfbbe6c3dae85 # frozen: v1.52.0
     hooks:
       - id: typos
       # From https://github.com/crate-ci/typos/issues/1473
@@ -91,7 +91,7 @@ repos:
 
   # TOML formatter
   - repo: https://github.com/tombi-toml/tombi-pre-commit
-    rev: 10da57f75d36ba93b257a4e7f2c70796fa2da683 # frozen: v1.9.8
+    rev: f26bd20264b5e50a1b1755cc2585b3464ca5c3b9 # frozen: v1.10.0
     hooks:
       - id: tombi-format
       - id: tombi-lint
@@ -130,7 +130,7 @@ repos:
 
   # License linter
   - repo: https://codeberg.org/fsfe/reuse-tool
-    rev: a1bb792acda6fd0724936b4ebbdbc8eceb9c0459 # frozen: v6.2.0
+    rev: ea739bff9c6daa1c4c8a5c5dfd069f3fb0374728 # frozen: v6.3.0
     hooks:
       - id: reuse
 
