@@ -123,7 +123,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-cohere)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-cohere)
   ![AUR License](https://img.shields.io/aur/license/python-cohere)
-- `python-desktop-notifier 6.1.1-1` [[AUR](https://aur.archlinux.org/pkgbase/python-desktop-notifier)] <br/>
+- `python-desktop-notifier 6.2.0-1` [[AUR](https://aur.archlinux.org/pkgbase/python-desktop-notifier)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-desktop-notifier)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-desktop-notifier)
   ![AUR License](https://img.shields.io/aur/license/python-desktop-notifier)

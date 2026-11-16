@@ -5,6 +5,7 @@ extend-exclude = [
 
 [default.extend-identifiers]
 envolution = "envolution"
+certifi = "certifi"
 
 [type.diff]
 extend-ignore-re = [
