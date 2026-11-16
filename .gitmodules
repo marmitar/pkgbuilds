@@ -87,6 +87,13 @@
 	update = rebase
 	shallow = true
 
+[submodule "python-desktop-notifier"]
+	path = python-desktop-notifier
+	url = ssh://aur@aur.archlinux.org/python-desktop-notifier.git
+	branch = master
+	update = rebase
+	shallow = true
+
 [submodule "mathematica-light"]
 	path = mathematica-light
 	url = ssh://aur@aur.archlinux.org/mathematica-light.git

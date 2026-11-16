@@ -123,6 +123,10 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-cohere)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-cohere)
   ![AUR License](https://img.shields.io/aur/license/python-cohere)
+- `python-desktop-notifier 6.1.1-1` [[AUR](https://aur.archlinux.org/pkgbase/python-desktop-notifier)] <br/>
+  ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-desktop-notifier)
+  ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-desktop-notifier)
+  ![AUR License](https://img.shields.io/aur/license/python-desktop-notifier)
 - `python-funk 0.5.0.r12.gc9415c2-1` [[AUR](https://aur.archlinux.org/pkgbase/python-funk)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/python-funk)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/python-funk)
