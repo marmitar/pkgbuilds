@@ -67,7 +67,7 @@ git submodule --quiet foreach '
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/mdsh)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/mdsh)
   ![AUR License](https://img.shields.io/aur/license/mdsh)
-- `pam_mount-git 2.22.r7.g78787d2-2` [[AUR](https://aur.archlinux.org/pkgbase/pam_mount-git)] <br/>
+- `pam_mount-git 2.23.r4.gac34d14-1` [[AUR](https://aur.archlinux.org/pkgbase/pam_mount-git)] <br/>
   ![AUR Maintainer](https://img.shields.io/aur/maintainer/pam_mount-git)
   ![AUR Last Modified](https://img.shields.io/aur/last-modified/pam_mount-git)
   ![AUR License](https://img.shields.io/aur/license/pam_mount-git)
